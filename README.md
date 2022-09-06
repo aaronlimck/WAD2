@@ -1,24 +1,107 @@
-# bojio
+<a name="readme-top"></a>
 
-## Project setup
-```
-npm install
+<!-- PROJECT SHIELDS -->
+<!--
+*** I'm using markdown "reference style" links for readability.
+*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
+*** See the bottom of this document for the declaration of the reference variables
+*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
+*** https://www.markdownguide.org/basic-syntax/#reference-style-links
+-->
+
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://google.com" target="blank">
+    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  </a>
+
+  <h3 align="center">Bojio!</h3>
+
+  <p align="center">
+    Just another project of Web Application Development 2 (IS216)
+    <br />
+    <a href="https://github.com/aaronlimck/WAD2" target="blank"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://google.com" target="blank">View Demo</a>
+  </p>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+    </li>
+    <li><a href="#built-with">Built With</a></li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+  </ol>
+</details>
+
+<!-- ABOUT THE PROJECT -->
+
+## About The Project
+
+[![Product Name Screen Shot][product-screenshot]](https://example.com)
+
+We aim to build an event web-based application that helps consolidate information about current and upcoming events happening around SMU. Currently, the conventional method in which students sign up for campus events would be through the usage of emails. This can be a hassle for many students as the checking of emails can take up significant time. Our application aims to solve this, by providing a unified portal in which students, student bodies and faculty are able to create and promote upcoming events. Allowing more students to discover different events around campus and enrich their student experience.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Built With
+
+Below are the technology stack used to built this project.</br>
+
+- `vue` - v16.8 or above
+- `vue-router` - v4.1.5 or above
+- `tailwind` - v3.1.8 or above
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- GETTING STARTED -->
+
+## Getting Started
+
+This is an example of how you may give instructions on setting up your project locally.
+To get a local copy up and running follow these simple example steps.
+
+### Prerequisites
+
+_In order to run this application locally, you need to install `node.js` in your local machine.
+Below is the command line to install node.js_
+
+```sh
+npm install npm@latest -g
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+### Installation
 
-### Compiles and minifies for production
-```
-npm run build
-```
+_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
-### Lints and fixes files
-```
-npm run lint
-```
+1. Clone the repo
+   ```sh
+   git clone https://github.com/aaronlimck/WAD2.git
+   ```
+2. Run the command below in the extracted project folder to install all required dependencies.
+   ```sh
+   npm install
+   ```
+3. Run the command below to bring up the development server in your local machine, view the app at `localhost:8080` or whichever port is shown in your terminal
+   ```sh
+   npm run serve
+   ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
+[product-screenshot]: https://i0.wp.com/www.cssscript.com/wp-content/uploads/2020/10/Customizable-Screen-Skeleton-Loader-In-CSS-css-skeletons.css.png?fit=678%2C485&ssl=1
