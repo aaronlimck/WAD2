@@ -12,31 +12,32 @@ export default {
 
 <style scoped>
 button {
-  padding: 0.625rem 1.25rem;
   font-family: inherit;
   font-weight: 500;
-  background-color: #3a0061;
-  border: 1px solid #3a0061;
+  background-color: #f56a01;
+  border: 2px solid #f56a01;
   border-radius: 12px;
   color: white;
   cursor: pointer;
+  min-width: 40px;
 }
 
 button:hover,
 button:active {
-  background-color: #270041;
-  border-color: #270041;
+  background-color: rgba(255, 99, 71, 0.8);
+  color: #ffffff;
 }
 
-.flat {
-  border: 2px solid #3a0061 !important;
+.secondary {
+  border: 2px solid #f56a01 !important;
   background-color: transparent;
-  color: #3a0061;
+  color: #f56a01;
   border: none;
 }
 
-.flat:hover,
-.flat:active {
-  background-color: #edd2ff;
+.secondary:hover,
+.secondary:active {
+  background-color: rgba(255, 99, 71, 0.8);
+  color: #ffffff;
 }
 </style>
