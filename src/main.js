@@ -13,8 +13,8 @@ import NavigationBar from "./components/Layout/NavigationBar.vue";
 // IMPORT ROUTES COMPONENTS
 import TheHome from "./components/Home/TheHome.vue";
 import BrowseEvents from "./components/Events/BrowseEvents.vue";
-import TheLogin from "./components/Login/TheLogin.vue";
-import TheSignUp from "./components/SignUp/TheSignUp.vue";
+import TheLogin from "./components/Authentication/TheLogin.vue";
+import TheSignUp from "./components/Authentication/TheSignUp.vue";
 import TheProfile from "./components/Profile/TheProfile.vue";
 
 // INITIALISE ROUTES
