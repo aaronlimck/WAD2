@@ -1,6 +1,12 @@
 import { createApp } from "vue";
 import { createRouter, createWebHistory } from "vue-router";
 import "./index.css";
+import firebase from "firebase/compat/app";
+
+// Firebase Credentials
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
 
 // IMPORT MAIN APPLICATION COMPONENT
 import App from "./App.vue";
@@ -8,6 +14,7 @@ import App from "./App.vue";
 // IMPORT BASE COMPONENTS
 import BaseButton from "./components/UI/BaseButton.vue";
 import BaseDialog from "./components/UI/BaseDialog.vue";
+import BaseInput from "./components/UI/BaseInput.vue";
 import NavigationBar from "./components/Layout/NavigationBar.vue";
 
 // IMPORT ROUTES COMPONENTS
@@ -51,6 +58,7 @@ const app = createApp(App);
 app.component("base-button", BaseButton);
 app.component("base-dialog", BaseDialog);
 app.component("navigation-bar", NavigationBar);
+app.component("base-input", BaseInput);
 
 app.use(router);
 

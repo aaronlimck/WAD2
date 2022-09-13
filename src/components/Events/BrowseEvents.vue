@@ -12,5 +12,9 @@ import TheSearchBar from "./TheSearchBar.vue";
 
 export default {
   components: { TheSearchBar },
+  data(){
+    return{
+    }
+  }
 };
 </script>

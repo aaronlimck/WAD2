@@ -25,6 +25,10 @@
   </div>
 </template>
 
+<script>
+export default {};
+</script>
+
 <style scoped>
 .searchContainer {
   border-bottom: 1px solid #eee;
