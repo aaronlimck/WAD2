@@ -1,33 +1,20 @@
 <template>
   <section>
     <div class="container mx-auto">
-      <!-- <h1>This is Sign Up Page</h1>
-      <div class="flex flex-col items-center">
-        <input
-          class="mb-2"
-          type="email"
-          placeholder="Enter your email"
-          ref="email"
-        />
-        <input
-          type="password"
-          placeholder="Enter your password"
-          ref="password"
-        />
-        <base-button class="py-1 px-4 mt-3" @click="register"
-          >Sign Up</base-button
-        >
-      </div> -->
-
       <div class="flex flex-col items-center">
         <base-input
           name="email"
           type="email"
           placeholder="Email"
-          cRef="username"
+          @input-value="getEmail"
         />
-        <base-input name="password" type="password" placeholder="Password" />
-        <base-button class="py-1 px-4 mt-3" @click="tryError"
+        <base-input
+          name="password"
+          type="password"
+          placeholder="Password"
+          @input-value="getPassword"
+        />
+        <base-button class="py-1 px-4 mt-3" @click="register"
           >Get Started</base-button
         >
       </div>
@@ -37,22 +24,27 @@
 
 <script>
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { useRouter } from "vue-router";
 import BaseButton from "../UI/BaseButton.vue";
 
 export default {
   components: { BaseButton },
   data() {
-    return {};
+    return {
+      email: "",
+      password: "",
+    };
   },
   methods: {
-    tryError() {
-      console.log(this.$refs.username);
+    getEmail(value) {
+      this.email = value;
+    },
+    getPassword(value) {
+      this.password = value;
     },
     register() {
-      const email = this.$refs.email.value;
-      const password = this.$refs.password.value;
-      const router = useRouter();
+      const email = this.email;
+      const password = this.password;
+      console.log(`email:${email} and password: ${password}`);
       const auth = getAuth();
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
@@ -60,14 +52,15 @@ export default {
           const user = userCredential.user;
           console.log("Successfully registered!");
           console.log(user);
-          router.push("/feed"); // redirect to the feed
           // ...
         })
         .catch((error) => {
           console.log(error);
-          // const errorCode = error.code;
-          // const errorMessage = error.message;
-          // ..
+          console.log(error.message);
+          console.log(error.code);
+          if (error.message === "auth/email-already-in-use") {
+            this.errorExist = true;
+          }
         });
     },
   },
