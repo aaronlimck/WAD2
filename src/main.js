@@ -4,6 +4,14 @@ import "./index.css";
 import firebase from "firebase/compat/app";
 
 // Firebase Credentials
+const firebaseConfig = {
+  apiKey: "AIzaSyAwfv0cPv34-F3iZG0VcyoPoH1ThhC3fUU",
+  authDomain: "bojio-6872d.firebaseapp.com",
+  projectId: "bojio-6872d",
+  storageBucket: "bojio-6872d.appspot.com",
+  messagingSenderId: "241861072577",
+  appId: "1:241861072577:web:a6ac74db414d155e02a640",
+};
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);

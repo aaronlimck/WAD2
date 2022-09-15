@@ -2,7 +2,13 @@
   <div class="col-md-6">
     <div class="form-group my-2">
       <label :for="name">{{ labelText }}</label>
-      <input :id="name" :type="type" :placeholder="placeholder" ref="cRef" />
+      <input
+        :id="name"
+        :type="type"
+        :placeholder="placeholder"
+        v-model.trim="inputValue"
+        @:blur="printConsole"
+      />
     </div>
   </div>
 </template>
@@ -26,9 +32,16 @@ export default {
       type: String,
       required: false,
     },
-    cRef: {
-      type: String,
-      required: false,
+  },
+  data() {
+    return {
+      inputValue: "",
+    };
+  },
+  methods: {
+    printConsole() {
+      //console.log(`${this.inputValue} input component`);
+      this.$emit("input-value", this.inputValue);
     },
   },
 };
