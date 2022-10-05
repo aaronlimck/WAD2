@@ -1,15 +1,13 @@
 <template>
-  <div class="col-md-6">
-    <div class="form-group my-2">
-      <label :for="name">{{ labelText }}</label>
-      <input
-        :id="name"
-        :type="type"
-        :placeholder="placeholder"
-        v-model.trim="inputValue"
-        @:blur="printConsole"
-      />
-    </div>
+  <div class="form-group my-2">
+    <label :for="name">{{ labelText }}</label>
+    <input
+      :id="name"
+      :type="type"
+      :placeholder="placeholder"
+      v-model="inputValue"
+      @:blur="printConsole"
+    />
   </div>
 </template>
 
@@ -41,7 +39,7 @@ export default {
   methods: {
     printConsole() {
       //console.log(`${this.inputValue} input component`);
-      this.$emit("input-value", this.inputValue);
+      this.$emit("input-value", this.inputValue.trim());
     },
   },
 };
@@ -50,12 +48,12 @@ export default {
 <style scoped>
 label {
   font-weight: 400;
-  color: #15163d;
+  color: #787878;
 }
 
 input {
   display: block;
-  min-width: 450px;
+  width: 100%;
   font-weight: 300;
   border: 1px solid #eee;
   border-radius: 5px;
