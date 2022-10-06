@@ -88,7 +88,7 @@
         Community Standards of Bojio
       </p>
       <div class="flex justify-center mt-4">
-        <p class="mr-2">Already have an account?</p>
+        <p class="mr-1">Already have an account?</p>
         <router-link to="/login">Log In</router-link>
       </div>
     </form>
