@@ -1,14 +1,17 @@
 <template>
-  <nav class="bg-white fixed border-gray-200 px-2 sm:px-4 py-2.5">
-    <div class="container flex justify-between items-center mx-auto">
+  <nav
+    class="bg-white fixed border-gray-200 px-2 sm:px-4 py-2.5 flex items-center"
+  >
+    <div class="container mx-auto flex items-center justify-between">
       <div>
         <router-link to="/">Logo</router-link>
       </div>
 
-      <div class="flex items-center">
+      <div class="relative flex items-center">
         <ul class="mr-10">
           <li><router-link to="/events">Events</router-link></li>
         </ul>
+
         <div v-if="!isLoggedIn" class="flex items-center">
           <router-link to="/login">
             <base-button mode="secondary" class="py-1 px-3 sm:mr-0 md:mr-3"
@@ -22,9 +25,10 @@
 
         <button
           v-if="isLoggedIn"
+          @click="dropDown"
           id="dropdownAvatarNameButton"
           data-dropdown-toggle="dropdownAvatarName"
-          class="flex items-center text-sm font-medium text-gray-900 hover:text-blue-600 dark:hover:text-blue-500 md:mr-0"
+          class="flex items-center text-gray-900 hover:text-blue-600 dark:hover:text-blue-500 md:mr-0"
           type="button"
         >
           <span class="sr-only">Open user menu</span>
@@ -44,6 +48,30 @@
           </svg>
           Bonnie Green
         </button>
+        <div
+          v-if="isLoggedIn && isOpen"
+          class="absolute right-0 top-8 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl"
+        >
+          <router-link to="/profile">
+            <div
+              class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white"
+            >
+              <p>Profile</p>
+            </div>
+          </router-link>
+          <router-link to="/dashboard">
+            <div
+              class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white"
+            >
+              <p>Dashboard</p>
+            </div>
+          </router-link>
+          <div
+            class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white"
+          >
+            <p @click="logout">Logout</p>
+          </div>
+        </div>
       </div>
     </div>
   </nav>
@@ -51,9 +79,23 @@
 
 <script>
 export default {
+  data() {
+    return {
+      isOpen: false,
+    };
+  },
   computed: {
     isLoggedIn() {
       return this.$store.getters.isAuthenticated;
+    },
+  },
+  methods: {
+    dropDown() {
+      this.isOpen = !this.isOpen;
+    },
+    logout() {
+      this.$store.dispatch("logout");
+      this.$router.replace("/");
     },
   },
 };

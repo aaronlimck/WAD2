@@ -4,7 +4,7 @@
     classes="text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
   >
     <template #default>
-      <p>Error</p>
+      <p>{{ error }}</p>
     </template>
     <template #actions>
       <button
@@ -59,8 +59,21 @@
         />
       </div>
       <div class="flex justify-between">
-        <p>Remember me</p>
-        <router-link to="/">Forget Password?</router-link>
+        <div class="flex flex-row items-center">
+          <input
+            id="rememberMeCheckbox"
+            type="checkbox"
+            value=""
+            class="checkbox rounded"
+            v-model="rememberMeCheckbox"
+          />
+          <label
+            for="rememberMeCheckbox"
+            class="ml-2 text-gray-900 dark:text-gray-300"
+            >Remember Me</label
+          >
+        </div>
+        <router-link to="/forgot-password">Forget Password?</router-link>
       </div>
       <base-button class="w-full py-2.5 my-4">Login</base-button>
       <div class="flex justify-center">
@@ -81,9 +94,10 @@ export default {
       name: "",
       email: "",
       password: "",
+      rememberMeCheckbox: false,
       showPassword: false,
       error: null,
-      showDialog: true,
+      showDialog: false,
     };
   },
   methods: {
@@ -96,8 +110,9 @@ export default {
           email: this.email,
           password: this.password,
         });
+        this.$router.replace("/events");
       } catch (err) {
-        this.error = err.message || "Failed to authenticate, try later";
+        //this.error = err.message || "Failed to authenticate, try later";
       }
     },
     dismissDialog() {
@@ -128,5 +143,10 @@ input {
   border: 1px solid #eee;
   border-radius: 5px;
   padding: 0.5rem 1rem;
+}
+
+.checkbox {
+  width: 15px;
+  height: 15px;
 }
 </style>

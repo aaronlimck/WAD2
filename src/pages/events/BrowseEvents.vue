@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import TheSearchBar from "./TheSearchBar.vue";
+import TheSearchBar from "../../components/Events/TheSearchBar.vue";
 
 export default {
   components: { TheSearchBar },

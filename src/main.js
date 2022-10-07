@@ -9,7 +9,6 @@ import App from "./App.vue";
 // IMPORT BASE COMPONENTS
 import BaseButton from "./components/UI/BaseButton.vue";
 import BaseDialog from "./components/UI/BaseDialog.vue";
-import BaseInput from "./components/UI/BaseInput.vue";
 import BaseAlert from "./components/UI/BaseAlert.vue";
 import NavigationBar from "./components/Layout/NavigationBar.vue";
 
@@ -23,7 +22,6 @@ app.use(store);
 app.component("base-button", BaseButton);
 app.component("base-dialog", BaseDialog);
 app.component("navigation-bar", NavigationBar);
-app.component("base-input", BaseInput);
 app.component("base-alert", BaseAlert);
 
 // MOUNT APPLICATION
