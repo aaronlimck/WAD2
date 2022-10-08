@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 // IMPORT ROUTES COMPONENTS
 import TheHome from "./pages/home/TheHome.vue";
 import BrowseEvents from "./pages/events/BrowseEvents.vue";
+import TheEventProfilePage from "./pages/events/TheEventProfilePage.vue";
 // AUTHENTICATION
 import SignIn from "./pages/auth/SignIn.vue";
 import SignUp from "./pages/auth/SignUp.vue";
@@ -50,6 +51,15 @@ const router = createRouter({
       path: "/dashboard",
       component: TheDashboard,
       meta: { requireAuth: true },
+    },
+    {
+      path: "/profile",
+      component: TheProfile,
+    },
+    {
+      path: "/events/:id",
+      name: 'TheEventProfilePage',
+      component: TheEventProfilePage
     },
   ],
 });
