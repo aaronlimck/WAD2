@@ -1,5 +1,5 @@
 <template>
-  <navigation-bar />
+  <navigation-bar id="nav"/>
   <!-- 60PX IS TO OFFSET THE NAVIGATION BAR-->
   <main style="padding-top: 60px">
     <!-- PLACEHOLDER TELLING VUE ROUTER THAT THIS IS THE PLACE TO ROUTE THE COMPONENT AND LOAD IT -->
@@ -89,5 +89,9 @@ html {
 
 body {
   margin: 0;
+}
+
+#nav{
+  z-index: 10;
 }
 </style>

@@ -35,7 +35,7 @@ export default {
 <style scoped>
 dialog {
   position: absolute;
-  top: 20px;
+  top: 1000px;
   left: 50%;
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
