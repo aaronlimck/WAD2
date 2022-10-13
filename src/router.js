@@ -12,6 +12,9 @@ import ForgotPassword from "./pages/auth/ForgotPassword.vue";
 import TheProfile from "./pages/user/TheProfile.vue";
 // USER (CLUB)
 import TheDashboard from "./pages/club/TheDashboard.vue";
+import CreateEventForm from "./pages/club/CreateEventForm.vue";
+import OneEventForm from "./pages/club/OneEventForm.vue";
+
 
 import store from "./store/index.js";
 
@@ -53,6 +56,13 @@ const router = createRouter({
       meta: { requireAuth: true },
     },
     {
+      path: "/CreateEventForm",
+      component: CreateEventForm,
+      meta: { requireAuth: true },
+    },{
+      path: "/OneEventForm",
+      component: OneEventForm,
+      meta: { requireAuth: true },
       path: "/profile",
       component: TheProfile,
     },
