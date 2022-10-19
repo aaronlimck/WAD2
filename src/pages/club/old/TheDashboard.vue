@@ -108,7 +108,7 @@
                <p class="text-sm text-gray-600">{{ item.eventAttendees.length }} of {{item.participantsLimit}} participants</p>
               
              <!-- <base-button  style="margin: 20px;" @click="selectEvent(index)"><router-link to="/OneEventForm">Edit</router-link></base-button> -->
-             <base-button  style="margin: 20px;" @click="selectEvent(index)"><router-link :id="item.eventId" to="/OneEventProfilePage">View</router-link></base-button>
+             <base-button  style="margin: 20px;" @click="selectEvent(index)"><router-link to="/OneEventProfilePage">View</router-link></base-button>
        </div>
          
          <br />

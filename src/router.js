@@ -13,6 +13,7 @@ import TheProfile from "./pages/user/TheProfile.vue";
 import TheDashboard from "./pages/club/TheDashboard.vue";
 import CreateEventForm from "./pages/club/CreateEventForm.vue";
 import OneEventForm from "./pages/club/OneEventForm.vue";
+import OneEventProfilePage from "./pages/club/OneEventProfilePage.vue";
 
 
 import store from "./store/index.js";
@@ -63,6 +64,12 @@ const router = createRouter({
       component: OneEventForm,
       meta: { requireAuth: true },
     },
+    {
+      path: "/OneEventProfilePage",
+      name: 'OneEventProfilePage',
+      component: OneEventProfilePage,
+      meta: { requireAuth: true },
+    }
   ],
 });
 
