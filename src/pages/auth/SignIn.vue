@@ -106,11 +106,14 @@ export default {
     },
     async submitForm() {
       try {
-        await this.$store.dispatch("login", {
+        const loginResult = await this.$store.dispatch("login", {
           email: this.email,
           password: this.password,
         });
-        this.$router.replace("/events");
+        const loadUserDataResult = await this.$store.dispatch("loadUserData");
+        if (loginResult && loadUserDataResult) {
+          this.$router.replace("/events");
+        }
       } catch (err) {
         //this.error = err.message || "Failed to authenticate, try later";
       }
@@ -123,6 +126,10 @@ export default {
 </script>
 
 <style scoped>
+form {
+  max-width: 520px;
+}
+
 form {
   max-width: 520px;
 }

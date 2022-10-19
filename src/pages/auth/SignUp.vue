@@ -7,7 +7,7 @@
           type="text"
           id="name"
           placeholder="First and last name"
-          v-model.trim="name"
+          v-model.trim="userName"
         />
       </div>
       <div class="form-control">
@@ -68,7 +68,7 @@
 export default {
   data() {
     return {
-      name: "",
+      userName: "",
       email: "",
       password: "",
       showPassword: false,
@@ -82,10 +82,20 @@ export default {
     },
     async submitForm() {
       try {
-        await this.$store.dispatch("signup", {
+        const createResultStatus = await this.$store.dispatch("signup", {
           email: this.email,
           password: this.password,
         });
+        const createDataInStoreStatus = await this.$store.dispatch(
+          "createUser",
+          {
+            userName: this.userName,
+            userEmail: this.email,
+          }
+        );
+        if (createResultStatus && createDataInStoreStatus) {
+          this.$router.replace("/events");
+        }
       } catch (err) {
         this.error = err.message || "Failed to authenticate, try later";
       }
@@ -98,6 +108,10 @@ export default {
 </script>
 
 <style scoped>
+form {
+  max-width: 520px;
+}
+
 form {
   max-width: 520px;
 }
