@@ -1,0 +1,47 @@
+[
+  {
+    "userId": "studentId1",
+    "userName": "jd",
+    "userFullName": "John Doe",
+    "userEmail": "123@gmail.com",
+    "userAssociatedEmail": "123@scis.smu.edu.sg",
+    "userPassword": "###",
+    "userRegisteredEvent": ["eventId2", "eventId5"]
+  },
+  {
+    "userId": "studentId2",
+    "userName": "sd",
+    "userFullName": "Sam Doe",
+    "userEmail": "456@gmail.com",
+    "userAssociatedEmail": "456@scis.smu.edu.sg",
+    "userPassword": "###",
+    "userRegisteredEvent": ["eventId2"]
+  },
+  {
+    "userId": "studentId3",
+    "userName": "ld",
+    "userFullName": "Lim Doe",
+    "userEmail": "789@gmail.com",
+    "userAssociatedEmail": "789@scis.smu.edu.sg",
+    "userPassword": "###",
+    "userRegisteredEvent": ["eventId1", "eventId2", "eventId3", "eventId4"]
+  },
+  {
+    "userId": "studentId4",
+    "userName": "jg",
+    "userFullName": "Jason Gan",
+    "userEmail": "789@gmail.com",
+    "userAssociatedEmail": "789@scis.smu.edu.sg",
+    "userPassword": "###",
+    "userRegisteredEvent": ["eventId1", "eventId3", "eventId4"]
+  },
+  {
+    "userId": "studentId5",
+    "userName": "AL",
+    "userFullName": "Aaron Lim",
+    "userEmail": "789@gmail.com",
+    "userAssociatedEmail": "789@scis.smu.edu.sg",
+    "userPassword": "###",
+    "userRegisteredEvent": ["eventId2", "eventId3", "eventId4"]
+  }
+]

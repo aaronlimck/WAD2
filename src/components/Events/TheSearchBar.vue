@@ -20,10 +20,20 @@
         class="ml-3 searchbar"
         type="text"
         placeholder="Search events, tags"
+        :value="modelValue"
+        @input="$emit('update:modelValue',$event.target.value)"
       />
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  props:{
+    modelValue: String,
+  }
+};
+</script>
 
 <style scoped>
 .searchContainer {
