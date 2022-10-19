@@ -1,14 +1,7 @@
-[
-  {
-    "clubId": "clubId1",
-    "clubName": "SMU Club",
+{
+  "7f452474-4f64-11ed-bdc3-0242ac120002": {
+    "clubName": "Ellipsis",
     "clubEmail": "ellipsis@smu.edu.sg",
-    "clubMembers": ["studentId1, studentId2"]
-  },
-  {
-    "clubId": "clubId2",
-    "clubName": "SMU",
-    "clubEmail": "SMUA@smu.edu.sg",
-    "clubMembers": ["studentId3, studentId4"]
+    "clubMembers": ["1NWUs7TTWvYXfVDdlQd49NWRCRh2"]
   }
-]
+}
