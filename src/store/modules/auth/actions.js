@@ -39,12 +39,11 @@ export default {
     }
     localStorage.setItem("token", responseData.idToken);
     localStorage.setItem("userId", responseData.localId);
-
     context.commit("setUser", {
       token: responseData.idToken,
       userId: responseData.localId,
     });
-    return response;
+    return response.ok;
   },
 
   tryLogin(context) {
@@ -60,8 +59,10 @@ export default {
   },
 
   logout(context) {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userId");
+    // localStorage.removeItem("token");
+    // localStorage.removeItem("userId");
+    // Remove all localStorage item
+    localStorage.clear();
 
     context.commit("setUser", {
       token: null,
@@ -92,4 +93,8 @@ export default {
     }
     console.log(responseData);
   },
+
+  // async changepassword(context, payload){
+  //   ///...
+  // }
 };
