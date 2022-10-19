@@ -1,18 +1,17 @@
 <template>
     <base-button  style="margin: 20px; "><router-link to="/Dashboard">Back</router-link></base-button>
     <div id="img" class="py-1">
-        {{getFromTheDashboard()}}
-        <img class="w-full object-cover h-80" :src="items[fromTheDashboard].image" >
+        <img class="w-full object-cover h-80" :src="items[index].image" >
         <!-- src="./image/SCISDay.JPG" -->
     </div>
     <div class="content container mx-auto py-10">
         <div class="grid gap-4 grid-cols-3">
             <div class="col-span-3 sm:col-span-2 p-5">
                 <p></p>
-                <p class="font-bold text-5xl pb-10"> {{items[fromTheDashboard].eventName}}</p>
+                <p class="font-bold text-5xl pb-10"> {{items[index].eventName}}</p>
              
                 <p>
-                    {{items[fromTheDashboard].eventDescription}}
+                    {{items[index].eventDescription}}
                 </p>
             </div>
             <div class="col-span-3 sm:col-span-1 p-9">
@@ -36,7 +35,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
                             </svg>
-                            <p class="text-1x font-semibold"> {{items[fromTheDashboard].eventLocation}} </p>
+                            <p class="text-1x font-semibold"> {{items[index].eventLocation}} </p>
                         </div>
                         <!-- <p class=" text-gray-500">
                             Test
@@ -47,7 +46,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                             </svg>
-                            <p class="text-1x font-semibold"> {{items[fromTheDashboard].eventContact}} </p>
+                            <p class="text-1x font-semibold"> {{items[index].eventContact}} </p>
                         </div>
                         <!-- <p class=" text-gray-500">
                             Test
@@ -59,7 +58,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                             </svg>
-                            <p class="text-1x font-semibold">{{ items[fromTheDashboard].eventAttendees.length }} of {{items[fromTheDashboard].participantsLimit}} participants</p>
+                            <p class="text-1x font-semibold">{{ items[index].eventAttendees.length }} of {{items[index].participantsLimit}} participants</p>
               
                         </div>
                         <!-- <p class=" text-gray-500">
@@ -72,7 +71,14 @@
 
                 <div class="button mb-10">
                     <!-- Incomplete will send profile into database -->
-                    <button class="rounded py-3" id="button"><router-link to="/OneEventForm">Edit</router-link></button>
+                    <button class="rounded py-3" id="button">
+                         <!-- <router-link :to="{name: '../OneEventForm/1', params:{index: index}}"> 
+                            Hi
+                        </router-link> -->
+                    <router-link  :to="'../OneEventForm/' + index" >Edit</router-link> 
+                </button>
+
+                    
                 </div>
                 {{id}} HIIII
 
@@ -80,7 +86,7 @@
                     
                 </div>
 
-            {{fromTheDashboard}}
+            
             </div>
         </div>
     </div>
@@ -94,21 +100,10 @@
 <script>
     
     export default{
-        mutations:{
-            
-            // console.log("111")
-            // this.$store.commit('selectedEvent');
-            // this.fromTheDashboard = localStorage.getItem("selectedEvent")
-            // console.log(localStorage.getItem("selectedEvent"))
-            // console.log(this.fromTheDashboard)
-            // this.renderComponent = localStorage.getItem("selectedEvent")
-            // console.log("222")
-            
-        },
-        
+       
         data() {
             return{
-              
+                index: this.$route.params.index,
                 // id: this.$route.params.id,
                 text: "http://samplelink.com",
                 copied: false,
@@ -139,7 +134,7 @@
                     "eventAttendees":["1", "2"],
                     "eventLocation" :"SCIS",
                     "eventContact" : "contact@smu.edu.sg",
-                    "image" : "./image/SCISDay.jpg",
+                    "image" : "../../image/SCISDay.jpg",
                     "participantsLimit": 10
                 },
                 {
@@ -167,21 +162,21 @@
                     this.copied = false;
                 },1500);
             },
-            async getFromTheDashboard(){
-                console.log("333")
-                localStorage.getItem("selectedEvent")
-                this.$store.commit('selectedEvent');
-                this.fromTheDashboard = localStorage.getItem("selectedEvent")
-                await this.$nextTick();
-                this.renderComponent = localStorage.getItem("selectedEvent")
-                console.log("444")
-            }
+            // async getFromTheDashboard(){
+            //     console.log("333")
+            //     localStorage.getItem("selectedEvent")
+            //     this.$store.commit('selectedEvent');
+            //     this.fromTheDashboard = localStorage.getItem("selectedEvent")
+            //     await this.$nextTick();
+            //     this.renderComponent = localStorage.getItem("selectedEvent")
+            //     console.log("444")
+            // }
             
 
         },
         computed:{
             displayEventDateTime(){
-                let str = this.items[this.fromTheDashboard].eventDateTime
+                let str = this.items[this.index].eventDateTime
                 let dateTimeArray = str.split("T")
                 let date_ = dateTimeArray[0]
                 let time_ = dateTimeArray[1]

@@ -60,12 +60,12 @@ const router = createRouter({
       component: CreateEventForm,
       meta: { requireAuth: true },
     },{
-      path: "/OneEventForm",
+      path: "/OneEventForm/:index",
       component: OneEventForm,
       meta: { requireAuth: true },
     },
     {
-      path: "/OneEventProfilePage",
+      path: "/OneEventProfilePage/:index",
       name: 'OneEventProfilePage',
       component: OneEventProfilePage,
       meta: { requireAuth: true },

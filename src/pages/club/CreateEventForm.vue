@@ -1,6 +1,5 @@
 <template>
  
-  <the-search-bar />
   <section>
     <div class="container mx-auto">
     </div>

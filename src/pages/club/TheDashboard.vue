@@ -90,30 +90,18 @@
        
        
        
-       <div v-for="(item, index) in items" :key="item.title">
+       
+        <div class="container mx-auto my-10">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 gap-y-4">
+                <div v-for="(item, index) in items" :key = "item.eventId">
+                  <EventCard2 :index="index" :eventname= "item.eventName" :description="item.eventDescription" :id="item.eventId" :dateTime="item.eventDateTime" 
+                  :location="item.eventLocation"  :eventAttendees="item.eventAttendees.length" :participantsLimit="item.participantsLimit"/>
+                </div>
+          </div>
+        </div>
+
          
-         <!-- <div >
-           <h1>{{ item.eventName }} : </h1>
-           <h2>{{ item.eventDescription }} </h2>
-           <h2>{{ item.eventAttendees.length }} participants</h2>
-           <br />
-          <base-button  style="margin: 20px;" v-on="selectEvent(item.eventName)"><router-link to="/OneEvent">{{item.eventName}}</router-link></base-button> -->
-           
-         
-         <!-- </div>  -->
-         <div id="sample2" class="p-2 bg-gray-50 rounded-xl border hover:drop-shadow-2xl m-0">
-           <!-- <img class="h-40 w-full bject-cover rounded-xl"> -->
-               <h2 class="font-bold text-lg"> {{ item.eventName }} : </h2>
-               <p class="text-sm text-gray-600">{{ item.eventDescription }}</p>
-               <p class="text-sm text-gray-600">{{ item.eventAttendees.length }} of {{item.participantsLimit}} participants</p>
-              
-             <!-- <base-button  style="margin: 20px;" @click="selectEvent(index)"><router-link to="/OneEventForm">Edit</router-link></base-button> -->
-             <base-button  style="margin: 20px;" @click="selectEvent(index)"><router-link :id="item.eventId" to="/OneEventProfilePage">View</router-link></base-button>
-       </div>
-         
-         <br />
-         
-       </div>
+      
        
      </div>
    </div>
@@ -127,9 +115,11 @@
 <script>
 // import BaseButton from '../UI/BaseButton.vue';
 import Chart from 'chart.js/auto';
+import EventCard2 from "../../pages/club/EventCard2.vue";
 
 export default {
  // components: {BaseButton }, //for parent to child
+ components: {EventCard2},
  data() {
    return {
      items: [

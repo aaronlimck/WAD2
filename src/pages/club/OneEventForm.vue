@@ -13,7 +13,7 @@
         <!-- <div class ="col-3" id="sample2">Hi</div><div  class ="col-3" id="sample2">Hi</div> -->
         <div   id="sample">
         
-          <base-button  style="margin: 20px; "><router-link to="/OneEventProfilePage">Back</router-link></base-button>
+          <base-button  style="margin: 20px; "><router-link :to="'/OneEventProfilePage/' + index ">Back</router-link></base-button>
          
           
   
@@ -24,8 +24,8 @@
           <form action=""  style=" width:2700px; margin: auto;">
             
             <div class="w-full md:w-1/2 px-3">
-              {{items[fromTheDashboard].image}}
-              <img class="h-40 w-full bject-cover rounded-xl" :src="items[fromTheDashboard].image"> 
+              {{items[index].image}}
+              <img class="h-40 w-full bject-cover rounded-xl" :src="items[index].image"> 
               
               <img src="/image/SCISDay.JPG">
               <!-- v-bind:src="image/SCISDay.jpg" -->
@@ -34,7 +34,7 @@
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                 Event Name:
               </label>
-              <input id="eventName" v-model="items[fromTheDashboard].eventName" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" >
+              <input id="eventName" v-model="items[index].eventName" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" >
             
               <div style="color: red" v-if="eventNameErrorMessage_">{{eventNameErrorMessage}}</div>
             </div>
@@ -42,7 +42,7 @@
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                 Date:
               </label>
-              <input type="datetime-local" id="eventDateTime" name="eventDateTime" v-model="items[fromTheDashboard].eventDateTime">
+              <input type="datetime-local" id="eventDateTime" name="eventDateTime" v-model="items[index].eventDateTime">
               <!-- <input v-model="items[fromTheDashboard].eventDateTime" type="date" id="eventDate" name="eventDate"> -->
             </div>
             <div class="w-full md:w-1/2 px-3">
@@ -50,7 +50,7 @@
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                 Event Location:
               </label>
-              <input id="eventName" v-model="items[fromTheDashboard].eventLocation" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" >
+              <input id="eventName" v-model="items[index].eventLocation" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" >
               <div style="color: red" v-if="eventLocationErrorMessage_">{{eventLocationErrorMessage}}</div>
            
             </div>
@@ -59,13 +59,13 @@
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                 Event Contact:
               </label>
-              <input id="eventName" v-model="items[fromTheDashboard].eventContact" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" >
+              <input id="eventName" v-model="items[index].eventContact" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" >
               <div style="color: red" v-if="eventContactErrorMessage_">{{eventContactErrorMessage}}</div>
            
             </div>
             <div class="w-full md:w-1/2 px-3">
 
-              <select  name="select" id="select" v-model="items[fromTheDashboard].participantsLimit">
+              <select  name="select" id="select" v-model="items[index].participantsLimit">
                 <!-- <option
                 v-for="participantLimit in participantLimitList"
                 :value="participantLimitList[participantLimit]" 
@@ -93,7 +93,7 @@
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                 Event Description:
               </label>
-              <textarea wrap="soft" id="eventDescription" v-model="items[fromTheDashboard].eventDescription" class="h-60 appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" >
+              <textarea wrap="soft" id="eventDescription" v-model="items[index].eventDescription" class="h-60 appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" >
               </textarea>
                 <div style="color: red" v-if="eventDescriptionErrorMessage_">{{eventDescriptionErrorMessage}}</div>
            
@@ -113,9 +113,9 @@
           
           
           <br><br><br><br><br><hr>
-          <div class="col-10" id="sample2">{{items[fromTheDashboard].eventAttendees.length}} person applied</div>
+          <div class="col-10" id="sample2">{{items[index].eventAttendees.length}} person applied</div>
           
-          <div class="col-10" id="sample2">zz: {{fromTheDashboard}}</div>
+          <div class="col-10" id="sample2">zz: {{index}}</div>
           
           
   
@@ -136,6 +136,7 @@
     
     data() {
       return {
+        index: this.$route.params.index,
         items: [
           {
             
@@ -249,9 +250,9 @@
           },
           updateEvent(){ //for child to parent
             
-            console.log(this.items[this.fromTheDashboard].eventName)
+            console.log(this.items[this.index].eventName)
   
-            console.log(this.items[this.fromTheDashboard])
+            console.log(this.items[this.index])
           },
           createEvent(){
             console.log("create")
@@ -273,14 +274,14 @@
   
           }, onFileSelected(event){
            // console.log(event.target.files[0].name)
-            this.items[this.fromTheDashboard].image = event.target.files[0].name
+            this.items[this.index].image = event.target.files[0].name
           }
       },
       computed:{
 
         eventNameErrorMessage_(){
           let status = true
-          if(this.items[this.fromTheDashboard].eventName.length > 0 ){
+          if(this.items[this.index].eventName.length > 0 ){
             status = false
             
           
@@ -290,7 +291,7 @@
         },
         eventLocationErrorMessage_(){
           let status = true
-          if(this.items[this.fromTheDashboard].eventLocation.length > 0){
+          if(this.items[this.index].eventLocation.length > 0){
             status = false
           }
           return status
@@ -298,14 +299,14 @@
         },
         eventContactErrorMessage_(){
           let status = true
-          if(this.items[this.fromTheDashboard].eventContact.length > 0){
+          if(this.items[this.index].eventContact.length > 0){
             status = false
           }
           return status
         },
         eventDescriptionErrorMessage_(){
           let status = true
-          let descArray = this.items[this.fromTheDashboard].eventDescription.split(" ")
+          let descArray = this.items[this.index].eventDescription.split(" ")
           if(descArray.length >300){
             status = false
           }
