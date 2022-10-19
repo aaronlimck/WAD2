@@ -15,7 +15,6 @@ import TheDashboard from "./pages/club/TheDashboard.vue";
 import CreateEventForm from "./pages/club/CreateEventForm.vue";
 import OneEventForm from "./pages/club/OneEventForm.vue";
 
-
 import store from "./store/index.js";
 
 // INITIALISE ROUTES
@@ -29,6 +28,11 @@ const router = createRouter({
     {
       path: "/events",
       component: BrowseEvents,
+    },
+    {
+      path: "/events/:id",
+      name: "TheEventProfilePage",
+      component: TheEventProfilePage,
     },
     {
       path: "/login",
@@ -59,17 +63,11 @@ const router = createRouter({
       path: "/CreateEventForm",
       component: CreateEventForm,
       meta: { requireAuth: true },
-    },{
+    },
+    {
       path: "/OneEventForm",
       component: OneEventForm,
       meta: { requireAuth: true },
-      path: "/profile",
-      component: TheProfile,
-    },
-    {
-      path: "/events/:id",
-      name: 'TheEventProfilePage',
-      component: TheEventProfilePage
     },
   ],
 });
