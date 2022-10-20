@@ -1,253 +1,117 @@
-<template style="color:black; width:100%">
-   
-   
-  <ellipsis-event-dashboard v-on:changeTitle="updateTitlrText($event)"/>
+<template style="color: black; width: 100%">
+  <!-- <ellipsis-event-dashboard v-on:changeTitle="updateTitlrText($event)" /> -->
 
- <!-- <div class="container-fluid bg-danger text-white position-fixed  h-20 top-0 m-0">Hiii </div>--> 
- 
- <div class="grid ld:grid-cols-4 md:grid-cols-4 sm:grid-cols-12 gap-4">
-                   <div >
+  <!-- <div class="grid ld:grid-cols-4 md:grid-cols-4 sm:grid-cols-12 gap-4">
+    <div>
+      <div
+        class="bg-gradient-to-b from-green-200 to-green-100 border-b-4 border-green-600 rounded-lg shadow-xl p-5 text-center"
+      >
+        <h2 class="font-bold uppercase text-gray-600">Total Events</h2>
 
-                       <div class="bg-gradient-to-b from-green-200 to-green-100 border-b-4 border-green-600 rounded-lg shadow-xl p-5 text-center">
-                      
-                          
-                                   <h2 class="font-bold uppercase text-gray-600">Total Events</h2>
-                             
-                                  <p class="font-bold text-3xl" >{{items.length}} </p>
-                            
-                          
-                       </div>
-                     
-                   </div>
+        <p class="font-bold text-3xl">{{ items.length }}</p>
+      </div>
+    </div>
 
+    <div>
+      <div
+        class="bg-gradient-to-b from-pink-200 to-pink-100 border-b-4 border-pink-500 rounded-lg shadow-xl p-5 text-center"
+      >
+        <h2 class="font-bold uppercase text-gray-600">Newly Created Event</h2>
+        <p class="font-bold text-3xl">{{ items[items.length] }}</p>
+      </div>
+    </div>
+    <div>
+      <div
+        class="bg-gradient-to-b from-yellow-200 to-yellow-100 border-b-4 border-yellow-600 rounded-lg shadow-xl p-5 text-center"
+      >
+        <h2 class="font-bold uppercase text-gray-600">Total Club members</h2>
+        <p class="font-bold text-3xl">30</p>
+      </div>
+    </div>
+    <div>
+      <div
+        class="bg-gradient-to-b from-purple-200 to-purple-100 border-b-4 border-purple-600 rounded-lg shadow-xl p-5 text-center"
+      >
+        <h2 class="font-bold uppercase text-gray-600">Total Club members</h2>
+        <p class="font-bold text-3xl">{{ fromTheDashboard }}</p>
+      </div>
+    </div>
+  </div> -->
+  <div>
+    <div>
+      <div style="display: flex; justify-content: right">
+        <base-button style="margin: 20px"
+          ><router-link to="/create-event"
+            >Create Event</router-link
+          ></base-button
+        >
+      </div>
 
-                   <div >
-                  
-                       <div class="bg-gradient-to-b from-pink-200 to-pink-100 border-b-4 border-pink-500 rounded-lg shadow-xl p-5 text-center">
-                           
-                 
-                                  <h2 class="font-bold uppercase text-gray-600">Newly Created Event</h2>
-                                   <p class="font-bold text-3xl">{{items[items.length]}} </p>
-                            
-                       
-                       </div>
-                   
-                   </div>
-                   <div >
-                
-                       <div class="bg-gradient-to-b from-yellow-200 to-yellow-100 border-b-4 border-yellow-600 rounded-lg shadow-xl p-5 text-center">
-                           
-                              
-                               
-                                   <h2 class="font-bold uppercase text-gray-600">Total Club members</h2>
-                                   <p class="font-bold text-3xl ">30</p>
-                   
-                       </div>
-                     
-                   </div>
-                   <div >
-              
-                       <div class="bg-gradient-to-b from-purple-200 to-purple-100 border-b-4 border-purple-600 rounded-lg shadow-xl p-5 text-center">
-                           
-                              
-                               
-                                  <h2 class="font-bold uppercase text-gray-600">Total Club members</h2>
-                                   <p class="font-bold text-3xl ">{{fromTheDashboard}}</p>
-                   
-                       </div>
-                   
-                   </div>
-                
-                  
-                   
- </div>
- <div >
-
-  
-   <div >
-     <div  style="display:flex; justify-content: right; ">
-       <base-button style="margin: 20px;"><router-link to="/CreateEventForm">Create Event</router-link></base-button>
-     </div>
-     
-     <!-- <div class ="col-3" id="sample2">Hi</div><div  class ="col-3" id="sample2">Hi</div> -->
-     <div id="sample">
-       
-       
-       
-       <div v-for="(item, index) in items" :key="item.title">
-         
-         <!-- <div >
-           <h1>{{ item.eventName }} : </h1>
-           <h2>{{ item.eventDescription }} </h2>
-           <h2>{{ item.eventAttendees.length }} participants</h2>
-           <br />
-          <base-button  style="margin: 20px;" v-on="selectEvent(item.eventName)"><router-link to="/OneEvent">{{item.eventName}}</router-link></base-button> -->
-           
-         
-         <!-- </div>  -->
-         <div id="sample2" class="p-2 bg-gray-50 rounded-xl border hover:drop-shadow-2xl m-0">
-           <!-- <img class="h-40 w-full bject-cover rounded-xl"> -->
-               <h2 class="font-bold text-lg"> {{ item.eventName }} : </h2>
-               <p class="text-sm text-gray-600">{{ item.eventDescription }}</p>
-               <p class="text-sm text-gray-600">{{ item.eventAttendees.length }} participants</p>
-           
-             <base-button  style="margin: 20px;" v-on="selectEvent(index)"><router-link to="/OneEventForm">Edit</router-link></base-button>
-           
-       </div>
-         
-         <br />
-         
-       </div>
-       
-     </div>
-   </div>
-   
- </div>
-
+      <div v-for="event of events" :key="event.eventName">
+        <!-- Current Event ID is not in the vueX Store -->
+        <event-card
+          :id="event.eventId"
+          :name="event.eventName"
+          :description="event.eventDescription"
+          :timing="event.eventDateTime"
+          :location="event.eventLocation"
+        ></event-card>
+      </div>
+    </div>
+  </div>
 </template>
 
- 
-
 <script>
-// import BaseButton from '../UI/BaseButton.vue';
+import EventCard from "../../components/Events/EventCard.vue";
 
 export default {
- // components: {BaseButton }, //for parent to child
- data() {
-   return {
-     items: [
-       {
-         "eventId":"c1ebf24a-1e40-4792-af1e-46e2aec45345",
-         "eventName":"Tech Series",
-         "eventDescription":"Tech series is a...",
-         "eventDateTime":"2022-09-02",
-         "eventCreatedBy":"ellpsis",
-         "eventTags":["networking", "tech"],
-         "eventAttendees":["1","2","3"],
-          "eventLocation" :"SCIS",
-          "eventContact" : "contact@smu.edu.sg",
-          "image" : "image/SCISDay.jpg",
-       },
-       {
-         "eventId":"c1ebf24a-1e40-4792-af1e-46e2aec45346",
-         "eventName":"SCIS Day",
-         "eventDescription":"'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-         "eventDateTime":"2022-09-02",
-         "eventCreatedBy":"ellpsis",
-         "eventTags":["networking", "tech"],
-         "eventAttendees":["1","2","3", "4"],
-          "eventLocation" :"SCIS",
-          "eventContact" : "contact@smu.edu.sg",
-          "image" : "image/SCISDay.jpg"
-       },
-       {
-         "eventId":"c1ebf24a-1e40-4792-af1e-46e2aec45347",
-         "eventName":"Networking",
-         "eventDescription":"'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-         "eventDateTime":"2022-09-02",
-         "eventCreatedBy":"ellpsis",
-         "eventTags":["networking", "tech"],
-         "eventAttendees":["1","2","3", "4", "5"],
-          "eventLocation" :"SCIS",
-          "eventContact" : "contact@smu.edu.sg",
-          "image" : "image/SCISDay.jpg"
-       }], items2:[
-       {
-         "userId":"c1ebf24a-1e40-4792-af1e-46e2aec4534533",
-         "userName":"jd",
-         "userFullName":"John Doe",
-         "userEmail":"123@gmail.com",
-         "userAssociatedEmail":"123@scis.smu.edu.sg",
-         "userPassword":"###",
-         "userRegisteredEvent":[
-         "c1ebf24a-1e40-4792-af1e-46e2aec45345",
-         "b29b64ea-cdce-4679-951b-23c9c03d374b"
-       ]
-       },
-       {
-         "userId":"c1ebf24a-1e40-4792-af1e-46e2aec4534544",
-         "userName":"sd",
-         "userFullName":"Sam Doe",
-         "userEmail":"456@gmail.com",
-         "userAssociatedEmail":"456@scis.smu.edu.sg",
-         "userPassword":"###",
-         "userRegisteredEvent":[
-         "c1ebf24a-1e40-4792-af1e-46e2aec45345",
-         "b29b64ea-cdce-4679-951b-23c9c03d374b"
-       ]
-       },
-       {
-         "userId":"c1ebf24a-1e40-4792-af1e-46e2aec4534555",
-         "userName":"ld",
-         "userFullName":"Lim Doe",
-         "userEmail":"789@gmail.com",
-         "userAssociatedEmail":"789@scis.smu.edu.sg",
-         "userPassword":"###",
-         "userRegisteredEvent":[
-       ] 
-       }
-       ],greeting: "HELLO", title: "Child to parent",  fromTheDashboard: localStorage.getItem("selectedEvent"),
-       //greeting for parent to child
-       //title for child to parent
-   };
- }, provide:{ //no need props
-   samplename: "Swinnerton"
-
- },methods: {
-   updateTitlrText(title){ //for child to parent
-         this.title = title
-
-   },
-   selectEvent(input) {
-     
-         // Signed in
-         console.log(input + "**8")
-         console.log("Successfully login!");
-         localStorage.setItem("selectedEvent", input);
-         console.log(localStorage.getItem("selectedEvent"));
- 
-   },
-
-   
-   },
- 
- 
+  components: { EventCard },
+  data() {
+    return {
+      events: [],
+      error: "",
+    };
+  },
+  methods: {},
+  async mounted() {
+    try {
+      await this.$store.dispatch("loadAllEvent");
+      this.events = this.$store.getters.getEventDataByClubId;
+    } catch (err) {
+      this.error = err.message || "Failed to load events, try later";
+      console.log(this.error);
+    }
+  },
 };
-
-
 </script>
 
 <style scoped>
- * {
-   margin: 20px;
-   color: black;
- }
- 
- div#sample2 {
-   border: black solid 2px;
-   /* width: 400px; */
- }
- 
+* {
+  margin: 20px;
+  color: black;
+}
+
+div#sample2 {
+  border: black solid 2px;
+  /* width: 400px; */
+}
 
 button:hover,
 button:active {
-   background-color: rgba(255, 99, 71, 0.8);
-   color: #ffffff;
+  background-color: rgba(255, 99, 71, 0.8);
+  color: #ffffff;
 }
 
 .secondary {
-   border: 2px solid #f56a01 !important;
-   background-color: transparent;
-   color: #f56a01;
-   border: none;
+  border: 2px solid #f56a01 !important;
+  background-color: transparent;
+  color: #f56a01;
+  border: none;
 }
 
 .secondary:hover,
 .secondary:active {
-   background-color: rgba(255, 99, 71, 0.8);
-   color: #ffffff;
+  background-color: rgba(255, 99, 71, 0.8);
+  color: #ffffff;
 }
- </style>
- 
- 
- 
+</style>

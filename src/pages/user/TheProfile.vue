@@ -65,7 +65,6 @@
         <button class="py-1 px-3" id="change_password" @click="changePassword">
           Change Password
         </button>
-
         <br /><br />
         <button class="py-1 px-3">Save Profile</button>
       </form>

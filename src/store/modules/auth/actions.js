@@ -94,7 +94,7 @@ export default {
     console.log(responseData);
   },
 
-  // async changepassword(context, payload){
+  // async changePassword(context, payload){
   //   ///...
   // }
 };

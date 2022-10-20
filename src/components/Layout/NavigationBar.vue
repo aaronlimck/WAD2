@@ -1,13 +1,8 @@
 <template>
-<<<<<<< HEAD
-  <nav class="bg-white fixed z-20 border-gray-200 px-2 sm:px-4 py-2.5">
-    <div class="container flex flex-wrap justify-between items-center mx-auto">
-=======
   <nav
     class="bg-white fixed border-gray-200 px-2 sm:px-4 py-2.5 flex items-center"
   >
     <div class="container mx-auto flex items-center justify-between">
->>>>>>> master
       <div>
         <router-link to="/">Logo</router-link>
       </div>
