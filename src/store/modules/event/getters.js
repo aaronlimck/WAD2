@@ -1,4 +1,9 @@
 export default {
+  getAllEvents(state) {
+    console.log(state.events);
+    return state.events;
+  },
+
   getEventDataByClubId(state) {
     const clubId = localStorage.getItem("userClub");
     const eventData = JSON.parse(JSON.stringify(state.events));
