@@ -37,25 +37,22 @@
       </div>
     </div>
   </div> -->
-  <div>
-    <div>
-      <div style="display: flex; justify-content: right">
-        <base-button style="margin: 20px"
-          ><router-link to="/create-event"
-            >Create Event</router-link
-          ></base-button
-        >
-      </div>
+  <div class="container mx-auto my-10 px-4">
+    <div style="display: flex; justify-content: right">
+      <base-button style="margin: 20px"
+        ><router-link to="/create-event">Create Event</router-link></base-button
+      >
+    </div>
 
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
       <div v-for="event of events" :key="event.eventName">
-        <!-- Current Event ID is not in the vueX Store -->
         <event-card
-          :id="event.eventId"
-          :name="event.eventName"
+          :eventname="event.eventName"
           :description="event.eventDescription"
-          :timing="event.eventDateTime"
+          :id="event.eventId"
+          :dateTime="event.eventDateTime"
           :location="event.eventLocation"
-        ></event-card>
+        />
       </div>
     </div>
   </div>
@@ -86,16 +83,6 @@ export default {
 </script>
 
 <style scoped>
-* {
-  margin: 20px;
-  color: black;
-}
-
-div#sample2 {
-  border: black solid 2px;
-  /* width: 400px; */
-}
-
 button:hover,
 button:active {
   background-color: rgba(255, 99, 71, 0.8);
