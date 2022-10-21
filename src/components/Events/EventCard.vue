@@ -1,59 +1,29 @@
 <template>
   <!-- ======= EventCard ======= -->
-  <div class="p-2 bg-gray-50 rounded-xl border hover:drop-shadow-2xl m-5">
-    <img
-      class="h-40 w-full bject-cover rounded-xl"
-      src="../../images/bailey-zindel-NRQV-hBF10M-unsplash.jpg"
-    />
-    <h2 class="font-bold text-lg p-2 text-center">{{ eventname }}</h2>
-    <p class="text-md text-sl bg-slate-50 rounded-lg flex" id="dateTime">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="icon w-6 h-6"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"
-        />
-      </svg>
-      {{ dateTime }}
-    </p>
-    <p class="text-md text-sl bg-slate-50 rounded-lg flex" id="dateTime">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="w-6 h-6"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
-        />
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
-        />
-      </svg>
-      {{ location }}
-    </p>
-    <p class="text-sm">{{ description }}</p>
-    <div class="m-2 hover">
-      <button>
-        <!-- <router-link :to="{ name: 'TheEventProfilePage', params: { id: id } }">
-          Read More
-        </router-link> -->
-        <router-link :to="eventLink"> Read More </router-link>
-      </button>
-    </div>
+  <div class="bg-gray-50 rounded-lg border hover:drop-shadow-2xl">
+    <router-link :to="eventLink">
+      <img
+        class="h-40 w-full bject-cover rounded-t-lg"
+        src="../../images/bailey-zindel-NRQV-hBF10M-unsplash.jpg"
+      />
+      <div class="flex px-3 py-6">
+        <div class="w-1/6 pl-2">
+          <p class="flex flex-col dateTime">
+            <span class="text-base">{{ getMonth }}</span>
+            <span class="text-xl font-medium">{{ getDate }}</span>
+          </p>
+        </div>
+        <div class="w-5/6">
+          <h2 class="text-lg font-medium mb-1">{{ eventname }}</h2>
+          <p class="text-base text-slate-600">
+            {{ description.slice(0, 120) }}
+          </p>
+        </div>
+      </div>
+      <!-- <p class="text-md text-sl bg-slate-50 flex" id="dateTime">
+        {{ location }}
+      </p> -->
+    </router-link>
   </div>
   <!--  ========== -->
 </template>
@@ -71,6 +41,32 @@ export default {
       } else {
         return this.$route.path + "/" + this.id;
       }
+    },
+    getDate() {
+      let date = new Date(this.dateTime);
+      return date.getDate();
+    },
+    getMonth() {
+      const monthNames = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+      let date = new Date(this.dateTime);
+      return monthNames[date.getMonth()].toUpperCase().slice(0, 3);
+    },
+    getYear() {
+      let date = new Date(this.dateTime);
+      return date.getYear();
     },
   },
 };
@@ -108,9 +104,8 @@ button:active {
   background-color: rgba(255, 99, 71, 0.8);
   color: #ffffff;
 }
-#dateTime,
+.dateTime,
 #location {
   color: #f56a01;
-  margin-bottom: 5px;
 }
 </style>
