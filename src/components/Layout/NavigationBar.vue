@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="bg-white fixed border-gray-200 px-2 sm:px-4 py-2.5 flex items-center"
+    class="bg-white fixed border-gray-200 px-4 sm:px-4 py-2.5 flex items-center"
   >
     <div class="container mx-auto flex items-center justify-between">
       <div>
@@ -87,9 +87,6 @@ export default {
     isLoggedIn() {
       return this.$store.getters.isAuthenticated;
     },
-    getClubId() {
-      return this.$store.getters.userClub;
-    },
   },
   methods: {
     dropDown() {
@@ -99,6 +96,12 @@ export default {
       this.$store.dispatch("logout");
       this.$router.replace("/");
     },
+    getClubId() {
+      return this.$store.getters.userClub;
+    },
+  },
+  mounted() {
+    this.getClubId;
   },
 };
 </script>
