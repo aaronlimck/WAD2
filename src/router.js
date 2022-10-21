@@ -8,6 +8,7 @@ import TheEventProfilePage from "./pages/events/TheEventProfilePage.vue";
 import SignIn from "./pages/auth/SignIn.vue";
 import SignUp from "./pages/auth/SignUp.vue";
 import ForgotPassword from "./pages/auth/ForgotPassword.vue";
+import ResetPassword from "./pages/auth/ResetPassword.vue";
 // USER (STUDENT)
 import TheProfile from "./pages/user/TheProfile.vue";
 // USER (CLUB)
@@ -47,6 +48,11 @@ const router = createRouter({
     {
       path: "/forgot-password",
       component: ForgotPassword,
+      meta: { requireUnauth: true },
+    },
+    {
+      path: "/reset-password",
+      component: ResetPassword,
       meta: { requireUnauth: true },
     },
     {
