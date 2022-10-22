@@ -47,27 +47,34 @@
             />
           </svg>
         </button>
+
         <div
+          v-click-away="onClickAway"
           v-if="isLoggedIn && isOpen"
           class="absolute right-0 top-8 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl"
         >
           <router-link to="/profile">
             <div
-              class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white"
+              class="block px-4 py-2 text-gray-800 bg-custom hover:text-white"
             >
               <p>Profile</p>
             </div>
           </router-link>
           <router-link to="/dashboard" v-if="getClubId">
             <div
-              class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white"
+              class="block px-4 py-2 text-gray-800 bg-custom hover:text-white"
             >
               <p>Dashboard</p>
             </div>
           </router-link>
-          <div
-            class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white"
-          >
+          <router-link to="/create-event" v-if="getClubId">
+            <div
+              class="block px-4 py-2 text-gray-800 bg-custom hover:text-white"
+            >
+              <p>Create Event</p>
+            </div>
+          </router-link>
+          <div class="block px-4 py-2 text-gray-800 bg-custom hover:text-white">
             <p @click="logout">Logout</p>
           </div>
         </div>
@@ -87,8 +94,19 @@ export default {
     isLoggedIn() {
       return this.$store.getters.isAuthenticated;
     },
+    getClubId() {
+      return this.$store.getters.userClub;
+    },
+  },
+  watch: {
+    $route() {
+      this.isOpen = false;
+    },
   },
   methods: {
+    onClickAway() {
+      this.dropDown();
+    },
     dropDown() {
       this.isOpen = !this.isOpen;
     },
@@ -96,12 +114,6 @@ export default {
       this.$store.dispatch("logout");
       this.$router.replace("/");
     },
-    getClubId() {
-      return this.$store.getters.userClub;
-    },
-  },
-  mounted() {
-    this.getClubId;
   },
 };
 </script>
@@ -130,5 +142,9 @@ a {
   text-decoration: none;
   background: transparent;
   cursor: pointer;
+}
+
+.bg-custom:hover {
+  background-color: #f56a01;
 }
 </style>
