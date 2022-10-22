@@ -38,12 +38,6 @@
     </div>
   </div> -->
   <div class="container mx-auto my-10 px-4">
-    <div style="display: flex; justify-content: right">
-      <base-button style="margin: 20px"
-        ><router-link to="/create-event">Create Event</router-link></base-button
-      >
-    </div>
-
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
       <div v-for="event of events" :key="event.eventName">
         <event-card
