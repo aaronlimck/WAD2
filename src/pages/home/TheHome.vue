@@ -68,14 +68,14 @@
       </div>
     </div>
     <div class="w-10/12 mx-auto grid grid-cols-3 mt-4 gap-5">
-      <div v-for="event in events" :key="event.eventId">
+      <!-- <div v-for="event in events" :key="event.eventId">
         <event-card
           :name="event.eventName"
           :description="event.eventDescription"
           :timing="event.eventDateTime"
           :location="event.eventLocation"
         ></event-card>
-      </div>
+      </div> -->
     </div>
     <div class="mt-8 mb-10 text-center">
       <base-button class="p-2 text-sm">Click for more</base-button>
@@ -129,10 +129,11 @@
 </template>
 
 <script>
-import EventCard from "../../components/Events/EventCard.vue";
+// import EventCard from "../../components/Events/EventCard.vue";
 
 export default {
-  components: { EventCard },
+  components: { //EventCard },
+  },
   data() {
     return {
       showDialog: false,

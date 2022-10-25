@@ -1,5 +1,9 @@
 <template>
   <!-- ======= EventCard ======= -->
+  <div class="bg-gray-50 rounded-lg border hover:drop-shadow-2xl">
+    <router-link :to="eventLink">
+      <img
+        class="h-40 w-full object-cover rounded-t-lg"
   <div class="bg-gray-50 rounded-lg border hover:drop-shadow-2xl h-full">
     <router-link :to="eventLink">
       <img
@@ -14,6 +18,7 @@
           </p>
         </div>
         <div class="w-5/6">
+          <h2 class="text-lg font-medium mb-1 truncate">{{ eventname }}</h2>
           <h2 class="text-lg font-medium mb-1">{{ eventname }}</h2>
           <p class="text-base text-slate-600">
             {{ description.slice(0, 120) }}
@@ -91,14 +96,12 @@ button:active {
   background-color: rgba(255, 99, 71, 0.8);
   color: #ffffff;
 }
-
 .secondary {
   border: 2px solid #f56a01 !important;
   background-color: transparent;
   color: #f56a01;
   border: none;
 }
-
 .secondary:hover,
 .secondary:active {
   background-color: rgba(255, 99, 71, 0.8);
