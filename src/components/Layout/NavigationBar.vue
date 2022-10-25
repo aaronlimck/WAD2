@@ -74,7 +74,9 @@
               <p>Create Event</p>
             </div>
           </router-link>
-          <div class="block px-4 py-2 text-gray-800 bg-custom hover:text-white">
+          <div
+            class="block px-4 py-2 text-gray-800 bg-custom hover:text-white cursor-pointer"
+          >
             <p @click="logout">Logout</p>
           </div>
         </div>
