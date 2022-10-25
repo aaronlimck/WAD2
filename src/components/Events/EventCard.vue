@@ -1,6 +1,6 @@
 <template>
   <!-- ======= EventCard ======= -->
-  <div class="bg-gray-50 rounded-lg border hover:drop-shadow-2xl">
+  <div class="bg-gray-50 rounded-lg border hover:drop-shadow-2xl h-full">
     <router-link :to="eventLink">
       <img
         class="h-40 w-full bject-cover rounded-t-lg"
