@@ -1,8 +1,5 @@
 <template>
   <base-dialog v-if="showDialog">
-    <template #background>
-      <base-confetti />
-    </template>
     <template #default>
       <div class="flex items-center">
         <img
@@ -11,8 +8,8 @@
           alt="success"
         />
         <div>
-          <h1 class="text-2xl mb-1 md:mb-2">Success</h1>
-          <p>Congratulations, your account has been successfully created.</p>
+          <h1 class="text-2xl mb-1 md:mb-2">Password Changed!</h1>
+          <p>Your Password has been changed successfully.</p>
         </div>
       </div>
     </template>
@@ -24,7 +21,7 @@
         stroke-width="1.5"
         stroke="currentColor"
         class="w-6 h-6"
-        @click="closeDialogMsg"
+        @click="confirmDialogMsg"
       >
         <path
           stroke-linecap="round"
@@ -36,105 +33,29 @@
   </base-dialog>
 
   <div id="content">
-    <form @submit.prevent="submitForm" class="container p-4 mx-auto" novalidate>
+    <form @submit.prevent="submitForm" class="container p-4 mx-auto">
       <h1 class="text-2xl md:text-3xl mb-1 md:mb-2 font-medium">
-        Create an account
+        Set New Password
       </h1>
       <p class="text-base mb-2 md:mb-2">
-        Better way to discover events in SMU 🎉
+        Your new password must be different to previously used passwords.
       </p>
-
-      <div class="login-with-google-btn mt-3">
-        <img
-          class="google-icon"
-          src="https://cdn-icons-png.flaticon.com/512/300/300221.png"
-          alt="google-icon"
-        />
-        <p class="text-sm">Sign up with Google</p>
-      </div>
-
-      <p class="text-divider"><span>Or</span></p>
-
-      <div class="form-control">
-        <label for="name">Name</label>
-        <input
-          type="text"
-          id="name"
-          placeholder="Enter your name"
-          v-model.trim="userName"
-          @blur="checkUserName"
-        />
-        <div
-          v-if="error.name != ''"
-          class="flex p-4 my-2 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
-          role="alert"
-        >
-          <svg
-            aria-hidden="true"
-            class="flex-shrink-0 inline w-5 h-5 mr-3"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          <span class="sr-only">Info</span>
-          <div>
-            <span class="font-medium">{{ error.name }}</span>
-          </div>
-        </div>
-      </div>
-      <div class="form-control">
-        <label for="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          placeholder="Enter your email"
-          v-model.trim="email"
-          @blur="checkUserEmail"
-        />
-        <div
-          v-if="error.email != ''"
-          class="flex p-4 my-2 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
-          role="alert"
-        >
-          <svg
-            aria-hidden="true"
-            class="flex-shrink-0 inline w-5 h-5 mr-3"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          <span class="sr-only">Info</span>
-          <div>
-            <span class="font-medium">{{ error.email }}</span>
-          </div>
-        </div>
-      </div>
-
       <div class="form-control">
         <label for="password">Password</label>
         <div class="relative">
           <input
             id="password"
             type="password"
-            placeholder="Create a password"
+            placeholder="Create a new password"
             v-model="password"
             @focus="showPassRequirements"
-            @blur="checkUserPassword"
+            @blur="
+              checkUserPassword();
+              showPassRequirements();
+            "
           />
           <div
-            @click="switchVisibility"
+            @click="switchVisibilityPassword"
             class="absolute right-0 bottom-0 font-medium rounded-lg text-sm px-3 py-2"
           >
             <span v-if="showPassword"
@@ -179,7 +100,7 @@
 
         <div
           v-if="error.password != ''"
-          class="flex p-4 my-2 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+          class="fade-in flex p-4 my-2 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
           role="alert"
         >
           <svg
@@ -246,58 +167,129 @@
           </div>
         </div>
       </div>
-      <base-button class="w-full py-2.5 mt-2 mb-4"
-        >Create my account</base-button
-      >
-      <p class="text-sm text-center text-gray-900">
-        By continuing, you agree to the
-        <span class="underline">Terms of use</span>,
-        <span class="underline">Privacy Policy</span>, and
-        <span class="underline">Community Standards</span> of Bojio
-      </p>
-      <div class="flex justify-center mt-4">
-        <p class="mr-1 text-sm">Already have an account?</p>
-        <router-link to="/login" class="text-sm font-medium underline"
-          >Log In</router-link
+
+      <div class="form-control">
+        <label for="confirmPassword">Confirm Password</label>
+        <div class="relative">
+          <input
+            id="confirmPassword"
+            type="password"
+            placeholder="Confirm new password"
+            v-model="confirmPassword"
+            @blur="checkConfirmPassword()"
+          />
+
+          <div
+            @click="switchVisibilityConfirmPassword"
+            class="absolute right-0 bottom-0 font-medium rounded-lg text-sm px-3 py-2"
+          >
+            <span v-if="showConfirmPassword"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6 text-gray-500"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88"
+                />
+              </svg>
+            </span>
+            <span v-if="showConfirmPassword != true"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6 text-gray-500"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
+                />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+              </svg>
+            </span>
+          </div>
+        </div>
+
+        <div
+          v-if="error.confirmPassword != ''"
+          class="fade-in flex p-4 my-2 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+          role="alert"
         >
+          <svg
+            aria-hidden="true"
+            class="flex-shrink-0 inline w-5 h-5 mr-3"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <span class="sr-only">Info</span>
+          <div>
+            <span class="font-medium">{{ error.confirmPassword }}</span>
+          </div>
+        </div>
       </div>
+      <base-button class="w-full py-2.5 my-4">Reset password</base-button>
     </form>
+
+    <router-link to="/login" class="flex justify-center items-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-5 h-6 mr-2 text-gray-600"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
+        />
+      </svg>
+      <p class="text-center text-sm font-medium text-gray-600">
+        Back to log in
+      </p>
+    </router-link>
   </div>
 </template>
 
 <script>
-import BaseConfetti from "../../components/UI/BaseConfetti.vue";
-
 export default {
-  components: { BaseConfetti },
   data() {
     return {
-      showDialog: false,
-      userName: "",
-      email: "",
       password: "",
       showPassword: false,
+      confirmPassword: "",
+      showConfirmPassword: false,
       showPasswordRequirements: false,
+      showDialog: false,
       error: {
-        name: "",
-        email: "",
         password: "",
+        confirmPassword: "",
       },
     };
   },
-  watch: {
-    password(newValue) {
-      this.password = newValue;
-    },
-  },
   methods: {
-    start() {
-      this.$confetti.start();
-    },
-    stop() {
-      this.$confetti.stop();
-    },
-    switchVisibility() {
+    switchVisibilityPassword() {
       const passwordField = document.querySelector("#password");
       if (passwordField.getAttribute("type") === "password") {
         passwordField.setAttribute("type", "text");
@@ -307,8 +299,32 @@ export default {
         this.showPassword = false;
       }
     },
+    switchVisibilityConfirmPassword() {
+      const passwordField = document.querySelector("#confirmPassword");
+      if (passwordField.getAttribute("type") === "password") {
+        passwordField.setAttribute("type", "text");
+        this.showConfirmPassword = true;
+      } else {
+        passwordField.setAttribute("type", "password");
+        this.showConfirmPassword = false;
+      }
+    },
     showPassRequirements() {
-      this.showPasswordRequirements = true;
+      const containsUppercase = this.stringContainsUppercase(this.password);
+      const containsLowercase = this.stringContainsLowercase(this.password);
+      const containsNumber = this.stringContainsNumber(this.password);
+      const metLengthRequirement = this.password.length >= 8;
+
+      if (
+        containsUppercase &&
+        containsLowercase &&
+        containsNumber &&
+        metLengthRequirement
+      ) {
+        this.showPasswordRequirements = false;
+      } else {
+        this.showPasswordRequirements = true;
+      }
     },
     stringContainsUppercase(str) {
       const pattern = new RegExp("^(?=.*[A-Z])");
@@ -322,80 +338,53 @@ export default {
       const pattern = new RegExp("^(?=.*\\d)");
       return pattern.test(str);
     },
-    checkUserName() {
-      if (this.userName.length == 0) {
-        this.error.name = "Name field cannot be empty";
-        return false;
-      }
-      this.error.name = "";
-      return true;
-    },
-    checkUserEmail() {
-      if (this.email.length == 0) {
-        this.error.email = "Email field cannot be empty";
-        return false;
-      } else if (!this.email.includes("@")) {
-        this.error.email = "Invalid email address";
-        return false;
-      }
-      this.error.email = "";
-      return true;
-    },
-    checkUserPassword(str) {
-      const pattern = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)");
+    checkUserPassword() {
       if (this.password.length == 0) {
         this.error.password = "Password field cannot be empty";
         return false;
       }
       this.error.password = "";
-      return pattern.test(str) && str.length >= 8;
+      return true;
+    },
+    checkConfirmPassword() {
+      if (this.confirmPassword.length == 0) {
+        this.error.confirmPassword = "Confirm password field cannot be empty";
+        return false;
+      } else if (this.password != this.confirmPassword) {
+        this.error.confirmPassword = "Password do not match";
+      }
+      this.error.confirmPassword = "";
+      return true;
     },
     submitForm() {
-      this.checkUserName();
-      this.checkUserEmail();
-      this.checkUserPassword(this.password);
-      if (
-        this.error.name == "" &&
-        this.error.email == "" &&
-        this.checkUserPassword(this.password)
-      ) {
-        this.signUp();
+      if (this.error.password == "" && this.error.confirmPassword == "") {
+        this.resetPassword();
       }
     },
-    async signUp() {
+    async resetPassword() {
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const oobCode = urlParams.get("oobCode");
+      console.log(oobCode);
       try {
-        const createResultStatus = await this.$store.dispatch("signup", {
-          email: this.email,
-          password: this.password,
+        const result = await this.$store.dispatch("resetPassword", {
+          oobCode: oobCode,
+          newPassword: this.password,
         });
-        const createDataInStoreStatus = await this.$store.dispatch(
-          "createUser",
-          {
-            userName: this.userName,
-            userEmail: this.email,
-          }
-        );
-        if (createResultStatus && createDataInStoreStatus) {
-          this.confirmDialogMsg();
-        }
+        console.log(result);
       } catch (err) {
-        if (err === "EMAIL_EXISTS") {
-          this.error.email = "This email address has already been taken";
-          this.error.password = "";
-          this.password = "";
-        }
         console.log(err);
       }
-    },
-    closeDialogMsg() {
-      this.showDialog = false;
-      this.$router.replace("/events");
-    },
-    confirmDialogMsg() {
       this.showDialog = true;
       setTimeout(() => {
-        this.$router.replace("/events");
-      }, 4000);
+        this.showDialog = false;
+        this.$router.replace("/login");
+      }, 3000);
+      return;
+    },
+    confirmDialogMsg() {
+      this.showDialog = false;
+      this.$router.replace("/login");
     },
   },
 };
@@ -404,10 +393,6 @@ export default {
 <style scoped>
 #content {
   padding-top: 50px;
-}
-
-form {
-  max-width: 520px;
 }
 
 form {
@@ -452,40 +437,6 @@ input {
 
 .custom-border {
   border: 1px solid #eee;
-}
-
-.google-icon {
-  width: 20px;
-  height: 20px;
-  margin: 12px;
-}
-
-.login-with-google-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: inherit;
-  border: 1px solid #eee;
-  border-radius: 5px;
-  color: #757575;
-  font-weight: 500;
-  text-align: center;
-  background-color: white;
-}
-
-.text-divider {
-  font-size: 14px;
-  color: #787878;
-  width: 100%;
-  text-align: center;
-  border-bottom: 1px solid #eee;
-  line-height: 0.1em;
-  margin: 30px 0;
-}
-
-.text-divider span {
-  background: #fff;
-  padding: 0 10px;
 }
 
 .success-icon {

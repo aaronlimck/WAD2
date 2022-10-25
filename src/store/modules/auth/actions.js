@@ -32,9 +32,10 @@ export default {
     });
     const responseData = await response.json();
     if (!response.ok) {
-      const error = new Error(
-        responseData.message || "Failed to authenticate. Try again later"
-      );
+      const error = responseData.error.message;
+      // const error = new Error(
+      //   responseData.message || "Failed to authenticate. Try again later"
+      // );
       throw error;
     }
     localStorage.setItem("token", responseData.idToken);
@@ -62,7 +63,14 @@ export default {
     // localStorage.removeItem("token");
     // localStorage.removeItem("userId");
     // Remove all localStorage item
-    localStorage.clear();
+
+    if (localStorage.getItem("userEmail") != null) {
+      const userEmail = localStorage.getItem("userEmail");
+      localStorage.clear();
+      localStorage.setItem("userEmail", userEmail);
+    } else {
+      localStorage.clear();
+    }
 
     context.commit("setUser", {
       token: null,
@@ -70,7 +78,7 @@ export default {
     });
   },
 
-  async resetpassword(context, payload) {
+  async passwordResetEmail(context, payload) {
     const response = await fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAwfv0cPv34-F3iZG0VcyoPoH1ThhC3fUU",
       {
@@ -83,18 +91,33 @@ export default {
     );
     const responseData = await response.json();
     if (!response.ok) {
-      console.log(responseData);
-      const error = new Error(
-        responseData.message || "Failed to authenticate. Try again later"
-      );
+      const error = responseData.error.message;
+      // const error = new Error(
+      //   responseData.message || "Failed to authenticate. Try again later"
+      // );
       throw error;
-    } else {
-      this.$router.replace("/signin");
     }
     console.log(responseData);
+    return response.ok;
   },
 
-  // async changePassword(context, payload){
-  //   ///...
-  // }
+  async resetPassword(context, payload) {
+    const response = await fetch(
+      "https://identitytoolkit.googleapis.com/v1/accounts:resetPassword?key=AIzaSyAwfv0cPv34-F3iZG0VcyoPoH1ThhC3fUU",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          oobCode: payload.oobCode,
+          newPassword: payload.newPassword,
+        }),
+      }
+    );
+    const responseData = await response.json();
+    if (!response.ok) {
+      const error = responseData.error.message;
+      throw error;
+    }
+    console.log(responseData);
+    return response.ok;
+  },
 };

@@ -4,6 +4,10 @@
     <router-link :to="eventLink">
       <img
         class="h-40 w-full object-cover rounded-t-lg"
+  <div class="bg-gray-50 rounded-lg border hover:drop-shadow-2xl h-full">
+    <router-link :to="eventLink">
+      <img
+        class="h-40 w-full bject-cover rounded-t-lg"
         src="../../images/bailey-zindel-NRQV-hBF10M-unsplash.jpg"
       />
       <div class="flex px-3 py-6">
@@ -15,6 +19,7 @@
         </div>
         <div class="w-5/6">
           <h2 class="text-lg font-medium mb-1 truncate">{{ eventname }}</h2>
+          <h2 class="text-lg font-medium mb-1">{{ eventname }}</h2>
           <p class="text-base text-slate-600">
             {{ description.slice(0, 120) }}
           </p>

@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="bg-white fixed border-gray-200 px-2 sm:px-4 py-2.5 flex items-center"
+    class="bg-white fixed border-gray-200 px-4 sm:px-4 py-2.5 flex items-center"
   >
     <div class="container mx-auto flex items-center justify-between">
       <div>
@@ -47,26 +47,35 @@
             />
           </svg>
         </button>
+
         <div
+          v-click-away="onClickAway"
           v-if="isLoggedIn && isOpen"
           class="absolute right-0 top-8 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl"
         >
           <router-link to="/profile">
             <div
-              class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white"
+              class="block px-4 py-2 text-gray-800 bg-custom hover:text-white"
             >
               <p>Profile</p>
             </div>
           </router-link>
           <router-link to="/dashboard" v-if="getClubId">
             <div
-              class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white"
+              class="block px-4 py-2 text-gray-800 bg-custom hover:text-white"
             >
               <p>Dashboard</p>
             </div>
           </router-link>
+          <router-link to="/create-event" v-if="getClubId">
+            <div
+              class="block px-4 py-2 text-gray-800 bg-custom hover:text-white"
+            >
+              <p>Create Event</p>
+            </div>
+          </router-link>
           <div
-            class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white"
+            class="block px-4 py-2 text-gray-800 bg-custom hover:text-white cursor-pointer"
           >
             <p @click="logout">Logout</p>
           </div>
@@ -91,7 +100,15 @@ export default {
       return this.$store.getters.userClub;
     },
   },
+  watch: {
+    $route() {
+      this.isOpen = false;
+    },
+  },
   methods: {
+    onClickAway() {
+      this.dropDown();
+    },
     dropDown() {
       this.isOpen = !this.isOpen;
     },
@@ -127,5 +144,9 @@ a {
   text-decoration: none;
   background: transparent;
   cursor: pointer;
+}
+
+.bg-custom:hover {
+  background-color: #f56a01;
 }
 </style>

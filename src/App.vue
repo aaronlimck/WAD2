@@ -94,4 +94,8 @@ body {
 #nav {
   z-index: 10;
 }
+
+#confetti-canvas {
+  z-index: 999 !important;
+}
 </style>
