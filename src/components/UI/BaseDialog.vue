@@ -1,6 +1,6 @@
 <template>
   <teleport to="body">
-    <div></div>
+    <div><slot name="background"></slot></div>
     <dialog open class="flex flex-col items-center">
       <menu>
         <slot name="actions"></slot>
