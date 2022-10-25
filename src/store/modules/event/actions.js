@@ -51,4 +51,29 @@ export default {
     console.log(responseData);
     return response.ok;
   },
+
+  async addParticipants(context,payload) {
+    const eventId = payload.eventId;
+    const token = context.rootGetters.token;
+
+    const response = await fetch(
+      `https://bojio-6872d-default-rtdb.asia-southeast1.firebasedatabase.app/events/${eventId}.json?auth=` +
+        token,
+      {
+        method: "PATCH",
+        body: JSON.stringify({
+          eventAttendees: payload.eventAttendees,
+        }),
+      }
+    );
+    const responseData = await response.json();
+    if (!response.ok) {
+      const error = responseData.error.message;
+      console.log(error)
+      throw error;
+    }
+    // context.commit("setEventData", responseData);
+    console.log(responseData);
+    return response.ok;
+  },
 };

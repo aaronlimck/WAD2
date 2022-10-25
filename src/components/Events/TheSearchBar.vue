@@ -21,7 +21,7 @@
         type="text"
         placeholder="Search events, tags"
         :value="modelValue"
-        @input="$emit('update:modelValue',$event.target.value)"
+        @input.prevent="$emit('update:modelValue',$event.target.value)"
       />
     </div>
   </div>

@@ -14,4 +14,14 @@ export default {
     console.log(result);
     return result;
   },
+
+  getEventDataById: (state) => (id) => {
+    const eventData = JSON.parse(JSON.stringify(state.events));
+    console.log(eventData)
+    const result = Object.values(eventData).filter(
+      (event) => event.eventId == id
+    );
+    return result;
+  },
+
 };

@@ -6,53 +6,9 @@
         <div class="grid gap-4 grid-cols-3">
             <div class="col-span-3 sm:col-span-2 p-5">
                 <p></p>
-                <p class="font-bold text-5xl pb-10"> {{id}} 2022</p>
+                <p class="font-bold text-5xl pb-10"> {{event.eventName}}</p>
                 <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Dicta, ipsam animi. Doloremque blanditiis labore similique eveniet impedit totam amet pariatur aliquid. 
-                Beatae sequi dolor inventore, distinctio dignissimos voluptas quis eaque!
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-                Maxime molestiae eveniet deleniti aperiam quo commodi sunt inventore.
-                Beatae similique ullam laborum qui velit explicabo, vitae vero corrupti,
-                est dolor sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Esse dicta est possimus non delectus nemo cum architecto totam optio. 
-                Mollitia sapiente enim officia eius in facilis necessitatibus reiciendis maiores inventore.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Dicta, ipsam animi. Doloremque blanditiis labore similique eveniet impedit totam amet pariatur aliquid. 
-                Beatae sequi dolor inventore, distinctio dignissimos voluptas quis eaque!
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-                Maxime molestiae eveniet deleniti aperiam quo commodi sunt inventore.
-                Beatae similique ullam laborum qui velit explicabo, vitae vero corrupti,
-
-                Esse dicta est possimus non delectus nemo cum architecto totam optio. 
-                Mollitia sapiente enim officia eius in facilis necessitatibus reiciendis maiores inventore.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Dicta, ipsam animi. Doloremque blanditiis labore similique eveniet impedit totam amet pariatur aliquid. 
-                Beatae sequi dolor inventore, distinctio dignissimos voluptas quis eaque!
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-                Maxime molestiae eveniet deleniti aperiam quo commodi sunt inventore.
-                Beatae similique ullam laborum qui velit explicabo, vitae vero corrupti,
-                est dolor sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Esse dicta est possimus non delectus nemo cum architecto totam optio. 
-                Mollitia sapiente enim officia eius in facilis necessitatibus reiciendis maiores inventore.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Dicta, ipsam animi. Doloremque blanditiis labore similique eveniet impedit totam amet pariatur aliquid. 
-                Beatae sequi dolor inventore, distinctio dignissimos voluptas quis eaque!
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-                Maxime molestiae eveniet deleniti aperiam quo commodi sunt inventore.
-                Beatae similique ullam laborum qui velit explicabo, vitae vero corrupti,
-                est dolor sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Esse dicta est possimus non delectus nemo cum architecto totam optio. 
-                Mollitia sapiente enim officia eius in facilis necessitatibus reiciendis maiores inventore.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Dicta, ipsam animi. Doloremque blanditiis labore similique eveniet impedit totam amet pariatur aliquid. 
-                Beatae sequi dolor inventore, distinctio dignissimos voluptas quis eaque!
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-                Maxime molestiae eveniet deleniti aperiam quo commodi sunt inventore.
-                Beatae similique ullam laborum qui velit explicabo, vitae vero corrupti,
-                est dolor sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Esse dicta est possimus non delectus nemo cum architecto totam optio. 
-                Mollitia sapiente enim officia eius in facilis necessitatibus reiciendis maiores inventore.
+                    {{event.eventDescription}}
                 </p>
             </div>
             <div class="col-span-3 sm:col-span-1 p-9">
@@ -66,7 +22,7 @@
                             <p class="text-1x font-semibold"> Date and Time </p>
                         </div>
                         <p class=" text-gray-500">
-                            Test
+                            {{event.eventDateTime}}
                         </p>
                     </div>
 
@@ -79,7 +35,7 @@
                             <p class="text-1x font-semibold"> Location </p>
                         </div>
                         <p class=" text-gray-500">
-                            Test
+                            {{event.eventLocation}}
                         </p>
                     </div>
                     <div class = "mb-3">
@@ -90,14 +46,13 @@
                             <p class="text-1x font-semibold"> Contact </p>
                         </div>
                         <p class=" text-gray-500">
-                            Test
+                            {{event.eventContact}}
                         </p>
                     </div>
                 </div>
 
                 <div class="button mb-10">
-                    <!-- Incomplete will send profile into database -->
-                    <button class="rounded py-3" id="button">Jio Me For this</button>
+                    <button class="rounded py-3" id="button" @click="showAndClosePopUp()">Jio Me For this</button>
                 </div>
 
                 <div class="link mb-10">
@@ -124,6 +79,55 @@
         </div>
     </div>
     <CopiedAlert v-if="copied"/>
+    <!-- MODAL WINDOW -->
+
+    <div id="popup-modal" tabindex="-1" class="z-40" v-if="showPopUpValue">
+        <div class="relative p-4 w-full max-w-md h-full md:h-auto">
+            <div class="relative bg-white rounded-lg shadow ">
+                <div class="p-6 text-center">
+                    <svg v-if="!failed && !alreadyRegistered" id="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"  class="mx-auto mb-4 w-14 h-14">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+
+                    <svg v-if="failed || alreadyRegistered" id = "icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mx-auto mb-4 w-14 h-14 text-black">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+
+                    <h3 class="mb-5 text-lg font-normal text-black">
+                        {{notificationMessage}}
+                    </h3>
+                    <div v-if="!failed && !alreadyRegistered && !successfullyRegistered">
+                        <button type="button" class="modal-button-accept" @click="registerUserId()">
+                            Yes, I'm sure
+                        </button>
+                        <button type="button" class="modal-button-reject" @click="showAndClosePopUp()">
+                            No, cancel
+                        </button>        
+                    </div>
+                    <div v-if="failed">
+                        <!-- Link to log in router -->
+                        <router-link to="/login">
+                            <button type="button" class="modal-button-accept" @click="registerUserId()">
+                                Proceed to Log In 
+                            </button>
+                        </router-link>
+                        <button type="button" class="modal-button-reject" @click="showAndClosePopUp()">
+                            No, cancel
+                        </button>    
+                    </div>
+                    <div v-if="alreadyRegistered  || successfullyRegistered">
+                        <button type="button" class="modal-button-reject" @click="showAndClosePopUp()">
+                            Close Window
+                        </button>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="overlay" v-if="showPopUpValue" @click="showAndClosePopUp()" class="z-30">
+    </div>
+
 </template>
 
 <script>
@@ -135,22 +139,84 @@
             id: this.$route.params.id,
             text: "http://samplelink.com",
             copied: false,
+            event: [],
+            showPopUpValue: false,
+            notificationMessage: "Are you sure you want to register for this event?",
+            failed: false,
+            alreadyRegistered: false, 
+            successfullyRegistered: false,
         }
     },
     methods: {
+        registerUserId(){ 
+            if(localStorage.getItem("userId")){
+                const userId = localStorage.getItem("userId");
+                const eventAttendees = this.event.eventAttendees;
+
+                if(eventAttendees.includes(userId)){
+                    this.notificationMessage = "Oops! It looks like you have already registered for the event!";
+                    this.alreadyRegistered = true;
+                }
+                else{
+                    eventAttendees.push(localStorage.getItem("userId"));
+                    console.log(eventAttendees);
+                    this.submitUserId(Object.values(eventAttendees));
+                    this.successfullyRegistered = true;
+                    this.notificationMessage = "You have successfully registered for the event!";
+                }
+            }
+            else{
+                console.log(" Please Login First!");
+                this.notificationMessage = `Oops! It looks like you aren't logged in. 
+                Please log in first before registering!`
+                this.failed = true;
+            }
+        },
         copyText(){
             navigator.clipboard.writeText(this.text);
             this.copied = true;
-
             setTimeout(() => {
                 this.copied = false;
             },1500);
+        },
+        async submitUserId(eventAttendees){
+            try {
+                const result = await this.$store.dispatch("addParticipants", {
+                eventId: this.id,
+                eventAttendees: eventAttendees,
+                });
+                console.log(result);
+            } catch (err) {
+                console.log(err)
+            }
+        },
+        showAndClosePopUp(){
+            this.successfullyRegistered = false;
+            this.alreadyRegistered = false;
+            this.failed = false;
+            
+            this.notificationMessage = "Are you sure you want to register for this event?";
+            this.showPopUpValue = !this.showPopUpValue;
+        }
+    },
+    async mounted() {
+            try {
+                await this.$store.dispatch("loadAllEvent");
+                let event = Object.values(this.$store.getters.getEventDataById(this.id));
+                this.event = event[0]
+                console.log(this.event);
+            } catch (err) {
+                this.error = err.message || "Failed to load events, try later";
+                console.log(this.error);
+            }
         }
     }
-}
 </script>
 
 <style scoped>
+#icon{
+    color:  #f56a01;
+}
 #button{
     background-color: #f56a01;
     color: white;
@@ -176,6 +242,48 @@ p, input[text]{
 .test{
     width: 100%;
 }
+#popup-modal{
+    position: fixed;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.modal-button-accept{
+    background-color: #f56a01;
+    color: white;
+    margin: 10px;
+    border-radius: 15px;
+    padding: 10px;
+}
+.modal-button-reject{
+    background-color: white;
+    color: #f56a01;
+    margin: 10px;
+    border-radius: 15px;
+    padding: 10px;
+    border: #f56a01 2px solid;
+}
 
+.modal-button-accept:hover {
+    background-color: rgba(255, 99, 71, 0.8);
+    color: #ffffff;
+}
+.modal-button-reject:hover {
+    background-color: rgba(255, 99, 71, 0.8);
+    color: #ffffff;
+}
+#overlay {
+    position: fixed; 
+    width: 100%; 
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);  
+    cursor: pointer; 
+}
 
 </style>
+
+<!-- localstrong.getitems  -->
