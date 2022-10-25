@@ -1,4 +1,40 @@
 <template>
+  <base-dialog v-if="showDialog">
+    <template #background>
+      <base-confetti />
+    </template>
+    <template #default>
+      <div class="flex items-center">
+        <img
+          class="success-icon mr-3"
+          src="../../assets/verified.gif"
+          alt="success"
+        />
+        <div>
+          <h1 class="text-2xl mb-1 md:mb-2">Success</h1>
+          <p>Congratulations, your account has been successfully created.</p>
+        </div>
+      </div>
+    </template>
+    <template #actions>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6"
+        @click="closeDialogMsg"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+    </template>
+  </base-dialog>
+
   <div id="content">
     <form @submit.prevent="submitForm" class="container p-4 mx-auto" novalidate>
       <h1 class="text-2xl md:text-3xl mb-1 md:mb-2 font-medium">
@@ -230,9 +266,13 @@
 </template>
 
 <script>
+import BaseConfetti from "../../components/UI/BaseConfetti.vue";
+
 export default {
+  components: { BaseConfetti },
   data() {
     return {
+      showDialog: false,
       userName: "",
       email: "",
       password: "",
@@ -243,7 +283,6 @@ export default {
         email: "",
         password: "",
       },
-      showDialog: true,
     };
   },
   watch: {
@@ -252,6 +291,12 @@ export default {
     },
   },
   methods: {
+    start() {
+      this.$confetti.start();
+    },
+    stop() {
+      this.$confetti.stop();
+    },
     switchVisibility() {
       const passwordField = document.querySelector("#password");
       if (passwordField.getAttribute("type") === "password") {
@@ -331,7 +376,7 @@ export default {
           }
         );
         if (createResultStatus && createDataInStoreStatus) {
-          this.$router.replace("/events");
+          this.confirmDialogMsg();
         }
       } catch (err) {
         if (err === "EMAIL_EXISTS") {
@@ -342,8 +387,15 @@ export default {
         console.log(err);
       }
     },
-    dismissDialog() {
+    closeDialogMsg() {
       this.showDialog = false;
+      this.$router.replace("/events");
+    },
+    confirmDialogMsg() {
+      this.showDialog = true;
+      setTimeout(() => {
+        this.$router.replace("/events");
+      }, 4000);
     },
   },
 };
@@ -434,5 +486,10 @@ input {
 .text-divider span {
   background: #fff;
   padding: 0 10px;
+}
+
+.success-icon {
+  width: 48px;
+  height: 48px;
 }
 </style>

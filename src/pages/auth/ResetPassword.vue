@@ -1,4 +1,37 @@
 <template>
+  <base-dialog v-if="showDialog">
+    <template #default>
+      <div class="flex items-center">
+        <img
+          class="success-icon mr-3"
+          src="../../assets/verified.gif"
+          alt="success"
+        />
+        <div>
+          <h1 class="text-2xl mb-1 md:mb-2">Password Changed!</h1>
+          <p>Your Password has been changed successfully.</p>
+        </div>
+      </div>
+    </template>
+    <template #actions>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6"
+        @click="confirmDialogMsg"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+    </template>
+  </base-dialog>
+
   <div id="content">
     <form @submit.prevent="submitForm" class="container p-4 mx-auto">
       <h1 class="text-2xl md:text-3xl mb-1 md:mb-2 font-medium">
@@ -248,6 +281,7 @@ export default {
       confirmPassword: "",
       showConfirmPassword: false,
       showPasswordRequirements: false,
+      showDialog: false,
       error: {
         password: "",
         confirmPassword: "",
@@ -341,6 +375,16 @@ export default {
       } catch (err) {
         console.log(err);
       }
+      this.showDialog = true;
+      setTimeout(() => {
+        this.showDialog = false;
+        this.$router.replace("/login");
+      }, 3000);
+      return;
+    },
+    confirmDialogMsg() {
+      this.showDialog = false;
+      this.$router.replace("/login");
     },
   },
 };
@@ -393,5 +437,10 @@ input {
 
 .custom-border {
   border: 1px solid #eee;
+}
+
+.success-icon {
+  width: 48px;
+  height: 48px;
 }
 </style>

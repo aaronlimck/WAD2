@@ -108,7 +108,7 @@ export default {
         method: "POST",
         body: JSON.stringify({
           oobCode: payload.oobCode,
-          newPassword: payload.password,
+          newPassword: payload.newPassword,
         }),
       }
     );
