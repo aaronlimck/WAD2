@@ -16,7 +16,7 @@
           class="bg-gradient-to-b from-pink-200 to-pink-100 border-b-4 border-pink-500 rounded-lg shadow-xl p-5 text-center"
         >
           <h2 class="font-bold uppercase text-gray-600">Newly Created Event</h2>
-          <p class="font-bold text-3xl" style="display: 'flex'">
+          <p class="font-bold text-3xl" style="display: 'flex';">
             {{ newlyCreated }}
           </p>
         </div>
@@ -64,9 +64,18 @@
         :description="event.eventDescription"
         :dateTime="event.eventDateTime"
         :location="event.eventLocation"
+
+
+        :eventAttendees = "event.eventAttendees"
+        :image = "event.image"
+        :participantsLimit = "event.participantsLimit"
+
       ></event-card>
     </div>
   </div>
+
+  {{whatiswrong}}
+  {{upComingEvent}}hiii
 </template>
 
 <script>
@@ -111,10 +120,19 @@ export default {
       Math.abs(new Date() - new Date(date).getTime())
     );
     var index = tempDate.indexOf(Math.min(...tempDate));
-    console.log(allDate[index]);
-    console.log(tempEvents[index]);
-    this.upComingEvent = tempEvents[index].eventName;
-    console.log(tempEvents[index]);
+   // console.log(allDate[index]);
+   // console.log(tempEvents[index]);
+   
+    for (let item in tempEvents[index]) {
+          
+      if (item == "eventName") {
+        this.upComingEvent = tempEvents[index][item];
+      }
+    }
+
+    this.upComingEvent = tempEvents;
+    //this.upComingEvent = tempEvents[index].eventName;
+   // console.log(tempEvents[index]);
 
     //to get the nearest 6
     let nearestSix = [];
@@ -197,6 +215,43 @@ export default {
 
       return returnNewlyCreated;
     },
+    whatiswrong(){
+      
+
+        let tempEvents = JSON.parse(JSON.stringify(this.events)); //assign to items after filtering
+        let allDate = [];
+        let allDate2 = [];
+
+        //split all the dates and add into allDate. Now items and items_filter is the same
+        for (let i = 0; i < tempEvents.length; i++) {
+          allDate.push(tempEvents[i].eventDateTime.split("T")[0]);
+          allDate2.push(tempEvents[i].eventDateTime.split("T")[0]);
+
+          console.log("***");
+        }
+        console.log(allDate);
+        console.log(allDate2);
+
+        //to get the nearest event
+        var tempDate = allDate.map((date) =>
+          Math.abs(new Date() - new Date(date).getTime())
+        );
+        var index = tempDate.indexOf(Math.min(...tempDate));
+       // this.upComingEvent = tempEvents[index].eventName;
+       console.log(index)
+       let theObj = tempEvents[index]
+       console.log(theObj)
+
+      //  let theEvents = [this.events[this.events.length - 1], {}];
+        for (let item in tempEvents[index]) {
+          
+          if (item == "eventName") {
+            console.log(tempEvents[index][item]);
+          }
+        }
+       console.log("&&&&&&&&&&&")
+        return ""
+    }
   },
   created() {},
 };
