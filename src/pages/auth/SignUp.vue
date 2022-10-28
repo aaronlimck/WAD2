@@ -208,10 +208,14 @@
         >
           <span class="sr-only">Info</span>
           <div>
-            <span class="font-medium">Password must:</span>
+            <span class="font-medium">Password requirements met!</span>
             <ul class="mt-1.5 ml-4 text-stone-800 list-disc list-inside">
               <li
-                :style="[password.length < 7 ? 'color: red' : 'color: green']"
+                :style="[
+                  password.length < 7
+                    ? 'color: red'
+                    : 'color: green; text-decoration: line-through',
+                ]"
               >
                 Be a minimum of 8 characters
               </li>
@@ -219,7 +223,7 @@
                 :style="[
                   !stringContainsLowercase(password)
                     ? 'color: red'
-                    : 'color: green',
+                    : 'color: green; text-decoration: line-through',
                 ]"
               >
                 Include at least one lowercase letter (a-z)
@@ -228,7 +232,7 @@
                 :style="[
                   !stringContainsUppercase(password)
                     ? 'color: red'
-                    : 'color: green',
+                    : 'color: green; text-decoration: line-through',
                 ]"
               >
                 Include at least one uppercase letter (A-Z)
@@ -237,7 +241,7 @@
                 :style="[
                   !stringContainsNumber(password)
                     ? 'color: red'
-                    : 'color: green',
+                    : 'color: green; text-decoration: line-through',
                 ]"
               >
                 Include at least one number (0-9)

@@ -1,11 +1,16 @@
 <template>
   <teleport to="body">
     <div><slot name="background"></slot></div>
-    <dialog open class="flex flex-col items-center">
+    <dialog
+      open
+      class="flex flex-col items-center"
+      :class="classes"
+      :style="style"
+    >
       <menu>
         <slot name="actions"></slot>
       </menu>
-      <section class="content">
+      <section class="content" :class="classes">
         <header>
           <slot name="header">
             <!-- THIS WILL APPEAR AS DEFAULT IF NO HTML IS INPUT -->
@@ -25,6 +30,14 @@
 export default {
   props: {
     title: {
+      type: String,
+      required: false,
+    },
+    style: {
+      type: String,
+      required: false,
+    },
+    classes: {
       type: String,
       required: false,
     },

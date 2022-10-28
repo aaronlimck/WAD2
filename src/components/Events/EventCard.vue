@@ -2,10 +2,13 @@
   <!-- ======= EventCard ======= -->
   <div class="bg-gray-50 rounded-lg border hover:drop-shadow-2xl h-full">
     <router-link :to="eventLink">
-      <img
-        class="h-40 w-full bject-cover rounded-t-lg"
-        src="../../images/bailey-zindel-NRQV-hBF10M-unsplash.jpg"
-      />
+      <p
+        v-show="this.$route.path === '/dashboard'"
+        class="absolute py-2 px-5 m-3 right-0 top-0 custom-bg text-white rounded-full"
+      >
+        Edit
+      </p>
+      <img class="h-48 w-full object-cover rounded-t-lg" :src="image" />
       <div class="flex px-3 py-6">
         <div class="w-1/6 pl-2">
           <p class="flex flex-col dateTime">
@@ -20,9 +23,6 @@
           </p>
         </div>
       </div>
-      <!-- <p class="text-md text-sl bg-slate-50 flex" id="dateTime">
-        {{ location }}
-      </p> -->
     </router-link>
   </div>
   <!--  ========== -->
@@ -30,7 +30,7 @@
 
 <script>
 export default {
-  props: ["eventname", "description", "id", "dateTime", "location"],
+  props: ["eventname", "description", "id", "dateTime", "location", "image"],
   data() {
     return {};
   },
@@ -91,14 +91,12 @@ button:active {
   background-color: rgba(255, 99, 71, 0.8);
   color: #ffffff;
 }
-
 .secondary {
   border: 2px solid #f56a01 !important;
   background-color: transparent;
   color: #f56a01;
   border: none;
 }
-
 .secondary:hover,
 .secondary:active {
   background-color: rgba(255, 99, 71, 0.8);
@@ -107,5 +105,8 @@ button:active {
 .dateTime,
 #location {
   color: #f56a01;
+}
+.custom-bg {
+  background: #f56a01;
 }
 </style>

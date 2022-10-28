@@ -1,5 +1,5 @@
 <template>
-  <TabsWrapper class="mt-6 px-4">
+  <TabsWrapper class="my-10 px-4">
     <Tab title="Profile">
       <form id="content" @submit.prevent="submitForm">
         <h1 class="text-2xl md:text-3xl mb-1 md:mb-2 font-medium">
@@ -39,7 +39,8 @@
             id="userName"
             type="text"
             name="userName"
-            :value="this.$store.getters.userName"
+            placeholder="Your Name"
+            v-model="userName"
           />
         </div>
 
@@ -50,7 +51,7 @@
               id="userEmail"
               type="text"
               name="userEmail"
-              :value="this.$store.getters.userEmail"
+              v-model="userEmail"
             />
           </div>
 
@@ -60,7 +61,8 @@
               id="userPhone"
               type="text"
               name="userPhone"
-              :value="this.$store.getters.userPhone"
+              placeholder="Your Phone Number"
+              v-model="userPhone"
             />
           </div>
         </div>
@@ -265,6 +267,9 @@ export default {
       currentPassword: "",
       newPassword: "",
       confirmNewPassword: "",
+      userName: localStorage.getItem("userName"),
+      userEmail: localStorage.getItem("userEmail"),
+      userPhone: localStorage.getItem("userPhone"),
     };
   },
   methods: {
@@ -302,16 +307,27 @@ export default {
       this.showChangePasswordField = !this.showChangePasswordField;
     },
     submitForm() {
-      console.log(
-        this.currentPassword,
-        this.newPassword,
-        this.confirmNewPassword
-      );
+      this.saveUserData();
+    },
+    async saveUserData() {
+      try {
+        const result = await this.$store.dispatch("editUserData", {
+          userName: this.userName,
+          email: this.userEmail,
+          userPhone: this.userPhone,
+        });
+        console.log(result);
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
   async mounted() {
     try {
       await this.$store.dispatch("loadUserData");
+      localStorage.setItem("userName", this.$store.getters.userName);
+      localStorage.setItem("userEmail", this.$store.getters.userEmail);
+      localStorage.setItem("userPhone", this.$store.getters.userPhone);
     } catch (err) {
       //this.error = err.message || "Failed to authenticate, try later";
     }

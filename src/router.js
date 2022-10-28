@@ -79,6 +79,7 @@ const router = createRouter({
 });
 
 router.beforeEach(function (to, _, next) {
+  window.scrollTo(0, 0);
   if (to.meta.requireAuth && !store.getters.isAuthenticated) {
     next("/login");
   } else {

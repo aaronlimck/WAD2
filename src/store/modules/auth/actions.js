@@ -1,3 +1,4 @@
+const G_KEY = process.env.VUE_APP_G_KEY;
 export default {
   async signup(context, payload) {
     return context.dispatch("auth", {
@@ -15,12 +16,10 @@ export default {
 
   async auth(context, payload) {
     const mode = payload.mode;
-    let url =
-      "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAwfv0cPv34-F3iZG0VcyoPoH1ThhC3fUU";
+    let url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${G_KEY}`;
 
     if (mode === "signup") {
-      url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAwfv0cPv34-F3iZG0VcyoPoH1ThhC3fUU";
+      url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${G_KEY}`;
     }
     const response = await fetch(url, {
       method: "POST",
@@ -80,7 +79,7 @@ export default {
 
   async passwordResetEmail(context, payload) {
     const response = await fetch(
-      "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAwfv0cPv34-F3iZG0VcyoPoH1ThhC3fUU",
+      `https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${G_KEY}`,
       {
         method: "POST",
         body: JSON.stringify({
@@ -103,7 +102,7 @@ export default {
 
   async resetPassword(context, payload) {
     const response = await fetch(
-      "https://identitytoolkit.googleapis.com/v1/accounts:resetPassword?key=AIzaSyAwfv0cPv34-F3iZG0VcyoPoH1ThhC3fUU",
+      `https://identitytoolkit.googleapis.com/v1/accounts:resetPassword?key=${G_KEY}`,
       {
         method: "POST",
         body: JSON.stringify({

@@ -4,7 +4,18 @@
   >
     <div class="container mx-auto flex items-center justify-between">
       <div>
-        <router-link to="/">Logo</router-link>
+        <router-link to="/">
+          <a href="https://flowbite.com/" class="flex items-center">
+            <img
+              src="https://flowbite.com/docs/images/logo.svg"
+              class="mr-3 h-8"
+              alt="FlowBite Logo"
+            />
+            <span class="self-center text-2xl font-semibold whitespace-nowrap"
+              >Bojio</span
+            >
+          </a></router-link
+        >
       </div>
 
       <div class="relative flex items-center">

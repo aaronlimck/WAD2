@@ -68,14 +68,14 @@
       </div>
     </div>
     <div class="w-10/12 mx-auto grid grid-cols-3 mt-4 gap-5">
-      <div v-for="event in events" :key="event.eventId">
+      <!-- <div v-for="event in events" :key="event.eventId">
         <event-card
           :name="event.eventName"
           :description="event.eventDescription"
           :timing="event.eventDateTime"
           :location="event.eventLocation"
         ></event-card>
-      </div>
+      </div> -->
     </div>
     <div class="mt-8 mb-10 text-center">
       <base-button class="p-2 text-sm">Click for more</base-button>
@@ -129,93 +129,95 @@
 </template>
 
 <script>
-import EventCard from "../../components/Events/EventCard.vue";
+// import EventCard from "../../components/Events/EventCard.vue";
 
 export default {
-  components: { EventCard },
+  components: {
+    //EventCard },
+  },
   data() {
     return {
       showDialog: false,
-      events: [
-        {
-          eventId: "eventId1",
-          eventName: "Event 1",
-          eventDescription:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae eveniet quae molestias, deleniti itaque, minima doloribus harum, quaerat fuga nisi impedit perspiciatis?",
-          eventDateTime: "2022-09-02",
-          eventCreatedBy: "SMU Club",
-          eventTags: ["scis", "tag2", "tag3"],
-          eventAttendees: ["StudentId1", "StudentId2"],
-          eventLocation: "SCIS, SR01-02",
-          eventContact: "contact@smu.edu.sg",
-          image: "...",
-        },
-        {
-          eventId: "eventId2",
-          eventName: "Event 2",
-          eventDescription:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae eveniet quae molestias, deleniti itaque, minima doloribus harum, quaerat fuga nisi impedit perspiciatis?",
-          eventDateTime: "2022-08-02",
-          eventCreatedBy: "SMU Club",
-          eventTags: ["scis", "tag2", "tag3"],
-          eventAttendees: ["StudentId1", "StudentId2"],
-          eventLocation: "SCIS, SR01-03",
-          eventContact: "contact@smu.edu.sg",
-          image: "...",
-        },
-        {
-          eventId: "eventId3",
-          eventName: "Event 3",
-          eventDescription:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae eveniet quae molestias, deleniti itaque, minima doloribus harum, quaerat fuga nisi impedit perspiciatis?",
-          eventDateTime: "2022-09-05",
-          eventCreatedBy: "SMU Club",
-          eventTags: ["scis", "tag2", "tag3"],
-          eventAttendees: ["StudentId1", "StudentId2"],
-          eventLocation: "SCIS, SR01-04",
-          eventContact: "contact@smu.edu.sg",
-          image: "...",
-        },
-        {
-          eventId: "eventId4",
-          eventName: "Event 4",
-          eventDescription:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae eveniet quae molestias, deleniti itaque, minima doloribus harum, quaerat fuga nisi impedit perspiciatis?",
-          eventDateTime: "2022-10-02",
-          eventCreatedBy: "SMU Club",
-          eventTags: ["scis", "tag2", "tag3"],
-          eventAttendees: ["StudentId1", "StudentId2"],
-          eventLocation: "SCIS, SR02-02",
-          eventContact: "contact@smu.edu.sg",
-          image: "...",
-        },
-        {
-          eventId: "eventId5",
-          eventName: "Event 5",
-          eventDescription:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae eveniet quae molestias, deleniti itaque, minima doloribus harum, quaerat fuga nisi impedit perspiciatis?",
-          eventDateTime: "2022-11-02",
-          eventCreatedBy: "SMU Club",
-          eventTags: ["scis", "tag2", "tag3"],
-          eventAttendees: ["StudentId1", "StudentId2"],
-          eventLocation: "SCIS, SR02-06",
-          eventContact: "contact@smu.edu.sg",
-          image: "...",
-        },
-        {
-          eventId: "eventId6",
-          eventName: "Event 6",
-          eventDescription:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae eveniet quae molestias, deleniti itaque, minima doloribus harum, quaerat fuga nisi impedit perspiciatis?",
-          eventDateTime: "2022-09-22",
-          eventCreatedBy: "SMU Club",
-          eventTags: ["scis", "tag2", "tag3"],
-          eventAttendees: ["StudentId1", "StudentId2"],
-          eventLocation: "SCIS, SR01-01",
-          eventContact: "contact@smu.edu.sg",
-          image: "...",
-        },
-      ],
+      // events: [
+      //   {
+      //     eventId: "eventId1",
+      //     eventName: "Event 1",
+      //     eventDescription:
+      //       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae eveniet quae molestias, deleniti itaque, minima doloribus harum, quaerat fuga nisi impedit perspiciatis?",
+      //     eventDateTime: "2022-09-02",
+      //     eventCreatedBy: "SMU Club",
+      //     eventTags: ["scis", "tag2", "tag3"],
+      //     eventAttendees: ["StudentId1", "StudentId2"],
+      //     eventLocation: "SCIS, SR01-02",
+      //     eventContact: "contact@smu.edu.sg",
+      //     image: "...",
+      //   },
+      //   {
+      //     eventId: "eventId2",
+      //     eventName: "Event 2",
+      //     eventDescription:
+      //       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae eveniet quae molestias, deleniti itaque, minima doloribus harum, quaerat fuga nisi impedit perspiciatis?",
+      //     eventDateTime: "2022-08-02",
+      //     eventCreatedBy: "SMU Club",
+      //     eventTags: ["scis", "tag2", "tag3"],
+      //     eventAttendees: ["StudentId1", "StudentId2"],
+      //     eventLocation: "SCIS, SR01-03",
+      //     eventContact: "contact@smu.edu.sg",
+      //     image: "...",
+      //   },
+      //   {
+      //     eventId: "eventId3",
+      //     eventName: "Event 3",
+      //     eventDescription:
+      //       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae eveniet quae molestias, deleniti itaque, minima doloribus harum, quaerat fuga nisi impedit perspiciatis?",
+      //     eventDateTime: "2022-09-05",
+      //     eventCreatedBy: "SMU Club",
+      //     eventTags: ["scis", "tag2", "tag3"],
+      //     eventAttendees: ["StudentId1", "StudentId2"],
+      //     eventLocation: "SCIS, SR01-04",
+      //     eventContact: "contact@smu.edu.sg",
+      //     image: "...",
+      //   },
+      //   {
+      //     eventId: "eventId4",
+      //     eventName: "Event 4",
+      //     eventDescription:
+      //       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae eveniet quae molestias, deleniti itaque, minima doloribus harum, quaerat fuga nisi impedit perspiciatis?",
+      //     eventDateTime: "2022-10-02",
+      //     eventCreatedBy: "SMU Club",
+      //     eventTags: ["scis", "tag2", "tag3"],
+      //     eventAttendees: ["StudentId1", "StudentId2"],
+      //     eventLocation: "SCIS, SR02-02",
+      //     eventContact: "contact@smu.edu.sg",
+      //     image: "...",
+      //   },
+      //   {
+      //     eventId: "eventId5",
+      //     eventName: "Event 5",
+      //     eventDescription:
+      //       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae eveniet quae molestias, deleniti itaque, minima doloribus harum, quaerat fuga nisi impedit perspiciatis?",
+      //     eventDateTime: "2022-11-02",
+      //     eventCreatedBy: "SMU Club",
+      //     eventTags: ["scis", "tag2", "tag3"],
+      //     eventAttendees: ["StudentId1", "StudentId2"],
+      //     eventLocation: "SCIS, SR02-06",
+      //     eventContact: "contact@smu.edu.sg",
+      //     image: "...",
+      //   },
+      //   {
+      //     eventId: "eventId6",
+      //     eventName: "Event 6",
+      //     eventDescription:
+      //       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae eveniet quae molestias, deleniti itaque, minima doloribus harum, quaerat fuga nisi impedit perspiciatis?",
+      //     eventDateTime: "2022-09-22",
+      //     eventCreatedBy: "SMU Club",
+      //     eventTags: ["scis", "tag2", "tag3"],
+      //     eventAttendees: ["StudentId1", "StudentId2"],
+      //     eventLocation: "SCIS, SR01-01",
+      //     eventContact: "contact@smu.edu.sg",
+      //     image: "...",
+      //   },
+      // ],
     };
   },
   methods: {
@@ -226,6 +228,10 @@ export default {
     confirmDialogMsg() {
       this.showDialog = false;
     },
+  },
+  mounted() {
+    console.log(process.env.VUE_APP_G_KEY);
+    console.log(process.env.VUE_APP_G_ENDPOINT);
   },
 };
 </script>
