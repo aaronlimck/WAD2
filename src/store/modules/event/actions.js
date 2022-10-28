@@ -56,7 +56,7 @@ export default {
     const eventId = payload.eventId; //new Date().getTime().toString();
     const token = context.rootGetters.token; //AIzaSyAwfv0cPv34-F3iZG0VcyoPoH1ThhC3fUU
     const response = await fetch(
-      `${G_ENDPOINT}//events/${eventId}.json?auth=` + token,
+      `${G_ENDPOINT}/events/${eventId}.json?auth=` + token,
       {
         method: "PATCH",
         body: JSON.stringify({
