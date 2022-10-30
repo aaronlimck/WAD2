@@ -20,6 +20,8 @@
         />
       </div>
 
+      
+
       <div class="form-control">
         <label for="eventLocation">Event Location</label>
         <input
@@ -30,6 +32,27 @@
         <div style="color: red" v-if="eventLocationErrorMessage_">
           {{ eventLocationErrorMessage }}
         </div>
+      </div>
+
+
+      <div class="form-control">
+
+
+      <label for="eventLocation"
+        >Location<span class="text-xs text-rose-600 mx-0.5">*</span></label>
+
+
+      <label for="eventLocation">Event Location</label>
+      <select  name="select" id="select" v-model="events[index].eventLocation">
+            
+            <option>SMU School of Accountancy</option>
+            <option>SMU Lee Kong Chian School of Business</option>
+            <option>SMU School of Economics</option>
+            <option>SMU School of Computing and Information Systems 1</option>
+            <option>SMU Yong Pung How School of Law</option>
+            <option>School of Social Sciences</option>
+          
+            </select>
       </div>
 
       <div class="form-control">
