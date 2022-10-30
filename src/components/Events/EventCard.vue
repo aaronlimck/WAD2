@@ -1,11 +1,12 @@
 <template>
   <!-- ======= EventCard ======= -->
-  <div class="p-2 bg-gray-50 rounded-xl border hover:drop-shadow-2xl m-5">
+  <router-link :to="eventLink">
+  <div class="p-5 hover:-translate-y-3 duration-500 bg-gray-50 rounded-xl border hover:drop-shadow-2xl m-5">
     <img
       class="h-40 w-full bject-cover rounded-xl"
       src="../../images/bailey-zindel-NRQV-hBF10M-unsplash.jpg"
     />
-    <h2 class="font-bold text-lg p-2 text-center">{{ eventname }}</h2>
+    <h2 class="font-bold text-lg p-2 text-center events-md:truncate">{{ eventname }}</h2>
     <p class="text-md text-sl bg-slate-50 rounded-lg flex" id="dateTime">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -45,16 +46,13 @@
       </svg>
       {{ location }}
     </p>
-    <p class="text-sm">{{ description }}</p>
-    <div class="m-2 hover">
-      <button>
+    <p class="text-sm events-md:truncate">{{ description }}</p>
         <!-- <router-link :to="{ name: 'TheEventProfilePage', params: { id: id } }">
           Read More
         </router-link> -->
-        <router-link :to="eventLink"> Read More </router-link>
-      </button>
-    </div>
+        
   </div>
+  </router-link>
   <!--  ========== -->
 </template>
 
