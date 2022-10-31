@@ -31,6 +31,7 @@
       </div>
     </router-link>
   </div>
+  </router-link>
   <!--  ========== -->
 </template>
 
