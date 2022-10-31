@@ -10,7 +10,7 @@
           src="https://cdn-icons-png.flaticon.com/512/300/300221.png"
           alt="google-icon"
         />
-        <p class="text-sm">Sign in with Google</p>
+        <a class="text-sm">Sign in with Google</a>
       </div>
 
       <p class="text-divider"><span>Or</span></p>

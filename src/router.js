@@ -15,8 +15,24 @@ import TheProfile from "./pages/user/TheProfile.vue";
 import TheDashboard from "./pages/club/TheDashboard.vue";
 import CreateEventForm from "./pages/club/CreateEventForm.vue";
 import OneEventForm from "./pages/club/OneEventForm.vue";
+// ERROR
+import UnauthorizationAccess from "./pages/errors/UnauthorizationAccess.vue";
 
 import store from "./store/index.js";
+
+function isAuthenticated() {
+  const authResult = store.getters.isAuthenticated;
+  if (authResult) {
+    return "/events";
+  }
+}
+
+function dashboardAccess() {
+  const clubId = localStorage.getItem("userClub");
+  if (clubId === "null" || clubId === "undefined") {
+    return "/unauthorised";
+  }
+}
 
 // INITIALISE ROUTES
 const router = createRouter({
@@ -38,22 +54,22 @@ const router = createRouter({
     {
       path: "/login",
       component: SignIn,
-      meta: { requireUnauth: true },
+      beforeEnter: [isAuthenticated],
     },
     {
       path: "/signup",
       component: SignUp,
-      meta: { requireUnauth: true },
+      beforeEnter: [isAuthenticated],
     },
     {
       path: "/forgot-password",
       component: ForgotPassword,
-      meta: { requireUnauth: true },
+      beforeEnter: [isAuthenticated],
     },
     {
       path: "/reset-password",
       component: ResetPassword,
-      meta: { requireUnauth: true },
+      beforeEnter: [isAuthenticated],
     },
     {
       path: "/profile",
@@ -63,28 +79,32 @@ const router = createRouter({
     {
       path: "/dashboard",
       component: TheDashboard,
-      meta: { requireAuth: true },
+      beforeEnter: [dashboardAccess],
     },
     {
       path: "/create-event",
       component: CreateEventForm,
       meta: { requireAuth: true },
+      beforeEnter: [dashboardAccess],
     },
     {
       path: "/edit-event/:id",
       component: OneEventForm,
       meta: { requireAuth: true },
+      beforeEnter: [dashboardAccess],
+    },
+    {
+      path: "/unauthorised",
+      component: UnauthorizationAccess,
     },
   ],
-});
-
-router.beforeEach(function (to, _, next) {
-  window.scrollTo(0, 0);
-  if (to.meta.requireAuth && !store.getters.isAuthenticated) {
-    next("/login");
-  } else {
-    next();
-  }
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    } else {
+      return { top: 0 };
+    }
+  },
 });
 
 export default router;

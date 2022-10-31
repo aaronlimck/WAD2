@@ -2,7 +2,7 @@
   <footer class="px-4 py-10 bg-white dark:bg-gray-900">
     <div class="container mx-auto md:flex md:justify-between">
       <div class="mb-6 md:mb-0">
-        <a href="https://flowbite.com/" class="flex items-center">
+        <a href="" class="flex items-center">
           <img
             src="https://flowbite.com/docs/images/logo.svg"
             class="mr-3 h-8"
@@ -23,14 +23,10 @@
           </h2>
           <ul class="text-gray-600 dark:text-gray-400">
             <li class="mb-4">
-              <a href="https://flowbite.com/" class="hover:underline"
-                >Flowbite</a
-              >
+              <a href="" class="hover:underline">Flowbite</a>
             </li>
             <li>
-              <a href="https://tailwindcss.com/" class="hover:underline"
-                >Tailwind CSS</a
-              >
+              <a href="" class="hover:underline">Tailwind CSS</a>
             </li>
           </ul>
         </div>
@@ -42,16 +38,10 @@
           </h2>
           <ul class="text-gray-600 dark:text-gray-400">
             <li class="mb-4">
-              <a
-                href="https://github.com/themesberg/flowbite"
-                class="hover:underline"
-                >Github</a
-              >
+              <a href="" class="hover:underline">Github</a>
             </li>
             <li>
-              <a href="https://discord.gg/4eeurUVvTy" class="hover:underline"
-                >Discord</a
-              >
+              <a href="" class="hover:underline">Discord</a>
             </li>
           </ul>
         </div>
@@ -75,9 +65,8 @@
     <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
     <div class="container mx-auto sm:flex sm:items-center sm:justify-between">
       <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400"
-        >© 2022
-        <a href="https://flowbite.com/" class="hover:underline">Flowbite™</a>.
-        All Rights Reserved.
+        >© 2022 <a href="" class="hover:underline">Flowbite™</a>. All Rights
+        Reserved.
       </span>
       <div class="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
         <a

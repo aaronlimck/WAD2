@@ -189,24 +189,17 @@
       </div>
 
       <div class="form-control">
-
-
         <label for="eventLocation"
           >Location<span class="text-xs text-rose-600 mx-0.5">*</span></label
         >
-        
-
-        <label for="eventLocation">Event Location</label>
-        <select  name="select" id="select" v-model="newItems.eventLocation">
-               
-              <option>SMU School of Accountancy</option>
-              <option>SMU Lee Kong Chian School of Business</option>
-              <option>SMU School of Economics</option>
-              <option>SMU School of Computing and Information Systems 1</option>
-              <option>SMU Yong Pung How School of Law</option>
-              <option>School of Social Sciences</option>
-            
-              </select>
+        <select name="select" id="select" v-model="newItems.eventLocation">
+          <option>SMU School of Accountancy</option>
+          <option>SMU Lee Kong Chian School of Business</option>
+          <option>SMU School of Economics</option>
+          <option>SMU School of Computing and Information Systems 1</option>
+          <option>SMU Yong Pung How School of Law</option>
+          <option>School of Social Sciences</option>
+        </select>
       </div>
 
       <div class="form-control">
@@ -292,31 +285,18 @@
         <input type="text" id="eventTags" v-model="newItems.eventTags" />
       </div>
 
-      <!-- <base-button
+      <base-button
         class="w-full py-2.5 my-4"
         :disabled="
-          eventNameErrorMessage ||
-          eventLocationErrorMessage ||
-          eventContactErrorMessage ||
-          eventDescriptionErrorMessage
+          !nameValidation() || !contactValidation() || !descriptionValidation()
         "
         :class="[
-          eventNameErrorMessage ||
-          eventLocationErrorMessage ||
-          eventContactErrorMessage ||
-          eventDescriptionErrorMessage
+          !nameValidation() || !contactValidation() || !descriptionValidation()
             ? 'grey'
             : '',
         ]"
         >Create Event</base-button
-      > -->
-      <base-button class="w-full py-2.5 my-4">Create Event</base-button>
-      <base-button class="w-full py-2.5 my-4"
-      :disabled="!nameValidation()  || !contactValidation() || !descriptionValidation()"
-        :class="[!nameValidation() || !contactValidation() || !descriptionValidation() ? 'grey' : '']"
-      >Create Event</base-button>
-
-      
+      >
     </form>
   </div>
 </template>
@@ -489,6 +469,7 @@ label {
   color: #787878;
 }
 
+select,
 input,
 textarea {
   font-size: 16px;

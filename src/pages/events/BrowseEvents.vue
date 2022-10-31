@@ -49,9 +49,9 @@
     >
       <div v-for="event in filteredPost" :key="event.eventId">
         <EventCard
+          :id="event.eventId"
           :eventname="event.eventName"
           :description="event.eventDescription.substr(0, 30)"
-          :id="event.eventId"
           :dateTime="event.eventDateTime"
           :location="event.eventLocation"
           :image="event.eventImage"
