@@ -11,4 +11,7 @@ export default {
   userClub(state) {
     return !!state.userClub;
   },
+  getUserData(state) {
+    return state;
+  },
 };

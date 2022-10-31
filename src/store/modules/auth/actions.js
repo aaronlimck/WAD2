@@ -119,4 +119,26 @@ export default {
     console.log(responseData);
     return response.ok;
   },
+
+  async changePassword(context, payload) {
+    const userId = localStorage.getItem("userId");
+
+    const response = await fetch(
+      `https://identitytoolkit.googleapis.com/v1/accounts:update?key=${G_KEY}`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          idToken: userId,
+          password: payload.newPassword,
+        }),
+      }
+    );
+    const responseData = await response.json();
+    if (!response.ok) {
+      const error = responseData.error.message;
+      throw error;
+    }
+    console.log(responseData);
+    return response.ok;
+  },
 };
