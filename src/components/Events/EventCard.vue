@@ -1,56 +1,32 @@
 <template>
   <!-- ======= EventCard ======= -->
-  <router-link :to="eventLink">
-  <div class="p-5 hover:-translate-y-3 duration-500 bg-gray-50 rounded-xl border hover:drop-shadow-2xl m-5">
-    <img
-      class="h-40 w-full bject-cover rounded-xl"
-      src="../../images/bailey-zindel-NRQV-hBF10M-unsplash.jpg"
-    />
-    <h2 class="font-bold text-lg p-2 text-center events-md:truncate">{{ eventname }}</h2>
-    <p class="text-md text-sl bg-slate-50 rounded-lg flex" id="dateTime">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="icon w-6 h-6"
+  <div class="bg-gray-50 rounded-lg border hover:drop-shadow-2xl h-full">
+    <router-link :to="eventLink">
+      <p
+        v-show="this.$route.path === '/dashboard'"
+        class="absolute py-2 px-5 m-3 right-0 top-0 custom-bg text-white rounded-full"
       >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"
-        />
-      </svg>
-      {{ dateTime }}
-    </p>
-    <p class="text-md text-sl bg-slate-50 rounded-lg flex" id="dateTime">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="w-6 h-6"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
-        />
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
-        />
-      </svg>
-      {{ location }}
-    </p>
-    <p class="text-sm events-md:truncate">{{ description }}</p>
-        <!-- <router-link :to="{ name: 'TheEventProfilePage', params: { id: id } }">
-          Read More
-        </router-link> -->
-        
+        Edit
+      </p>
+      <img class="h-48 w-full object-cover rounded-t-lg" :src="image" />
+      <div class="flex px-3 py-6">
+        <div class="w-1/6 pl-2">
+          <p class="flex flex-col dateTime">
+            <span class="text-base">{{ getMonth }}</span>
+            <span class="text-xl font-medium">{{ getDate }}</span>
+          </p>
+        </div>
+        <div class="w-5/6">
+          <h2 class="text-lg font-medium mb-1">{{ eventname }}</h2>
+          <p class="text-base text-slate-600">
+            {{ description.slice(0, 120) }}
+          </p>
+        </div>
+      </div>
+
+      <p :class="participantsClass" >{{ eventAttendees.length }} of {{participantsLimit}} participants</p>
+      {{howManyDaysLeft}} days left
+    </router-link>
   </div>
   </router-link>
   <!--  ========== -->
@@ -58,7 +34,7 @@
 
 <script>
 export default {
-  props: ["eventname", "description", "id", "dateTime", "location"],
+  props: ["eventname", "description", "id", "dateTime", "location", "image", "eventAttendees", "participantsLimit"],
   data() {
     return {};
   },
@@ -70,6 +46,77 @@ export default {
         return this.$route.path + "/" + this.id;
       }
     },
+    getDate() {
+      let date = new Date(this.dateTime);
+      return date.getDate();
+    },
+    getMonth() {
+      const monthNames = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+      let date = new Date(this.dateTime);
+      return monthNames[date.getMonth()].toUpperCase().slice(0, 3);
+    },
+    getYear() {
+      let date = new Date(this.dateTime);
+      return date.getYear();
+    },
+    howManyDaysLeft(){
+      let todaysDate = new Date();
+      let day = String(todaysDate.getDate()).padStart(2, '0');
+      let month = String(todaysDate.getMonth() + 1).padStart(2, '0'); //January is 0!
+      let year = todaysDate.getFullYear();
+
+      todaysDate = month + '/' + day + '/' + year;
+
+      let str = this.dateTime
+      let dateTimeArray = str.split("T")
+      let date_ = dateTimeArray[0]
+      let eventDate = date_.replaceAll("-", "/")
+
+
+      let todaysDate_ = new Date(todaysDate);
+      let eventDate_ = new Date(eventDate);
+
+      // To calculate the time difference of two dates
+      var Difference_Time = eventDate_.getTime() - todaysDate_.getTime();
+
+      // To calculate the no. of days between two dates
+      var howManyDaysLeft = Difference_Time / (1000 * 3600 * 24);
+
+      console.log(howManyDaysLeft)
+      //To display the final no. of days (result)
+
+      return howManyDaysLeft
+    },
+
+    participantsClass(){
+
+      let checkParticipants = (this.participantsLimit /2).toFixed(0)
+      let eventAttendeesLength = this.eventAttendees.length
+      // console.log("=====")
+      // console.log(checkParticipants)
+      // console.log(eventAttendeesLength)
+      if(eventAttendeesLength >= checkParticipants){
+        return "green text-sm"
+
+      }
+
+
+      return "red text-sm"
+      //text-sm
+    }
   },
 };
 </script>
@@ -93,22 +140,33 @@ button:active {
   background-color: rgba(255, 99, 71, 0.8);
   color: #ffffff;
 }
-
 .secondary {
   border: 2px solid #f56a01 !important;
   background-color: transparent;
   color: #f56a01;
   border: none;
 }
-
 .secondary:hover,
 .secondary:active {
   background-color: rgba(255, 99, 71, 0.8);
   color: #ffffff;
 }
-#dateTime,
+.dateTime,
 #location {
   color: #f56a01;
-  margin-bottom: 5px;
 }
+.custom-bg {
+  background: #f56a01;
+}
+
+.red{
+  color: red;
+}
+
+
+.green{
+  color: green;
+
+}
+
 </style>

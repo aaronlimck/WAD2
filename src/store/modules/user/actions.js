@@ -1,10 +1,11 @@
+const G_ENDPOINT = process.env.VUE_APP_G_ENDPOINT;
+
 export default {
   async createUser(context, payload) {
     const userId = context.rootGetters.userId;
     const token = context.rootGetters.token;
     const response = await fetch(
-      `https://bojio-6872d-default-rtdb.asia-southeast1.firebasedatabase.app/users/${userId}.json?auth=` +
-        token,
+      `${G_ENDPOINT}/users/${userId}.json?auth=` + token,
       {
         method: "PUT",
         body: JSON.stringify({
@@ -30,8 +31,7 @@ export default {
     const token = context.rootGetters.token;
 
     const response = await fetch(
-      `https://bojio-6872d-default-rtdb.asia-southeast1.firebasedatabase.app/users/${userId}.json?auth=` +
-        token,
+      `${G_ENDPOINT}/users/${userId}.json?auth=` + token,
       {
         method: "GET",
       }
@@ -52,6 +52,33 @@ export default {
       userClub: responseData.userClub != null ? responseData.userClub : null,
     });
     localStorage.setItem("userClub", responseData.userClub);
+    console.log(responseData);
+    return response.ok;
+  },
+
+  async editUserData(context, payload) {
+    const userId = context.rootGetters.userId;
+    const token = context.rootGetters.token;
+
+    const response = await fetch(
+      `${G_ENDPOINT}/users/${userId}.json?auth=` + token,
+      {
+        method: "PATCH",
+        body: JSON.stringify({
+          userName: payload.userName, //default
+          userEmail: payload.userEmail,
+          userPhone: payload.userPhone,
+        }),
+      }
+    );
+    const responseData = await response.json();
+    if (!response.ok) {
+      console.log(responseData);
+      const error = new Error(
+        responseData.message || "Failed to authenticate. Try again later"
+      );
+      throw error;
+    }
     console.log(responseData);
     return response.ok;
   },

@@ -1,6 +1,6 @@
 <template>
   <div class="searchContainer">
-    <div class="container mx-auto flex items-center">
+    <div class="container mx-auto flex items-center px-4">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -21,7 +21,8 @@
         type="text"
         placeholder="Search events, tags"
         :value="modelValue"
-        @input="$emit('update:modelValue',$event.target.value)"
+        @input.prevent="$emit('update:modelValue',$event.target.value)"
+        @input="$emit('update:modelValue', $event.target.value)"
       />
     </div>
   </div>
@@ -29,9 +30,9 @@
 
 <script>
 export default {
-  props:{
+  props: {
     modelValue: String,
-  }
+  },
 };
 </script>
 

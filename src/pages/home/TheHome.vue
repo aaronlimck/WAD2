@@ -177,6 +177,10 @@ export default {
       console.log(this.error);
     }
   },
+  mounted() {
+    console.log(process.env.VUE_APP_G_KEY);
+    console.log(process.env.VUE_APP_G_ENDPOINT);
+  },
 };
 </script>
 

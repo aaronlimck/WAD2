@@ -1,5 +1,6 @@
 import { createApp } from "vue";
 import "./index.css";
+import VueClickAway from "vue3-click-away";
 
 // IMPORT MAIN APPLICATION COMPONENT
 import router from "./router.js";
@@ -15,6 +16,7 @@ import NavigationBar from "./components/Layout/NavigationBar.vue";
 // INITIALISE APPLICATION
 const app = createApp(App);
 
+app.use(VueClickAway);
 app.use(router);
 app.use(store);
 

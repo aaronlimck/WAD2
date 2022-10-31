@@ -1,20 +1,27 @@
 <template>
   <teleport to="body">
-    <div></div>
-    <dialog open class="flex flex-col items-center w-full sm:w-1/2">
-      <header>
-        <slot name="header">
-          <!-- THIS WILL APPEAR AS DEFAULT IF NO HTML IS INPUT -->
-          <h2>{{ title }}</h2>
-        </slot>
-      </header>
-      <section>
-        <!-- THIS IS THE DEFAULT SLOT WHICH SHOW THE MSG INFO-->
-        <slot></slot>
-      </section>
+    <div><slot name="background"></slot></div>
+    <dialog
+      open
+      class="flex flex-col items-center"
+      :class="classes"
+      :style="style"
+    >
       <menu>
         <slot name="actions"></slot>
       </menu>
+      <section class="content" :class="classes">
+        <header>
+          <slot name="header">
+            <!-- THIS WILL APPEAR AS DEFAULT IF NO HTML IS INPUT -->
+            <h2>{{ title }}</h2>
+          </slot>
+        </header>
+        <section>
+          <!-- THIS IS THE DEFAULT SLOT WHICH SHOW THE MSG INFO-->
+          <slot></slot>
+        </section>
+      </section>
     </dialog>
   </teleport>
 </template>
@@ -23,6 +30,14 @@
 export default {
   props: {
     title: {
+      type: String,
+      required: false,
+    },
+    style: {
+      type: String,
+      required: false,
+    },
+    classes: {
       type: String,
       required: false,
     },
@@ -42,18 +57,23 @@ div {
 }
 
 dialog {
-  position: absolute;
+  position: fixed;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
   border-radius: 12px;
   border: none;
   box-shadow: 0 2px 8px (0, 0, 0, 0.26);
-  padding: 0;
-  margin: 0;
+  padding: 0px;
+  margin: 0px;
   overflow: hidden;
   z-index: 1000;
+}
+
+@media screen and (max-width: 425px) {
+  dialog {
+    width: 90%;
+  }
 }
 
 header h2 {
@@ -64,10 +84,13 @@ section {
   padding: 1rem;
 }
 
+.content {
+  padding-top: 2rem;
+}
+
 menu {
-  padding: 1rem;
-  display: flex;
-  justify-content: flex-end;
-  margin: 0;
+  position: absolute;
+  right: 0;
+  padding: 0.5rem;
 }
 </style>

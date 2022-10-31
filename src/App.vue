@@ -5,10 +5,15 @@
     <!-- PLACEHOLDER TELLING VUE ROUTER THAT THIS IS THE PLACE TO ROUTE THE COMPONENT AND LOAD IT -->
     <router-view />
   </main>
+  <the-footer></the-footer>
 </template>
 
 <script>
+import TheFooter from "./components/Layout/TheFooter.vue";
 export default {
+  components: {
+    TheFooter,
+  },
   data() {
     return {
       events: [
@@ -91,7 +96,20 @@ body {
   margin: 0;
 }
 
+#app {
+  display: flex;
+  flex-direction: column;
+}
+
 #nav {
   z-index: 30;
+}
+
+#confetti-canvas {
+  z-index: 999 !important;
+}
+
+footer {
+  margin-top: auto;
 }
 </style>
