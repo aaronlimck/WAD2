@@ -102,7 +102,7 @@ body {
 }
 
 #nav {
-  z-index: 10;
+  z-index: 30;
 }
 
 #confetti-canvas {

@@ -28,6 +28,7 @@
       {{howManyDaysLeft}} days left
     </router-link>
   </div>
+  </router-link>
   <!--  ========== -->
 </template>
 
