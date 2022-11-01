@@ -24,8 +24,8 @@
         </div>
       </div>
 
-      <p :class="participantsClass" >{{ eventAttendees.length }} of {{participantsLimit}} participants</p>
-      {{howManyDaysLeft}} days left
+      <!-- <p :class="participantsClass" >{{ eventAttendees.length }} of {{participantsLimit}} participants</p>
+      {{howManyDaysLeft}} days left -->
     </router-link>
   </div>
   <!--  ========== -->
