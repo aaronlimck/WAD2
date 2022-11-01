@@ -1,5 +1,5 @@
 <template>
-  <!-- class="bg-white sticky top-0 border-gray-200 px-2 sm:px-4 py-2.5 flex items-center" --> 
+  <!-- class="bg-white sticky top-0 border-gray-200 px-2 sm:px-4 py-2.5 flex items-center" -->
   <nav
     class="bg-white fixed border-gray-200 px-4 sm:px-4 py-2.5 flex items-center"
   >

@@ -10,7 +10,7 @@
           src="https://cdn-icons-png.flaticon.com/512/300/300221.png"
           alt="google-icon"
         />
-        <a class="text-sm">Sign in with Google</a>
+        <p class="text-sm">Sign in with Google</p>
       </div>
 
       <p class="text-divider"><span>Or</span></p>
@@ -248,7 +248,7 @@ export default {
 
 <style scoped>
 #content {
-  padding-top: 50px;
+  padding: 50px 0px;
 }
 
 form {
@@ -287,6 +287,10 @@ input {
   width: 20px;
   height: 20px;
   margin: 12px;
+}
+
+.login-with-google-btn-wrapper {
+  display: block !important;
 }
 
 .login-with-google-btn {

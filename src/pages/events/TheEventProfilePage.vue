@@ -170,7 +170,7 @@
             scrolling="no"
             marginheight="0"
             marginwidth="0"
-            src="https://maps.google.com/maps?width=100%25&amp;height=300&amp;hl=en&amp;q=SMU%20SCIS+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+            src="https://maps.google.com/maps?width=100%25&amp;height=300&amp;hl=en&amp;q=SMU%20SCIS&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
             ><a href="https://www.gps.ie/sport-gps/">fitness tracker</a></iframe
           >
         </div>

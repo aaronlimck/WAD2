@@ -407,7 +407,7 @@ export default {
 
 <style scoped>
 #content {
-  padding-top: 50px;
+  padding: 50px 0px;
 }
 
 form {
