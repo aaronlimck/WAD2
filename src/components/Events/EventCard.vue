@@ -24,17 +24,25 @@
         </div>
       </div>
 
-      <p :class="participantsClass" >{{ eventAttendees.length }} of {{participantsLimit}} participants</p>
-      {{howManyDaysLeft}} days left
+      <!-- <p :class="participantsClass" >{{ eventAttendees.length }} of {{participantsLimit}} participants</p>
+      {{howManyDaysLeft}} days left -->
     </router-link>
   </div>
-  </router-link>
   <!--  ========== -->
 </template>
 
 <script>
 export default {
-  props: ["eventname", "description", "id", "dateTime", "location", "image", "eventAttendees", "participantsLimit"],
+  props: [
+    "eventname",
+    "description",
+    "id",
+    "dateTime",
+    "location",
+    "image",
+    "eventAttendees",
+    "participantsLimit",
+  ],
   data() {
     return {};
   },
@@ -43,7 +51,7 @@ export default {
       if (this.$route.path === "/dashboard") {
         return "/edit-event/" + this.id;
       } else {
-        return this.$route.path + "/" + this.id;
+        return "events" + "/" + this.id;
       }
     },
     getDate() {
@@ -72,19 +80,18 @@ export default {
       let date = new Date(this.dateTime);
       return date.getYear();
     },
-    howManyDaysLeft(){
+    howManyDaysLeft() {
       let todaysDate = new Date();
-      let day = String(todaysDate.getDate()).padStart(2, '0');
-      let month = String(todaysDate.getMonth() + 1).padStart(2, '0'); //January is 0!
+      let day = String(todaysDate.getDate()).padStart(2, "0");
+      let month = String(todaysDate.getMonth() + 1).padStart(2, "0"); //January is 0!
       let year = todaysDate.getFullYear();
 
-      todaysDate = month + '/' + day + '/' + year;
+      todaysDate = month + "/" + day + "/" + year;
 
-      let str = this.dateTime
-      let dateTimeArray = str.split("T")
-      let date_ = dateTimeArray[0]
-      let eventDate = date_.replaceAll("-", "/")
-
+      let str = this.dateTime;
+      let dateTimeArray = str.split("T");
+      let date_ = dateTimeArray[0];
+      let eventDate = date_.replaceAll("-", "/");
 
       let todaysDate_ = new Date(todaysDate);
       let eventDate_ = new Date(eventDate);
@@ -95,28 +102,25 @@ export default {
       // To calculate the no. of days between two dates
       var howManyDaysLeft = Difference_Time / (1000 * 3600 * 24);
 
-      console.log(howManyDaysLeft)
+      console.log(howManyDaysLeft);
       //To display the final no. of days (result)
 
-      return howManyDaysLeft
+      return howManyDaysLeft;
     },
 
-    participantsClass(){
-
-      let checkParticipants = (this.participantsLimit /2).toFixed(0)
-      let eventAttendeesLength = this.eventAttendees.length
+    participantsClass() {
+      let checkParticipants = (this.participantsLimit / 2).toFixed(0);
+      let eventAttendeesLength = this.eventAttendees.length;
       // console.log("=====")
       // console.log(checkParticipants)
       // console.log(eventAttendeesLength)
-      if(eventAttendeesLength >= checkParticipants){
-        return "green text-sm"
-
+      if (eventAttendeesLength >= checkParticipants) {
+        return "green text-sm";
       }
 
-
-      return "red text-sm"
+      return "red text-sm";
       //text-sm
-    }
+    },
   },
 };
 </script>
@@ -159,14 +163,11 @@ button:active {
   background: #f56a01;
 }
 
-.red{
+.red {
   color: red;
 }
 
-
-.green{
+.green {
   color: green;
-
 }
-
 </style>
