@@ -24,11 +24,16 @@
         </div>
       </div>
 
+<<<<<<< HEAD
       <div v-show="this.$route.path === '/dashboard'">
         <!-- <p :class="participantsClass"> -->
         <p>{{ eventAttendees }} of {{ participantsLimit }} participants</p>
         {{ howManyDaysLeft }} days left
       </div>
+=======
+      <!-- <p :class="participantsClass" >{{ eventAttendees.length }} of {{participantsLimit}} participants</p>
+      {{howManyDaysLeft}} days left -->
+>>>>>>> dee8621f65ac5bd457eb960fec2311ead3bdfd71
     </router-link>
   </div>
   <!--  ========== -->
@@ -54,7 +59,7 @@ export default {
       if (this.$route.path === "/dashboard") {
         return "/edit-event/" + this.id;
       } else {
-        return this.$route.path + "/" + this.id;
+        return "events" + "/" + this.id;
       }
     },
     getDate() {
@@ -111,6 +116,7 @@ export default {
       return howManyDaysLeft;
     },
 
+<<<<<<< HEAD
     // participantsClass() {
     //   let checkParticipants = (this.participantsLimit / 2).toFixed(0);
     //   let eventAttendeesLength = this.eventAttendees.length;
@@ -121,6 +127,21 @@ export default {
     //   return "red text-sm";
     //   //text-sm
     // },
+=======
+    participantsClass() {
+      let checkParticipants = (this.participantsLimit / 2).toFixed(0);
+      let eventAttendeesLength = this.eventAttendees.length;
+      // console.log("=====")
+      // console.log(checkParticipants)
+      // console.log(eventAttendeesLength)
+      if (eventAttendeesLength >= checkParticipants) {
+        return "green text-sm";
+      }
+
+      return "red text-sm";
+      //text-sm
+    },
+>>>>>>> dee8621f65ac5bd457eb960fec2311ead3bdfd71
   },
 };
 </script>
