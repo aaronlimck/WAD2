@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-gray-50 rounded-lg border">
-    <div class="img h-48 w-full object-cover rounded-t-lg"></div>
+  <div class=" rounded-lg ">
+    <div class="img h-48 w-full object-cover rounded-lg"></div>
     <div class="px-3 py-6">
       <div class="w-5/6">
         <span class="rounded-md"></span>

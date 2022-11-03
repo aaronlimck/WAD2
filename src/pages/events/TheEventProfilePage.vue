@@ -54,19 +54,19 @@
             <router-link to="/login">
               <button
                 type="button"
-                class="modal-button-accept"
+                class="modal-button-accept w-full"
                 @click="registerUserId()"
               >
                 Proceed to Log In
               </button>
             </router-link>
-            <button
+            <!-- <button
               type="button"
               class="modal-button-reject"
               @click="showAndClosePopUp()"
             >
               No, cancel
-            </button>
+            </button> -->
           </div>
           <div v-if="alreadyRegistered || successfullyRegistered">
             <button
@@ -108,6 +108,7 @@
             {{ event.eventName }}
           </h1>
           <p class="text-white">
+            <!-- WILL CHANGE TO EVENTSHORTDESCRIP -->
             Far far away, behind the word mountains, far from the countries
             Vokalia and Consonantia, there live the blind texts. Separated they
             live in Bookmarksgrove right at the coast of the Semantics, a large
@@ -138,9 +139,10 @@
               </div>
               <base-button
                 mode="flat"
-                class="w-full my-3 py-2 sm:mr-0 md:mr-3"
+                :class="{'w-full':true, 'my-3':true, 'py-2':true, 'sm:mr-0':true, 'md:mr-3':true, 'btn_disabled':checkedRegistered }"
                 @click="showAndClosePopUp()"
-                >Register</base-button
+                v-text="checkedRegistered ? 'Already Registered' : 'Register'"
+                ></base-button
               >
               <base-button mode="secondary" class="w-full py-2 sm:mr-0 md:mr-3"
                 >Share</base-button
@@ -311,9 +313,6 @@
         </div>
       </div>
 
-      <div class="col-span-3 sm:col-span-2">
-        <h2 class="text-xl font-medium mb-3 mt-10">Other Event You May Like</h2>
-      </div>
     </div>
   </div>
   <CopiedAlert v-if="copied" />
@@ -342,6 +341,7 @@ export default {
       failed: false,
       alreadyRegistered: false,
       successfullyRegistered: false,
+      checkedRegistered: false,
     };
   },
   computed: {
@@ -389,9 +389,10 @@ export default {
     backgroundImage() {
       return {
         backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.30)), url(${this.event.eventImage})`,
-      };
+        };
+      },
     },
-  },
+
   methods: {
     registerUserId() {
       if (localStorage.getItem("userId")) {
@@ -450,7 +451,16 @@ export default {
       await this.$store.dispatch("loadAllEvent");
       let event = Object.values(this.$store.getters.getEventDataById(this.id));
       this.event = event[0];
-      console.log(this.event);
+      if(localStorage.getItem("userId")){
+        let userId = localStorage.getItem("userId")
+        if(Object.values(this.event.eventAttendees).includes(userId)){
+          this.checkedRegistered = true;
+        }
+        else{
+          this.checkedRegistered = false;
+        }
+      }
+    
     } catch (err) {
       this.error = err.message || "Failed to load events, try later";
       console.log(this.error);
@@ -460,6 +470,11 @@ export default {
 </script>
 
 <style scoped>
+.btn_disabled{
+  background-color: rgba(232, 157, 144, 0.8);
+  border: none;
+  pointer-events: none;
+}
 .cover {
   display: flex;
   align-items: center;
