@@ -64,20 +64,14 @@
         :description="event.eventDescription"
         :dateTime="event.eventDateTime"
         :location="event.eventLocation"
-        :image="event.eventImage"
         :eventAttendees="event.eventAttendees"
+        :image="event.image"
         :participantsLimit="event.participantsLimit"
       ></event-card>
     </div>
   </div>
 
-<<<<<<< HEAD
-  {{ whatiswrong }}
-  {{ upComingEvent }}
-=======
- 
-  {{upComingEvent}}hiiii
->>>>>>> dee8621f65ac5bd457eb960fec2311ead3bdfd71
+  {{ upComingEvent }}hiiii
 </template>
 
 <script>
@@ -101,7 +95,6 @@ export default {
       setTimeout(() => {
         this.events = this.$store.getters.getEventDataByClubId;
 
-
         let tempEvents = JSON.parse(JSON.stringify(this.events)); //assign to items after filtering
         let allDate = [];
         let allDate2 = [];
@@ -117,19 +110,17 @@ export default {
           Math.abs(new Date() - new Date(date).getTime())
         );
         var index = tempDate.indexOf(Math.min(...tempDate));
-      // console.log(allDate[index]);
-      // console.log(tempEvents[index]);
-      
+        // console.log(allDate[index]);
+        // console.log(tempEvents[index]);
+
         for (let item in tempEvents[index]) {
-              
           if (item == "eventName") {
             this.upComingEvent = tempEvents[index][item];
           }
         }
 
-        
         //this.upComingEvent = tempEvents[index].eventName;
-      // console.log(tempEvents[index]);
+        // console.log(tempEvents[index]);
 
         //to get the nearest 6
         let nearestSix = [];
@@ -204,106 +195,6 @@ export default {
       this.error = err.message || "Failed to load events, try later";
       console.log(this.error);
     }
-
-<<<<<<< HEAD
-    let tempEvents = JSON.parse(JSON.stringify(this.events)); //assign to items after filtering
-    let allDate = [];
-    let allDate2 = [];
-
-    //split all the dates and add into allDate. Now items and items_filter is the same
-    for (let i = 0; i < tempEvents.length; i++) {
-      allDate.push(tempEvents[i].eventDateTime.split("T")[0]);
-      allDate2.push(tempEvents[i].eventDateTime.split("T")[0]);
-      console.log("***");
-    }
-    //to get the nearest event
-    var tempDate = allDate.map((date) =>
-      Math.abs(new Date() - new Date(date).getTime())
-    );
-    var index = tempDate.indexOf(Math.min(...tempDate));
-    // console.log(allDate[index]);
-    // console.log(tempEvents[index]);
-
-    for (let item in tempEvents[index]) {
-      if (item == "eventName") {
-        this.upComingEvent = tempEvents[index][item];
-      }
-    }
-
-    this.upComingEvent = tempEvents;
-    //this.upComingEvent = tempEvents[index].eventName;
-    // console.log(tempEvents[index]);
-
-    //to get the nearest 6
-    let nearestSix = [];
-    //tempEvents.splice(index, 1)
-
-    while (nearestSix.length < 6) {
-      console.log(allDate2);
-      var tempDate2 = allDate2.map((date) =>
-        Math.abs(new Date() - new Date(date).getTime())
-      );
-      var index2 = tempDate2.indexOf(Math.min(...tempDate2));
-      console.log(allDate2[index2]);
-
-      nearestSix.push(tempEvents[index2]);
-      allDate2.splice(index2, 1);
-      tempEvents.splice(index2, 1);
-
-      this.nearestSixEvent = nearestSix;
-      console.log(allDate2);
-      console.log(nearestSix);
-    }
-
-    console.log(this.nearestSixEvent[5] + "****");
-    const ctx = document.getElementById("myChart");
-    const myChart = new Chart(ctx, {
-      type: "bar",
-      data: {
-        labels: [
-          this.nearestSixEvent[0].eventName,
-          this.nearestSixEvent[1].eventName,
-          this.nearestSixEvent[2].eventName,
-          this.nearestSixEvent[3].eventName,
-          this.nearestSixEvent[4].eventName,
-          this.nearestSixEvent[5].eventName,
-        ],
-        datasets: [
-          {
-            label: "Number of Participants",
-            data: [
-              this.nearestSixEvent[0].eventAttendees.length,
-              this.nearestSixEvent[1].eventAttendees.length,
-              this.nearestSixEvent[2].eventAttendees.length,
-              this.nearestSixEvent[3].eventAttendees.length,
-              this.nearestSixEvent[4].eventAttendees.length,
-              this.nearestSixEvent[5].eventAttendees.length,
-            ],
-            backgroundColor: [
-              "rgba(255, 99, 132, 0.2)",
-              "rgba(54, 162, 235, 0.2)",
-              "rgba(255, 206, 86, 0.2)",
-              "rgba(75, 192, 192, 0.2)",
-              "rgba(153, 102, 255, 0.2)",
-              "rgba(255, 159, 64, 0.2)",
-            ],
-            borderColor: [
-              "rgba(255, 99, 132, 1)",
-              "rgba(54, 162, 235, 1)",
-              "rgba(255, 206, 86, 1)",
-              "rgba(75, 192, 192, 1)",
-              "rgba(153, 102, 255, 1)",
-              "rgba(255, 159, 64, 1)",
-            ],
-            borderWidth: 1,
-          },
-        ],
-      },
-    });
-    myChart;
-=======
-    
->>>>>>> dee8621f65ac5bd457eb960fec2311ead3bdfd71
   },
   computed: {
     newlyCreated() {

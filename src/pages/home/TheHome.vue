@@ -17,11 +17,7 @@
   </base-dialog>
 
   <section>
-<<<<<<< HEAD
     <div class="intro md:text-center">
-=======
-    <div class="intro desktop-md-max:text-center">
->>>>>>> dee8621f65ac5bd457eb960fec2311ead3bdfd71
       <div class="flex flex-col">
         <p class="leading-12 mb-3 p-9">
           <span class="text-3xl">Don't say...</span><br /><span class="text-6xl"
@@ -29,11 +25,7 @@
           >
         </p>
         <p
-<<<<<<< HEAD
           class="md:mb-4 text-xl md:self-end px-8 py-3 md:rounded-l-full bg-white"
-=======
-          class="desktop-md-max:mb-4 text-xl desktop-md-min:self-end px-8 py-3 desktop-md-min:rounded-l-full bg-white"
->>>>>>> dee8621f65ac5bd457eb960fec2311ead3bdfd71
         >
           Join now to browse a wide range of events!<br />
           Create
@@ -48,15 +40,9 @@
     <div class="text-2xl w-8/12 m-auto text-center p-10 text-red-600">
       We offer a complete range of exciting features
     </div>
-<<<<<<< HEAD
     <div class="w-11/12 mx-auto md:flex text-center mb-12">
       <div
         class="md:mr-10 md:mb-10 md:w-4/12 bg-orange-100 reveal-one reveal rounded-3xl p-6"
-=======
-    <div class="w-11/12 mx-auto events-md:flex text-center mb-12">
-      <div
-        class="events-md:mr-10 events-md-max:mb-10 events-md:w-4/12 bg-orange-100 reveal-one reveal rounded-3xl p-6"
->>>>>>> dee8621f65ac5bd457eb960fec2311ead3bdfd71
       >
         <img
           class="inline w-20"
@@ -74,11 +60,7 @@
         </div>
       </div>
       <div
-<<<<<<< HEAD
         class="md:mr-10 md:mb-10 md:w-4/12 bg-orange-100 reveal reveal-sec rounded-3xl p-6"
-=======
-        class="events-md:mr-10 events-md-max:mb-10 events-md:w-4/12 bg-orange-100 reveal reveal-sec rounded-3xl p-6"
->>>>>>> dee8621f65ac5bd457eb960fec2311ead3bdfd71
       >
         <img class="inline w-20" src="../../assets/filter.svg" alt="filter" />
         <div class="mt-3 text-xl leading-5">Filter System</div>
@@ -91,11 +73,7 @@
         </div>
       </div>
       <div
-<<<<<<< HEAD
         class="md-max:mb-8 md:w-4/12 bg-orange-100 reveal reveal-thi rounded-3xl p-6"
-=======
-        class="events-md-max:mb-8 events-md:w-4/12 bg-orange-100 reveal reveal-thi rounded-3xl p-6"
->>>>>>> dee8621f65ac5bd457eb960fec2311ead3bdfd71
       >
         <img class="inline w-20" src="../../assets/write.svg" alt="write" />
         <div class="mt-3 text-xl leading-5">Ease of Access</div>
@@ -110,18 +88,9 @@
       </div>
     </div>
 
-<<<<<<< HEAD
     <div class="w-10/12 mx-auto grid md:grid-cols-2 lg:grid-cols-3 mt-4 gap-5">
       <div v-for="event in events" :key="event.eventId">
         <event-card
-=======
-    <div
-      class="w-10/12 mx-auto grid events-md:grid-cols-2 events-lg:grid-cols-3 mt-4 gap-5"
-    >
-      <div v-for="event in events" :key="event.eventId">
-        <event-card
-          :image="event.eventImage"
->>>>>>> dee8621f65ac5bd457eb960fec2311ead3bdfd71
           :id="event.eventId"
           :eventname="event.eventName"
           :description="event.eventDescription"
@@ -131,19 +100,10 @@
         ></event-card>
       </div>
       <div
-<<<<<<< HEAD
         class="first-card flex flex-col justify-evenly lg:hidden m-5 p-8 rounded-xl border"
       >
         <p class="text-center font-mono text-xl md:mb-5">Just 3 events?</p>
         <p class="text-center font-mono text-xl md:mb-5">
-=======
-        class="first-card flex flex-col justify-evenly events-lg:hidden  p-8 rounded-xl border"
-      >
-        <p class="text-center font-mono text-xl events-md-max:mb-5">
-          Just 3 events?
-        </p>
-        <p class="text-center font-mono text-xl events-md-max:mb-5">
->>>>>>> dee8621f65ac5bd457eb960fec2311ead3bdfd71
           Disappointed and wanting more?
         </p>
         <p class="text-center font-mono text-xl">
@@ -160,7 +120,6 @@
         ></router-link
       >
     </div>
-<<<<<<< HEAD
     <div class="p-9 md:flex bg-gray-100">
       <div
         class="md:w-2/5 md:flex md:flex-col md:justify-center md:mb-12 md:mr-8"
@@ -170,32 +129,15 @@
           <span class="happy">happy</span> visitors
         </p>
         <p class="pr-3 md:text-center">
-=======
-    <div class="p-9 bottom-md-min:flex bg-gray-100">
-      <div
-        class="bottom-md-min:w-2/5 bottom-md-min:flex bottom-md-min:flex-col bottom-md-min:justify-center bottom-md-max:mb-12 bottom-md-min:mr-8"
-      >
-        <p class="text-4xl mb-8 bottom-md-max:text-center leading-12">
-          Check out some of our top reviews from our
-          <span class="happy">happy</span> visitors
-        </p>
-        <p class="pr-3 bottom-md-max:text-center">
->>>>>>> dee8621f65ac5bd457eb960fec2311ead3bdfd71
           As a representative of all SMU students, it is our responsibility to
           uphold the highest standards of excellence. Therefore, any critique
           will be taken into consideration as we strive to not only better your
           experience but exceed your expectations.
         </p>
       </div>
-<<<<<<< HEAD
       <div class="md:w-3/5">
         <div
           class="p-7 md:w-11/12 mb-5 border shadow-xl relative rounded z-20 bg-white"
-=======
-      <div class="bottom-md-min:w-3/5">
-        <div
-          class="p-7 bottom-md-min:w-11/12 mb-5 border shadow-xl relative rounded z-20 bg-white"
->>>>>>> dee8621f65ac5bd457eb960fec2311ead3bdfd71
         >
           <div class="text-md leading-5 mb-3">
             I was initially skeptical when I first heard of BOJIO. However, at
@@ -216,11 +158,7 @@
           </div>
         </div>
         <div
-<<<<<<< HEAD
           class="p-7 md:w-11/12 border shadow-xl z-10 bg-white md:float-right"
-=======
-          class="p-7 bottom-md-min:w-11/12 border shadow-xl z-10 bg-white bottom-md-min:float-right"
->>>>>>> dee8621f65ac5bd457eb960fec2311ead3bdfd71
         >
           <div class="text-md leading-5 mb-3">
             I was very excited when I first heard of BOJIO. Being a freshman at
