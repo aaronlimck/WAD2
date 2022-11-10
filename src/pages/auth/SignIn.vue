@@ -223,8 +223,13 @@ export default {
           password: this.password,
         });
         const loadUserDataResult = await this.$store.dispatch("loadUserData");
+        const redirect = localStorage.getItem("eventHistory");
         if (loginResult && loadUserDataResult) {
-          this.$router.replace("/events");
+          if (redirect != null) {
+            this.$router.replace(redirect);
+          } else {
+            this.$router.replace("/events");
+          }
         }
       } catch (err) {
         if (err === "EMAIL_NOT_FOUND") {

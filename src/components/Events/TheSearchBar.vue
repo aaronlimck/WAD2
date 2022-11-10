@@ -19,11 +19,33 @@
       <input
         class="ml-3 searchbar"
         type="text"
-        placeholder="Search events, tags"
+        placeholder="Search event name, school faculty"
         :value="modelValue"
-        @input.prevent="$emit('update:modelValue',$event.target.value)"
+        @input.prevent="$emit('update:modelValue', $event.target.value)"
         @input="$emit('update:modelValue', $event.target.value)"
+        @focus="showDropdown"
+        @keydown.esc="closeDropdown"
+        @keydown.enter="closeDropdown"
+        v-click-away="closeDropdown"
       />
+    </div>
+  </div>
+  <div v-if="searchFocus" id="dropdown" class="py-10">
+    <div class="container mx-auto">
+      <p class="mx-3 mb-2 font-medium uppercase text-sm">School Faculty</p>
+      <ul class="flex flex-col">
+        <li
+          class="customPill text-sm"
+          v-for="filter in filters"
+          :key="filter"
+          @click="
+            getSchoolName(filter);
+            closeDropdown();
+          "
+        >
+          {{ filter }}
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -32,13 +54,57 @@
 export default {
   props: {
     modelValue: String,
+    getSchoolName: Function,
+  },
+  data() {
+    return {
+      filters: [
+        `SMU School of Accountancy`,
+        `SMU Lee Kong Chian School of Business`,
+        `SMU School of Economics`,
+        `SMU School of Computing and Information Systems 1`,
+        `SMU Yong Pung How School of Law`,
+        `School of Social Sciences`,
+      ],
+      searchFocus: false,
+    };
+  },
+  methods: {
+    showDropdown() {
+      this.searchFocus = !this.searchFocus;
+    },
+    closeDropdown() {
+      this.searchFocus = false;
+    },
   },
 };
 </script>
 
 <style scoped>
-.searchContainer {
+.searchContainer,
+#dropdown {
   border-bottom: 1px solid #eee;
+}
+
+#dropdown {
+  position: absolute;
+  background: white;
+  width: 100%;
+  z-index: 100;
+}
+
+.customPill {
+  padding: 0 16px;
+  border-radius: 8px;
+  margin: 4px;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.15 ease;
+  height: 36px;
+  white-space: nowrap;
+  text-decoration: none;
+  box-shadow: inset rgb(0 0 0 / 15%) 0 0 0 1px;
 }
 
 .searchbar {

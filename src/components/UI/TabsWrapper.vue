@@ -44,6 +44,8 @@ export default {
 }
 
 .tabs__header li {
+  display: flex;
+  align-items: center;
   font-size: 14px;
   text-align: center;
   padding: 8px 28px;

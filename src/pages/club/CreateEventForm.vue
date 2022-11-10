@@ -95,7 +95,7 @@
     </div>
   </section>
 
-  <div id="sample" class="mt-5">
+  <div class="mt-5">
     <!-- <h1 class="text-center text-xl mb-5">Create Event</h1> -->
     <form @submit.prevent="submitForm" class="container mx-auto px-4 py-10">
       <h2 class="text-xl font-medium mb-3">Event Information</h2>
@@ -111,7 +111,7 @@
         />
         <div
           v-if="eventNameErrorMessage != ''"
-          class="flex p-4 my-2 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+          class="flex p-4 my-2 text-sm text-red-700 bg-red-100 rounded-lg"
           role="alert"
         >
           <svg
@@ -138,13 +138,24 @@
         <label for="eventDescription"
           >Description<span class="text-xs text-rose-600 mx-0.5">*</span></label
         >
-        <textarea
+        <!-- <textarea
           id="eventDescription"
           rows="10"
           class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border bg-white"
           v-model="newItems.eventDescription"
           @blur="descriptionValidation"
-        ></textarea>
+        ></textarea> -->
+
+        <QuillEditor
+          style="
+            min-height: 200px !important;
+            border: 1px solid #eee;
+            border-radius: 5px;
+          "
+          :options="options"
+          v-model:content="newItems.eventDescription"
+          contentType="html"
+        />
 
         <div
           v-if="eventDescriptionErrorMessage != ''"
@@ -180,51 +191,6 @@
           v-model="newItems.eventDateTime"
         />
       </div>
-
-      <!-- <div class="form-control">
-        <div class="grid gap-4 grid-cols-1 sm:grid-cols-2">
-          <div>
-            <label for="eventStartDateTime"
-              >Event start<span class="text-xs text-rose-600 mx-0.5"
-                >*</span
-              ></label
-            >
-            <div class="grid gap-4 grid-cols-2">
-              <input
-                type="date"
-                id="eventStartDateTime"
-                name="eventStartDate"
-                v-model="newItems.eventStartDate"
-              />
-              <input
-                type="time"
-                id="eventStartDateTime"
-                name="eventStartDate"
-                v-model="newItems.eventStartTime"
-                @blur="eventDateTime"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label for="eventEndDateTime">Event ends</label>
-            <div class="grid gap-4 grid-cols-2">
-              <input
-                type="date"
-                id="eventEndDateTime"
-                name="eventEndDateTime"
-                v-model="newItems.eventDateTime"
-              />
-              <input
-                type="time"
-                id="eventEndDateTime"
-                name="eventEndDateTime"
-                v-model="newItems.eventDateTime"
-              />
-            </div>
-          </div>
-        </div>
-      </div> -->
 
       <div class="form-control">
         <label for="eventLocation"
@@ -341,10 +307,22 @@
 
 <script>
 import formCover from "@/assets/form-cover.jpg";
+import { QuillEditor } from "@vueup/vue-quill";
+import "@vueup/vue-quill/dist/vue-quill.snow.css";
 
 export default {
+  components: {
+    QuillEditor,
+  },
   data() {
     return {
+      options: {
+        // modules: {
+        //   toolbar: ["bold", "italic", "underline"],
+        // },
+        placeholder: "Write something interesting here",
+        theme: "snow",
+      },
       openUploadDialog: false,
       defaultForCover: {
         display: "flex",
@@ -404,7 +382,6 @@ export default {
     // },
 
     imageValidation() {
-      console.log(this.newItems.eventImage.includes("jpg"));
       if (
         this.newItems.eventImage.includes(".jpg") ||
         this.newItems.eventImage.includes(".JPG") ||
@@ -463,7 +440,6 @@ export default {
       return true;
     },
     async submitForm() {
-      console.log("run");
       try {
         const resultStatus = await this.$store.dispatch("createEvent", {
           eventName: this.newItems.eventName,
@@ -473,7 +449,9 @@ export default {
           eventDescription: this.newItems.eventDescription,
           eventTags:
             this.newItems.eventTags.length != 0
-              ? this.newItems.eventTags.split(",")
+              ? this.newItems.eventTags
+                  .split(",")
+                  .map((element) => element.trim())
               : null,
           eventImage: this.newItems.eventImage,
           eventAttendees: ["0"], //default

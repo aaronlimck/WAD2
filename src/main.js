@@ -16,9 +16,9 @@ import NavigationBar from "./components/Layout/NavigationBar.vue";
 // INITIALISE APPLICATION
 const app = createApp(App);
 
-app.use(VueClickAway);
 app.use(router);
 app.use(store);
+app.use(VueClickAway);
 
 // INITIALISE BASE COMPONENTS
 app.component("base-button", BaseButton);

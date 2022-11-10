@@ -7,12 +7,8 @@
       <div>
         <router-link to="/">
           <a href="https://flowbite.com/" class="flex items-center">
-            <img
-              src="https://flowbite.com/docs/images/logo.svg"
-              class="mr-3 h-8"
-              alt="FlowBite Logo"
-            />
-            <span class="self-center text-2xl font-semibold whitespace-nowrap"
+            <span
+              class="logo-text self-center text-2xl font-semibold whitespace-nowrap"
               >Bojio</span
             >
           </a></router-link
@@ -119,7 +115,7 @@ export default {
   },
   methods: {
     onClickAway() {
-      this.dropDown();
+      this.isOpen = false;
     },
     dropDown() {
       this.isOpen = !this.isOpen;
@@ -160,5 +156,10 @@ a {
 
 .bg-custom:hover {
   background-color: #f56a01;
+}
+
+.logo-text {
+  font-family: "Fredoka One";
+  letter-spacing: 2px;
 }
 </style>

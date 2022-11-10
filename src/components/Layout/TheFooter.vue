@@ -3,14 +3,9 @@
     <div class="container mx-auto md:flex md:justify-between">
       <div class="mb-6 md:mb-0">
         <router-link to="/" class="flex items-center">
-          <img
-            src="https://flowbite.com/docs/images/logo.svg"
-            class="mr-3 h-8"
-            alt="FlowBite Logo"
-          />
           <span
-            class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
-            >Flowbite</span
+            class="logo-text self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
+            >Bojio</span
           >
         </router-link>
       </div>
@@ -23,10 +18,12 @@
           </h2>
           <ul class="text-gray-600 dark:text-gray-400">
             <li class="mb-4">
-              <a href="" class="hover:underline">Flowbite</a>
-            </li>
-            <li>
-              <a href="" class="hover:underline">Tailwind CSS</a>
+              <a
+                href="https://blog.smu.edu.sg/"
+                class="hover:underline"
+                target="blank"
+                >SMU Blogs</a
+              >
             </li>
           </ul>
         </div>
@@ -143,3 +140,10 @@
     </div>
   </footer>
 </template>
+
+<style scoped>
+.logo-text {
+  font-family: "Fredoka One";
+  letter-spacing: 2px;
+}
+</style>

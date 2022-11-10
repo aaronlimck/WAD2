@@ -1,77 +1,73 @@
-<template style="color: black; width: 100%">
-  <div class="container mx-auto">
-    <div class="grid ld:grid-cols-4 md:grid-cols-4 sm:grid-cols-12 gap-4">
-      <div>
-        <div
-          class="bg-gradient-to-b from-green-200 to-green-100 border-b-4 border-green-600 rounded-lg shadow-xl p-5 text-center"
-        >
-          <h2 class="font-bold uppercase text-gray-600">Total Events</h2>
-
-          <p class="font-bold text-3xl">{{ events.length }}</p>
+<template>
+  <div class="py-10">
+    <div class="container mx-auto pb-10">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 px-4">
+        <div>
+          <div class="p-6 bg-white rounded-lg border border-gray-200 h-full">
+            <h2 class="uppercase text-gray-500 text-sm mb-2">Total Events</h2>
+            <p class="font-medium text-xl">{{ events.length }}</p>
+          </div>
         </div>
-      </div>
-
-      <div>
-        <div
-          class="bg-gradient-to-b from-pink-200 to-pink-100 border-b-4 border-pink-500 rounded-lg shadow-xl p-5 text-center"
-        >
-          <h2 class="font-bold uppercase text-gray-600">Newly Created Event</h2>
-          <p class="font-bold text-3xl" style="display: 'flex'">
-            {{ newlyCreated }}
-          </p>
+        <div>
+          <div class="p-6 bg-white rounded-lg border border-gray-200 h-full">
+            <h2 class="uppercase text-gray-500 text-sm mb-2">
+              Newly Created Event
+            </h2>
+            <p class="font-medium text-xl">
+              {{ newlyCreated }}
+            </p>
+          </div>
         </div>
-      </div>
-      <div>
-        <div
-          class="bg-gradient-to-b from-yellow-200 to-yellow-100 border-b-4 border-yellow-600 rounded-lg shadow-xl p-5 text-center"
-        >
-          <h2 class="font-bold uppercase text-gray-600">Upcoming event</h2>
-          <p class="font-bold text-3xl">{{ upComingEvent }}</p>
+        <div>
+          <div class="p-6 bg-white rounded-lg border border-gray-200 h-full">
+            <h2 class="uppercase text-gray-500 text-sm mb-2">Upcoming event</h2>
+            <p class="font-medium text-xl">{{ upComingEvent }}</p>
+          </div>
         </div>
-      </div>
-      <div>
-        <div
-          class="bg-gradient-to-b from-purple-200 to-purple-100 border-b-4 border-purple-600 rounded-lg shadow-xl p-5 text-center"
-        >
-          <h2 class="font-bold uppercase text-gray-600">Total Club members</h2>
-          <p class="font-bold text-3xl">30</p>
+        <div>
+          <div class="p-6 bg-white rounded-lg border border-gray-200 h-full">
+            <h2 class="uppercase text-gray-500 text-sm mb-2">
+              Total Club member
+            </h2>
+            <p class="font-medium text-xl">30</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- graph ===== -->
-  <canvas id="myChart" width="400" height="50"> </canvas>
-  <!-- graph ====== -->
+    <!-- graph ===== -->
+    <div class="container mx-auto pb-10 hidden md:block">
+      <canvas id="myChart" width="400" height="50"> </canvas>
+    </div>
+    <!-- graph ====== -->
 
-  <div
-    v-if="events.length === 0"
-    class="w-10/12 mx-auto grid sm:grid-cols-2 md:grid-cols-3 mt-4 gap-5"
-  >
-    <div v-for="n in 6" :key="n">
-      <EventCardSkeleton />
+    <div
+      v-if="events.length === 0"
+      class="w-10/12 mx-auto grid sm:grid-cols-2 md:grid-cols-3 mt-4 gap-5"
+    >
+      <div v-for="n in 6" :key="n">
+        <EventCardSkeleton />
+      </div>
+    </div>
+    <div
+      v-else
+      class="w-10/12 mx-auto grid sm:grid-cols-2 md:grid-cols-3 mt-4 gap-5"
+    >
+      <div v-for="event of events" :key="event.eventName">
+        <!-- Current Event ID is not in the vueX Store -->
+        <event-card
+          :id="event.eventId"
+          :eventname="event.eventName"
+          :description="event.eventDescription"
+          :dateTime="event.eventDateTime"
+          :location="event.eventLocation"
+          :eventAttendees="event.eventAttendees"
+          :image="event.eventImage"
+          :participantsLimit="event.participantsLimit"
+        ></event-card>
+      </div>
     </div>
   </div>
-  <div
-    v-else
-    class="w-10/12 mx-auto grid sm:grid-cols-2 md:grid-cols-3 mt-4 gap-5"
-  >
-    <div v-for="event of events" :key="event.eventName">
-      <!-- Current Event ID is not in the vueX Store -->
-      <event-card
-        :id="event.eventId"
-        :eventname="event.eventName"
-        :description="event.eventDescription"
-        :dateTime="event.eventDateTime"
-        :location="event.eventLocation"
-        :eventAttendees="event.eventAttendees"
-        :image="event.image"
-        :participantsLimit="event.participantsLimit"
-      ></event-card>
-    </div>
-  </div>
-
-  {{ upComingEvent }}hiiii
 </template>
 
 <script>
@@ -160,12 +156,12 @@ export default {
               {
                 label: "Number of Participants",
                 data: [
-                  this.nearestSixEvent[0].eventAttendees.length,
-                  this.nearestSixEvent[1].eventAttendees.length,
-                  this.nearestSixEvent[2].eventAttendees.length,
-                  this.nearestSixEvent[3].eventAttendees.length,
-                  this.nearestSixEvent[4].eventAttendees.length,
-                  this.nearestSixEvent[5].eventAttendees.length,
+                  this.nearestSixEvent[0].eventAttendees.length - 1,
+                  this.nearestSixEvent[1].eventAttendees.length - 1,
+                  this.nearestSixEvent[2].eventAttendees.length - 1,
+                  this.nearestSixEvent[3].eventAttendees.length - 1,
+                  this.nearestSixEvent[4].eventAttendees.length - 1,
+                  this.nearestSixEvent[5].eventAttendees.length - 1,
                 ],
                 backgroundColor: [
                   "rgba(255, 99, 132, 0.2)",
@@ -208,40 +204,6 @@ export default {
       }
 
       return returnNewlyCreated;
-    },
-    whatiswrong() {
-      let tempEvents = JSON.parse(JSON.stringify(this.events)); //assign to items after filtering
-      let allDate = [];
-      let allDate2 = [];
-
-      //split all the dates and add into allDate. Now items and items_filter is the same
-      for (let i = 0; i < tempEvents.length; i++) {
-        allDate.push(tempEvents[i].eventDateTime.split("T")[0]);
-        allDate2.push(tempEvents[i].eventDateTime.split("T")[0]);
-
-        console.log("***");
-      }
-      console.log(allDate);
-      console.log(allDate2);
-
-      //to get the nearest event
-      var tempDate = allDate.map((date) =>
-        Math.abs(new Date() - new Date(date).getTime())
-      );
-      var index = tempDate.indexOf(Math.min(...tempDate));
-      // this.upComingEvent = tempEvents[index].eventName;
-      console.log(index);
-      let theObj = tempEvents[index];
-      console.log(theObj);
-
-      //  let theEvents = [this.events[this.events.length - 1], {}];
-      for (let item in tempEvents[index]) {
-        if (item == "eventName") {
-          console.log(tempEvents[index][item]);
-        }
-      }
-      console.log("&&&&&&&&&&&");
-      return "";
     },
   },
   created() {},

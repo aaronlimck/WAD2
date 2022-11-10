@@ -86,7 +86,7 @@ export default {
     return response.ok;
   },
 
-  async addParticipants(context, payload) {
+  async editParticipants(context, payload) {
     const eventId = payload.eventId;
     const token = context.rootGetters.token;
 

@@ -1,6 +1,9 @@
 <template>
   <!-- ======= EventCard ======= -->
-  <div class="bg-gray-50 rounded-lg border hover:drop-shadow-2xl h-full">
+  <div
+    class="bg-gray-50 rounded-lg border customShadow h-full"
+    :class="classes"
+  >
     <router-link :to="eventLink">
       <p
         v-show="this.$route.path === '/dashboard'"
@@ -18,14 +21,12 @@
         </div>
         <div class="w-5/6">
           <h2 class="text-lg font-medium mb-1">{{ eventname }}</h2>
-          <p class="text-base text-slate-600">
-            {{ description.slice(0, 120) }}
-          </p>
+          <div id="textContent" v-html="description.slice(0, 120)"></div>
         </div>
       </div>
 
       <div v-show="this.$route.path === '/dashboard'">
-        <!-- <p :class="participantsClass" >{{ eventAttendees.length }} of {{participantsLimit}} participants</p>
+        <!-- <p :class="participantsClass" >{{ eventAttendees.length - 1}} of {{participantsLimit}} participants</p>
       {{howManyDaysLeft}} days left -->
       </div>
     </router-link>
@@ -36,6 +37,7 @@
 <script>
 export default {
   props: [
+    "classes",
     "eventname",
     "description",
     "id",
@@ -170,5 +172,9 @@ button:active {
 
 .green {
   color: green;
+}
+
+.customShadow:hover {
+  box-shadow: 0 8px 24px 0 rgb(0 0 0 / 16%);
 }
 </style>

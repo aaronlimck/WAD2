@@ -1,136 +1,179 @@
 <template>
-  <div id="sample" class="mt-5">
+  <section :style="defaultForCover" class="cover">
+    <div class="container mx-auto py-1 px-4 relative">
+      <!-- <input id="fileUpload" type="file" class="invisible absolute" /> -->
+      <button
+        class="absolute bottom-0 right-0 text-sm bg-neutral-200 hover:bg-neutral-300 py-1.5 px-4 mt-4 rounded-lg"
+        @click="changeCover()"
+      >
+        Change Cover
+      </button>
+    </div>
+  </section>
+
+  <div id="sample" class="my-10 px-4 md:px-0">
     <h1 class="text-center text-xl mb-5">Edit Event</h1>
-    <form @submit.prevent="submitForm" class="container mx-auto">
-      <div class="form-control">
-        <label for="eventName">Event Name</label>
-        <input type="text" id="eventName" v-model="events[index].eventName" />
-        <div style="color: red" v-if="eventNameErrorMessage_">
-          {{ eventNameErrorMessage }}
-        </div>
-      </div>
 
-      <div class="form-control">
-        <label for="eventDate">Event Date</label>
-        <input
-          type="datetime-local"
-          id="eventDateTime"
-          name="eventDateTime"
-          v-model="events[index].eventDateTime"
-        />
-      </div>
+    <div class="container mx-auto">
+      <form @submit.prevent="submitForm" class="grid gap-4 grid-cols-3">
+        <div class="col-span-3 sm:col-span-2">
+          <div class="form-control">
+            <label for="eventName">Name</label>
+            <input
+              type="text"
+              id="eventName"
+              v-model="events[index].eventName"
+            />
+            <div style="color: red" v-if="eventNameErrorMessage_">
+              {{ eventNameErrorMessage }}
+            </div>
+          </div>
 
-      
-
-      <div class="form-control">
-        <label for="eventLocation">Event Location</label>
-        <input
-          type="text"
-          id="eventLocation"
-          v-model="events[index].eventLocation"
-        />
-        <div style="color: red" v-if="eventLocationErrorMessage_">
-          {{ eventLocationErrorMessage }}
-        </div>
-      </div>
-
-
-      <div class="form-control">
-
-
-      <label for="eventLocation"
-        >Location<span class="text-xs text-rose-600 mx-0.5">*</span></label>
-
-
-      <label for="eventLocation">Event Location</label>
-      <select  name="select" id="select" v-model="events[index].eventLocation">
-            
-            <option>SMU School of Accountancy</option>
-            <option>SMU Lee Kong Chian School of Business</option>
-            <option>SMU School of Economics</option>
-            <option>SMU School of Computing and Information Systems 1</option>
-            <option>SMU Yong Pung How School of Law</option>
-            <option>School of Social Sciences</option>
-          
-            </select>
-      </div>
-
-      <div class="form-control">
-        <label for="eventContact">Event Contact Person</label>
-        <input
-          type="text"
-          id="eventContact"
-          v-model="events[index].eventContact"
-        />
-        <div style="color: red" v-if="eventContactErrorMessage_">
-          {{ eventContactErrorMessage }}
-        </div>
-      </div>
-
-      <div class="form-control">
-        <label for="eventDescription">Event Participants Limit</label>
-        <select
-          name="select"
-          id="select"
-          v-model="events[index].participantsLimit"
-        >
-          <option>10</option>
-          <option>20</option>
-          <option>30</option>
-          <option>40</option>
-          <option>50</option>
-          <option>50</option>
-          <option>56</option>
-          <option>70</option>
-          <option>80</option>
-          <option>90</option>
-          <option>100</option>
-        </select>
-      </div>
-
-      <div class="form-control">
-        <label for="eventDescription">Event Description</label>
-        <textarea
+          <div class="form-control">
+            <label for="eventDescription">Description</label>
+            <!-- <textarea
           id="eventDescription"
           v-model="events[index].eventDescription"
-        />
-        <div style="color: red" v-if="eventDescriptionErrorMessage_">
-          {{ eventDescriptionErrorMessage }}
+        /> -->
+            <QuillEditor
+              style="
+                min-height: 200px !important;
+                border: 1px solid #eee;
+                border-radius: 5px;
+              "
+              :options="options"
+              v-model:content="events[index].eventDescription"
+              contentType="html"
+            />
+            <div style="color: red" v-if="eventDescriptionErrorMessage_">
+              {{ eventDescriptionErrorMessage }}
+            </div>
+          </div>
+
+          <div class="form-control">
+            <label for="eventDate">Event Date</label>
+            <input
+              type="datetime-local"
+              id="eventDateTime"
+              name="eventDateTime"
+              v-model="events[index].eventDateTime"
+            />
+          </div>
+
+          <div class="form-control">
+            <label for="eventContact">Event Contact Person</label>
+            <input
+              type="text"
+              id="eventContact"
+              v-model="events[index].eventContact"
+            />
+            <div style="color: red" v-if="eventContactErrorMessage_">
+              {{ eventContactErrorMessage }}
+            </div>
+          </div>
+
+          <div class="form-control">
+            <label for="participantsLimit"
+              >Participants Limit<span class="text-xs text-rose-600 mx-0.5"
+                >*</span
+              ></label
+            >
+            <input
+              type="number"
+              name="participantsLimit"
+              v-model="events[index].participantsLimit"
+              @blur="participantLimitValidation"
+            />
+          </div>
+
+          <div class="form-control">
+            <label for="eventTags">Event Tags (Separate by Commas)</label>
+            <input
+              type="text"
+              id="eventTags"
+              v-model="events[index].eventTags"
+            />
+          </div>
+
+          <base-button
+            class="w-full py-2.5 my-4"
+            :disabled="
+              eventNameErrorMessage_ ||
+              eventLocationErrorMessage_ ||
+              eventContactErrorMessage_ ||
+              eventDescriptionErrorMessage_
+            "
+            :class="[
+              eventNameErrorMessage_ ||
+              eventLocationErrorMessage_ ||
+              eventContactErrorMessage_ ||
+              eventDescriptionErrorMessage_
+                ? 'grey'
+                : '',
+            ]"
+            >Edit Event</base-button
+          >
         </div>
-      </div>
 
-      <div class="form-control">
-        <label for="eventTags">Event Tags (Separate by Commas)</label>
-        <input type="text" id="eventTags" v-model="events[index].eventTags" />
-      </div>
-
-      <input type="file" @change="onFileSelected" />
-      <base-button
-        class="w-full py-2.5 my-4"
-        :disabled="
-          eventNameErrorMessage_ ||
-          eventLocationErrorMessage_ ||
-          eventContactErrorMessage_ ||
-          eventDescriptionErrorMessage_
-        "
-        :class="[
-          eventNameErrorMessage_ ||
-          eventLocationErrorMessage_ ||
-          eventContactErrorMessage_ ||
-          eventDescriptionErrorMessage_
-            ? 'grey'
-            : '',
-        ]"
-        >Edit Event</base-button
-      >
-    </form>
+        <div class="col-span-3 sm:col-span-1">
+          <div class="form-control">
+            <label for="eventLocation"
+              >Location<span class="text-xs text-rose-600 mx-0.5 mb-1"
+                >*</span
+              ></label
+            >
+            <iframe
+              width="100%"
+              height="300"
+              frameborder="0"
+              scrolling="no"
+              marginheight="0"
+              marginwidth="0"
+              :src="getMapAddress()"
+            ></iframe>
+            <select
+              name="select"
+              id="select"
+              class="mt-5"
+              v-model="events[index].eventLocation"
+            >
+              <option>SMU School of Accountancy</option>
+              <option>SMU Lee Kong Chian School of Business</option>
+              <option>SMU School of Economics</option>
+              <option>SMU School of Computing and Information Systems 1</option>
+              <option>SMU Yong Pung How School of Law</option>
+              <option>School of Social Sciences</option>
+            </select>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
 <script>
+import formCover from "@/assets/form-cover.jpg";
+import { QuillEditor } from "@vueup/vue-quill";
+import "@vueup/vue-quill/dist/vue-quill.snow.css";
+
 export default {
+  components: {
+    QuillEditor,
+  },
   data() {
     return {
+      options: {
+        placeholder: "Write something interesting here",
+        theme: "snow",
+      },
+      defaultForCover: {
+        display: "flex",
+        alignItems: "center",
+        background: `url('${formCover}')`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        height: "25vh",
+      },
       id: this.$route.params.id,
       index: null,
       events: [],
@@ -143,7 +186,7 @@ export default {
         eventTags: [],
         eventAttendees: [],
         eventCreatedByClubId: localStorage.getItem("userClub"),
-        Image: "",
+        eventImage: "",
         participantsLimit: 10,
       },
       eventNameErrorMessage: "** Event name should be more than one character",
@@ -156,6 +199,10 @@ export default {
     };
   },
   methods: {
+    getMapAddress() {
+      const params = this.events[this.index].eventLocation;
+      return `https://maps.google.com/maps?q=${params}&z=14&ie=UTF8&output=embed`;
+    },
     async submitForm() {
       try {
         const resultStatus = await this.$store.dispatch("editEvent", {
@@ -170,28 +217,23 @@ export default {
               ? this.events[this.index].eventTags
               : null,
           eventCreatedByClubId: this.events[this.index].eventCreatedByClubId,
-          image: this.events[this.index].image,
+          eventImage: this.events[this.index].image,
           participantsLimit: this.events[this.index].participantsLimit,
           //eventAttendees: ["0"] //comment out no need to edit
         });
         if (resultStatus) {
-          this.$router.replace("dashboard");
+          this.$router.replace("/dashboard");
         }
       } catch (err) {
         this.error = err.message;
         console.log(this.error);
       }
     },
-    onFileSelected(event) {
-      // console.log(event.target.files[0].name)
-      this.items[this.fromTheDashboard].image = event.target.files[0].name;
-    },
   },
   async created() {
     try {
       await this.$store.dispatch("loadAllEvent");
       this.events = this.$store.getters.getEventDataByClubId;
-      console.log(this.events);
     } catch (err) {
       this.error = err.message || "Failed to load events, try later";
       console.log(this.error);
@@ -202,9 +244,6 @@ export default {
         this.index = i;
       }
     }
-
-    console.log(this.events[this.index].eventName);
-    console.log(this.index + "...");
   },
   computed: {
     eventNameErrorMessage_() {
@@ -241,13 +280,9 @@ export default {
 </script>
 
 <style scoped>
-form {
-  max-width: 520px;
-}
-
-form {
-  max-width: 520px;
-}
+/* form {
+  max-width: 800px;
+} */
 
 .form-control {
   margin: 0.8rem 0;
@@ -258,6 +293,7 @@ label {
   color: #787878;
 }
 
+select,
 input,
 textarea {
   display: block;
@@ -267,6 +303,7 @@ textarea {
   border-radius: 5px;
   padding: 0.5rem 1rem;
 }
+
 .grey {
   background-color: grey;
   opacity: 0.1;

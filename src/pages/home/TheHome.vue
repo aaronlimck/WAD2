@@ -17,118 +17,111 @@
   </base-dialog>
 
   <section>
-    <div class="intro md:text-center">
-      <div class="flex flex-col">
-        <p class="leading-12 mb-3 p-9">
-          <span class="text-3xl">Don't say...</span><br /><span class="text-6xl"
-            >BOJIO</span
-          >
-        </p>
-        <p
-          class="md:mb-4 text-xl md:self-end px-8 py-3 md:rounded-l-full bg-white"
-        >
-          Join now to browse a wide range of events!<br />
-          Create
-          <span class="text-red-500 text-2xl">meaningful experiences</span> and
-          forge <span class="text-red-500 text-2xl">deep connections</span>
-        </p>
-      </div>
-      <div class="w-11/12 mx-auto p-8">
-        <img src="../../assets/happy.jpg" />
-      </div>
-    </div>
-    <div class="text-2xl w-8/12 m-auto text-center p-10 text-red-600">
-      We offer a complete range of exciting features
-    </div>
-    <div class="w-11/12 mx-auto md:flex text-center mb-12">
+    <div id="intro">
       <div
-        class="md:mr-10 md:mb-10 md:w-4/12 bg-orange-100 reveal-one reveal rounded-3xl p-6"
+        class="w-10/12 mx-auto grid grid-cols-1 sm:grid-cols-2 flex-row-reverse items-center py-10 sm:py-0"
       >
-        <img
-          class="inline w-20"
-          src="../../assets/calendar.svg"
-          alt="calendar"
-        />
-        <div class="mt-3 text-xl leading-5">Event Tracking</div>
-        <br />
-        <div class="leading-5 opacity-80">
-          Having to constantly keep track of your events sure is an exhausting
-          task!<br /><br />
-          Keep track of all the latest and upcoming events with just a simple
-          click of a button! You will never have to worry about clashing dates
-          ever again!
+        <div class="textContent order-last sm:order-first">
+          <div class="heading sm:text-left wrapper">
+            <h1 class="text-2xl sm:text-4xl">
+              <span class="typed-text" v-html="typeValue"></span>
+              <span class="blinking-cursor">|</span>
+              <span class="cursor" :class="{ typing: typeStatus }">&nbsp;</span>
+            </h1>
+          </div>
         </div>
-      </div>
-      <div
-        class="md:mr-10 md:mb-10 md:w-4/12 bg-orange-100 reveal reveal-sec rounded-3xl p-6"
-      >
-        <img class="inline w-20" src="../../assets/filter.svg" alt="filter" />
-        <div class="mt-3 text-xl leading-5">Filter System</div>
-        <br />
-        <div class="leading-5 opacity-80">
-          Tired of having to manually search through your entire inbox just to
-          find one event?<br /><br />
-          Explore a wide variety of events and choose those of your liking
-          through our customisable filter system!
-        </div>
-      </div>
-      <div
-        class="md-max:mb-8 md:w-4/12 bg-orange-100 reveal reveal-thi rounded-3xl p-6"
-      >
-        <img class="inline w-20" src="../../assets/write.svg" alt="write" />
-        <div class="mt-3 text-xl leading-5">Ease of Access</div>
-        <br />
-        <div class="leading-5 opacity-80">
-          Wanna create your very own event but you just can't find the tool to
-          do so?<br /><br />
-          Here, you can be both a participant AND an organiser at the same time!
-          Simply sign up, fill in your event details in our specially-crafted
-          template and you're good to go!
+        <div id="imgContent">
+          <img
+            class="object-cover p-10"
+            src="../../assets/chilling.svg"
+            alt="chilling"
+          />
         </div>
       </div>
     </div>
 
-    <div class="w-10/12 mx-auto grid md:grid-cols-2 lg:grid-cols-3 mt-4 gap-5">
-      <div v-for="event in events" :key="event.eventId">
-        <event-card
-          :id="event.eventId"
-          :eventname="event.eventName"
-          :description="event.eventDescription"
-          :dateTime="event.eventDateTime"
-          :location="event.eventLocation"
-          :image="event.eventImage"
-        ></event-card>
-      </div>
-      <div
-        class="first-card flex flex-col justify-evenly lg:hidden m-5 p-8 rounded-xl border"
-      >
-        <p class="text-center font-mono text-xl md:mb-5">Just 3 events?</p>
-        <p class="text-center font-mono text-xl md:mb-5">
-          Disappointed and wanting more?
-        </p>
-        <p class="text-center font-mono text-xl">
-          Click the button below right now to explore more events!
-        </p>
+    <div class="w-10/12 mx-auto pt-20 pb-6">
+      <h2 class="heading text-center text-2xl text-red-600 pb-3">
+        Upcoming Events
+      </h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 my-10 gap-5">
+        <div v-for="event in events" :key="event.eventId">
+          <event-card
+            classes="animate__animated animate__fadeInUp"
+            :id="event.eventId"
+            :eventname="event.eventName"
+            :description="event.eventDescription"
+            :dateTime="event.eventDateTime"
+            :location="event.eventLocation"
+            :image="event.eventImage"
+          ></event-card>
+        </div>
       </div>
     </div>
 
-    <div class="mt-8 mb-10 text-center">
+    <div class="flex justify-center">
       <router-link to="/events"
-        ><base-button
-          class="p-2 text-sm active:translate-y-2 active:[box-shadow:0_0px_0_0_#f7a663,0_0px_0_0_#1b70f841] active:border-b-[0px] transition-all duration-150 [box-shadow:0_5px_0_0_#f7a663,0_5px_0_0_#1b70f841]"
-          >Click for more</base-button
-        ></router-link
+        ><base-button class="p-2">See more</base-button></router-link
       >
     </div>
+
+    <div class="w-10/12 mx-auto pt-20 pb-10">
+      <h2 class="heading text-center text-2xl text-red-600 pb-6">
+        We offer a complete range of exciting features
+      </h2>
+
+      <div id="whyUs" class="grid md:grid-cols-2 lg:grid-cols-3 mb-10 gap-5">
+        <div
+          class="reason mb-5 sm:mb-0 sm:pr-6 animate__animated animate__fadeIn"
+        >
+          <img class="h12 w-12 mb-3" src="../../assets/calendar.gif" />
+          <h3 class="text-xl mb-2">Event Tracking</h3>
+          <p>
+            Having to constantly keep track of your events sure is an exhausting
+            task! Keep track of all the latest and upcoming events with just a
+            simple click of a button! You will never have to worry about
+            clashing dates ever again!
+          </p>
+        </div>
+
+        <div
+          class="reason mb-5 sm:mb-0 sm:pr-6 animate__animated animate__fadeIn"
+        >
+          <img class="h12 w-12 mb-3" src="../../assets/filter.gif" />
+          <h3 class="text-xl mb-2">Filter System</h3>
+          <p>
+            Having to constantly keep track of your events sure is an exhausting
+            task! Keep track of all the latest and upcoming events with just a
+            simple click of a button! You will never have to worry about
+            clashing dates ever again!
+          </p>
+        </div>
+
+        <div
+          class="reason mb-5 sm:mb-0 sm:pr-6 animate__animated animate__fadeIn"
+        >
+          <img class="h12 w-12 mb-3" src="../../assets/key.gif" />
+          <h3 class="text-xl mb-2">Ease of Access</h3>
+          <p>
+            Having to constantly keep track of your events sure is an exhausting
+            task! Keep track of all the latest and upcoming events with just a
+            simple click of a button! You will never have to worry about
+            clashing dates ever again!
+          </p>
+        </div>
+      </div>
+    </div>
+
     <div class="p-9 md:flex bg-gray-100">
       <div
         class="md:w-2/5 md:flex md:flex-col md:justify-center md:mb-12 md:mr-8"
       >
-        <p class="text-4xl mb-8 md:text-center leading-12">
+        <p class="heading text-4xl text-left mb-6">
           Check out some of our top reviews from our
           <span class="happy">happy</span> visitors
         </p>
-        <p class="pr-3 md:text-center">
+
+        <p class="pr-3 text-lg mb-10 sm:mb-0">
           As a representative of all SMU students, it is our responsibility to
           uphold the highest standards of excellence. Therefore, any critique
           will be taken into consideration as we strive to not only better your
@@ -137,9 +130,9 @@
       </div>
       <div class="md:w-3/5">
         <div
-          class="p-7 md:w-11/12 mb-5 border shadow-xl relative rounded z-20 bg-white"
+          class="p-7 md:w-11/12 mb-5 border shadow-xl relative rounded-lg z-20 bg-white"
         >
-          <div class="text-md leading-5 mb-3">
+          <div class="text-base mb-3">
             I was initially skeptical when I first heard of BOJIO. However, at
             that time, I had to constantly rummage through my entire school
             inbox and filter out the events that attracted me. This was quite
@@ -158,9 +151,9 @@
           </div>
         </div>
         <div
-          class="p-7 md:w-11/12 border shadow-xl z-10 bg-white md:float-right"
+          class="p-7 md:w-11/12 border shadow-xl rounded-lg z-10 bg-white md:float-right"
         >
-          <div class="text-md leading-5 mb-3">
+          <div class="text-base mb-3">
             I was very excited when I first heard of BOJIO. Being a freshman at
             SMU, I am not used to searching for particular events or activities
             through my inbox. After spending a few minutes on BOJIO, I must say,
@@ -187,14 +180,28 @@ import EventCard from "../../components/Events/EventCard.vue";
 
 export default {
   components: { EventCard },
+  name: "typeWiriter",
   data() {
     return {
+      typeValue: "",
+      typeStatus: false,
+      displayTextArray: [
+        "Create meaningful experiences",
+        "Forge deep connections",
+      ],
+      typingSpeed: 100,
+      erasingSpeed: 100,
+      newTextDelay: 1000,
+      displayTextArrayIndex: 0,
+      charIndex: 0,
+
       showDialog: false,
       events: [],
     };
   },
   created() {
     window.addEventListener("scroll", this.reveal);
+    setTimeout(this.typeText, this.newTextDelay);
   },
   methods: {
     clickButton() {
@@ -204,26 +211,43 @@ export default {
     confirmDialogMsg() {
       this.showDialog = false;
     },
-    reveal() {
-      var reveals = document.querySelectorAll(".reveal");
-
-      for (var i = 0; i < reveals.length; i++) {
-        var windowHeight = window.innerHeight;
-        var elementTop = reveals[i].getBoundingClientRect().top;
-        var elementVisible = 150;
-
-        if (elementTop < windowHeight - elementVisible) {
-          reveals[i].classList.add("active");
-        } else {
-          reveals[i].classList.remove("active");
-        }
+    typeText() {
+      if (
+        this.charIndex <
+        this.displayTextArray[this.displayTextArrayIndex].length
+      ) {
+        if (!this.typeStatus) this.typeStatus = true;
+        this.typeValue += this.displayTextArray[
+          this.displayTextArrayIndex
+        ].charAt(this.charIndex);
+        this.charIndex += 1;
+        setTimeout(this.typeText, this.typingSpeed);
+      } else {
+        this.typeStatus = false;
+        setTimeout(this.eraseText, this.newTextDelay);
+      }
+    },
+    eraseText() {
+      if (this.charIndex > 0) {
+        if (!this.typeStatus) this.typeStatus = true;
+        this.typeValue = this.displayTextArray[
+          this.displayTextArrayIndex
+        ].substring(0, this.charIndex - 1);
+        this.charIndex -= 1;
+        setTimeout(this.eraseText, this.erasingSpeed);
+      } else {
+        this.typeStatus = false;
+        this.displayTextArrayIndex += 1;
+        if (this.displayTextArrayIndex >= this.displayTextArray.length)
+          this.displayTextArrayIndex = 0;
+        setTimeout(this.typeText, this.typingSpeed + 1000);
       }
     },
   },
   async mounted() {
     try {
       await this.$store.dispatch("loadAllEvent");
-      this.events = Object.entries(this.$store.getters.getAllEvents)
+      this.events = Object.entries(this.$store.getters.getAllEventOrderByDate)
         .slice(0, 3)
         .map((entry) => entry[1]);
     } catch (err) {
@@ -235,40 +259,73 @@ export default {
 </script>
 
 <style scoped>
-.intro {
-  background-color: #eddcd6;
+#intro {
+  background: url("../../assets/shapebg.svg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.heading {
   font-family: "Fredoka One";
 }
-section {
-  font-family: "Fredoka One";
-}
+
 .happy {
   color: #f56b01;
 }
-.first-card {
-  background-color: #f56b01dd;
-}
-.reveal-one {
-  position: relative;
-  transform: translateY(60px);
-  opacity: 0;
-  transition: 1s all ease;
-}
-.reveal-sec {
-  position: relative;
-  transform: translateY(120px);
-  opacity: 0;
-  transition: 1s all ease;
-}
-.reveal-thi {
-  position: relative;
-  transform: translateY(180px);
-  opacity: 0;
-  transition: 1s all ease;
-}
 
-.reveal.active {
-  transform: translateY(0);
-  opacity: 1;
+.blinking-cursor {
+  /* font-size: 6rem; */
+  color: orange;
+  -webkit-animation: 1s blink step-end infinite;
+  -moz-animation: 1s blink step-end infinite;
+  -ms-animation: 1s blink step-end infinite;
+  -o-animation: 1s blink step-end infinite;
+  animation: 1s blink step-end infinite;
+}
+@keyframes blink {
+  from,
+  to {
+    color: transparent;
+  }
+  50% {
+    color: orange;
+  }
+}
+@-moz-keyframes blink {
+  from,
+  to {
+    color: transparent;
+  }
+  50% {
+    color: orange;
+  }
+}
+@-webkit-keyframes blink {
+  from,
+  to {
+    color: transparent;
+  }
+  50% {
+    color: orange;
+  }
+}
+@-ms-keyframes blink {
+  from,
+  to {
+    color: transparent;
+  }
+  50% {
+    color: orange;
+  }
+}
+@-o-keyframes blink {
+  from,
+  to {
+    color: transparent;
+  }
+  50% {
+    color: orange;
+  }
 }
 </style>

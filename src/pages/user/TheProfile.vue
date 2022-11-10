@@ -201,7 +201,7 @@
           etc
         </p>
 
-        <label class="text-sm mb-1">Profile Picture</label>
+        <!-- <label class="text-sm mb-1">Profile Picture</label>
         <div class="custom-border">
           <div class="flex p-4 items-center">
             <div class="profile-image">
@@ -227,7 +227,7 @@
               </p>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <div class="form-control">
           <label for="userName">Name</label>
@@ -274,14 +274,50 @@
               <div class="w-2 h-2 mr-1 bg-gray-500 rounded-full"></div>
               <div class="w-2 h-2 mr-1 bg-gray-500 rounded-full"></div>
             </div>
-            <p class="text-base" @click="openPopup">Update Password</p>
+            <p class="text-base ml-3" @click="openPopup">Update Password</p>
           </div>
         </div>
         <base-button class="mt-5 py-1 px-3">Save Changes</base-button>
       </form>
     </Tab>
 
-    <Tab title="Registered Events"> </Tab>
+    <Tab title="Upcoming Events">
+      <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 mt-6">
+        <div
+          v-for="event in upcomingEvents"
+          :key="event.eventId"
+          class="col-sm-12 col-md-6"
+        >
+          <EventCard
+            :eventname="event.eventName"
+            :description="event.eventDescription"
+            :id="event.eventId"
+            :dateTime="event.eventDateTime"
+            :location="event.eventLocation"
+            :image="event.eventImage"
+          />
+        </div>
+      </div>
+    </Tab>
+
+    <Tab title="Past Events">
+      <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 mt-6">
+        <div
+          v-for="event in pastEvents"
+          :key="event.eventId"
+          class="col-sm-12 col-md-6"
+        >
+          <EventCard
+            :eventname="event.eventName"
+            :description="event.eventDescription"
+            :id="event.eventId"
+            :dateTime="event.eventDateTime"
+            :location="event.eventLocation"
+            :image="event.eventImage"
+          />
+        </div>
+      </div>
+    </Tab>
   </TabsWrapper>
 </template>
 
@@ -290,9 +326,24 @@ import Tab from "../../components/UI/TheTab.vue";
 import TabsWrapper from "../../components/UI/TabsWrapper.vue";
 import BaseDialog from "../../components/UI/BaseDialog.vue";
 import BaseButton from "../../components/UI/BaseButton.vue";
+import EventCard from "../../components/Events/EventCard.vue";
 
 export default {
-  components: { Tab, TabsWrapper, BaseDialog, BaseButton },
+  components: { Tab, TabsWrapper, BaseDialog, BaseButton, EventCard },
+  computed: {
+    upcomingEvents() {
+      const result = Object.values(this.userEvents).filter(
+        (event) => new Date(event.eventDateTime) > new Date()
+      );
+      return result;
+    },
+    pastEvents() {
+      const result = Object.values(this.userEvents).filter(
+        (event) => new Date(event.eventDateTime) < new Date()
+      );
+      return result;
+    },
+  },
   data() {
     return {
       requestPasswordChange: false,
@@ -303,6 +354,7 @@ export default {
       newPassword: "",
       confirmNewPassword: "",
       userData: [],
+      userEvents: [],
     };
   },
   methods: {
@@ -372,8 +424,9 @@ export default {
     try {
       await this.$store.dispatch("loadUserData");
       this.userData = this.$store.getters.getUserData;
+      await this.$store.dispatch("loadAllEvent");
+      this.userEvents = this.$store.getters.getUserRegisterEvents;
     } catch (err) {
-      //this.error = err.message || "Failed to authenticate, try later";
       console.log(err);
     }
   },
