@@ -20,10 +20,15 @@ export default {
     const clubId = localStorage.getItem("userClub");
     const eventData = JSON.parse(JSON.stringify(state.events));
 
-    const result = Object.values(eventData).filter(
+    const resultById = Object.values(eventData).filter(
       (event) => event.eventCreatedByClubId == clubId
     );
-    console.log(result);
+
+    const result = Object.values(resultById).sort((a, b) => {
+      return new Date(a.eventDateTime) - new Date(b.eventDateTime);
+    });
+
+    // console.log(result);
     return result;
   },
 

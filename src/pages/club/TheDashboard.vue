@@ -1,6 +1,8 @@
 <template>
-  <div class="py-10">
-    <div class="container mx-auto pb-10">
+  <div>
+    <the-search-bar :getSchoolName="getSchoolNameFilter" v-model="search" />
+
+    <div class="container mx-auto py-10">
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 px-4">
         <div>
           <div class="p-6 bg-white rounded-lg border border-gray-200 h-full">
@@ -53,7 +55,7 @@
       v-else
       class="w-10/12 mx-auto grid sm:grid-cols-2 md:grid-cols-3 mt-4 gap-5"
     >
-      <div v-for="event of events" :key="event.eventName">
+      <div v-for="event of filteredEvents" :key="event.eventName">
         <!-- Current Event ID is not in the vueX Store -->
         <event-card
           :id="event.eventId"
@@ -74,11 +76,13 @@
 import Chart from "chart.js/auto";
 import EventCard from "../../components/Events/EventCard.vue";
 import EventCardSkeleton from "../../components/Events/EventCardSkeleton.vue";
+import TheSearchBar from "../../components/Events/TheSearchBar.vue";
 
 export default {
-  components: { EventCard, EventCardSkeleton },
+  components: { EventCard, EventCardSkeleton, TheSearchBar },
   data() {
     return {
+      search: "",
       events: [],
       error: "",
       upComingEvent: "",
@@ -106,17 +110,12 @@ export default {
           Math.abs(new Date() - new Date(date).getTime())
         );
         var index = tempDate.indexOf(Math.min(...tempDate));
-        // console.log(allDate[index]);
-        // console.log(tempEvents[index]);
 
         for (let item in tempEvents[index]) {
           if (item == "eventName") {
             this.upComingEvent = tempEvents[index][item];
           }
         }
-
-        //this.upComingEvent = tempEvents[index].eventName;
-        // console.log(tempEvents[index]);
 
         //to get the nearest 6
         let nearestSix = [];
@@ -205,8 +204,23 @@ export default {
 
       return returnNewlyCreated;
     },
+    filteredEvents() {
+      let tempEvents = Object.values(JSON.parse(JSON.stringify(this.events)));
+
+      if (this.search != "" && this.search) {
+        tempEvents = tempEvents.filter((event) => {
+          return (
+            event.eventName.toUpperCase().includes(this.search.toUpperCase()) ||
+            event.eventLocation
+              .toUpperCase()
+              .includes(this.search.toUpperCase())
+          );
+        });
+      }
+
+      return tempEvents;
+    },
   },
-  created() {},
 };
 </script>
 

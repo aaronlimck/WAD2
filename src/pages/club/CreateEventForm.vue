@@ -386,7 +386,9 @@ export default {
         this.newItems.eventImage.includes(".jpg") ||
         this.newItems.eventImage.includes(".JPG") ||
         this.newItems.eventImage.includes(".png") ||
-        this.newItems.eventImage.includes("PNG")
+        this.newItems.eventImage.includes("PNG") ||
+        this.newItems.eventImage.includes("jpeg") ||
+        this.newItems.eventImage.includes("JPEG")
       ) {
         this.imageErrorMessage = "";
         return true;

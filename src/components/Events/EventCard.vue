@@ -1,7 +1,7 @@
 <template>
   <!-- ======= EventCard ======= -->
   <div
-    class="bg-gray-50 rounded-lg border customShadow h-full"
+    class="relative bg-gray-50 rounded-lg border h-full cursor-pointer"
     :class="classes"
   >
     <router-link :to="eventLink">
@@ -12,22 +12,27 @@
         Edit
       </p>
       <img class="h-48 w-full object-cover rounded-t-lg" :src="image" />
-      <div class="flex px-3 py-6">
-        <div class="w-1/6 pl-2">
-          <p class="flex flex-col dateTime">
-            <span class="text-base">{{ getMonth }}</span>
-            <span class="text-xl font-medium">{{ getDate }}</span>
-          </p>
+      <div class="flex flex-col px-3 py-4">
+        <p class="dateTime mb-2">
+          <span class="text-xl font-medium">{{ getDate }}&nbsp;</span>
+          <span class="text-base"> {{ getMonth }}</span>
+        </p>
+        <div>
+          <h2 class="text-lg font-medium mb-3">{{ eventname }}</h2>
+          <div
+            id="textContent"
+            class="mb-8"
+            v-html="description.slice(0, 120)"
+          ></div>
         </div>
-        <div class="w-5/6">
-          <h2 class="text-lg font-medium mb-1">{{ eventname }}</h2>
-          <div id="textContent" v-html="description.slice(0, 120)"></div>
-        </div>
-      </div>
 
-      <div v-show="this.$route.path === '/dashboard'">
-        <!-- <p :class="participantsClass" >{{ eventAttendees.length - 1}} of {{participantsLimit}} participants</p>
-      {{howManyDaysLeft}} days left -->
+        <div v-if="this.$route.path === '/dashboard'" class="absolute bottom-0">
+          <p class="text-gray-400 mb-2">
+            {{ eventAttendees != "undefined" ? eventAttendees.length - 1 : "" }}
+            attendees
+          </p>
+          <!-- {{howManyDaysLeft}} days left -->
+        </div>
       </div>
     </router-link>
   </div>
@@ -59,8 +64,13 @@ export default {
       }
     },
     getDate() {
-      let date = new Date(this.dateTime);
-      return date.getDate();
+      let eventDate = new Date(this.dateTime).getDate();
+      let todayDate = new Date().getDate();
+      if (eventDate != todayDate) {
+        return eventDate;
+      } else {
+        return "Today";
+      }
     },
     getMonth() {
       const monthNames = [
@@ -78,7 +88,11 @@ export default {
         "December",
       ];
       let date = new Date(this.dateTime);
-      return monthNames[date.getMonth()].toUpperCase().slice(0, 3);
+      if (this.getDate == "Today") {
+        return "";
+      } else {
+        return monthNames[date.getMonth()].toUpperCase().slice(0, 3);
+      }
     },
     getYear() {
       let date = new Date(this.dateTime);
@@ -111,19 +125,6 @@ export default {
 
       return howManyDaysLeft;
     },
-    // participantsClass() {
-    //   let checkParticipants = (this.participantsLimit / 2).toFixed(0);
-    //   let eventAttendeesLength = this.eventAttendees.length;
-    //   // console.log("=====")
-    //   // console.log(checkParticipants)
-    //   // console.log(eventAttendeesLength)
-    //   if (eventAttendeesLength >= checkParticipants) {
-    //     return "green text-sm";
-    //   }
-
-    //   return "red text-sm";
-    //   //text-sm
-    // },
   },
 };
 </script>

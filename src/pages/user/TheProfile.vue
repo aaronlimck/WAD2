@@ -335,13 +335,19 @@ export default {
       const result = Object.values(this.userEvents).filter(
         (event) => new Date(event.eventDateTime) > new Date()
       );
-      return result;
+      const resultByDateOrder = Object.values(result).sort((a, b) => {
+        return new Date(a.eventDateTime) - new Date(b.eventDateTime);
+      });
+      return resultByDateOrder;
     },
     pastEvents() {
       const result = Object.values(this.userEvents).filter(
         (event) => new Date(event.eventDateTime) < new Date()
       );
-      return result;
+      const resultByDateOrder = Object.values(result).sort((a, b) => {
+        return new Date(a.eventDateTime) - new Date(b.eventDateTime);
+      });
+      return resultByDateOrder;
     },
   },
   data() {
