@@ -102,4 +102,4 @@ npm install npm@latest -g
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[product-screenshot]: https://drive.google.com/file/d/1C3U2Fc4xH8ekpLfLxk0-e_ANURMsNZMM/view
+[product-screenshot]: https://photos.app.goo.gl/XoXRtn7kSynoGJ2n9
