@@ -1,6 +1,6 @@
 export default {
   getAllEvents(state) {
-    console.log(state.events);
+    // console.log(state.events);
     return state.events;
   },
 
@@ -34,7 +34,7 @@ export default {
 
   getEventDataById: (state) => (id) => {
     const eventData = JSON.parse(JSON.stringify(state.events));
-    console.log(eventData);
+
     const result = Object.values(eventData).filter(
       (event) => event.eventId == id
     );

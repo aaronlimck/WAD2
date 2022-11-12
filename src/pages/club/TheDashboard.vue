@@ -45,7 +45,7 @@
 
     <div
       v-if="events.length === 0"
-      class="w-10/12 mx-auto grid sm:grid-cols-2 md:grid-cols-3 mt-4 gap-5"
+      class="w-10/12 mx-auto grid sm:grid-cols-2 md:grid-cols-3 mt-4 gap-5 pb-10"
     >
       <div v-for="n in 6" :key="n">
         <EventCardSkeleton />
@@ -53,7 +53,7 @@
     </div>
     <div
       v-else
-      class="w-10/12 mx-auto grid sm:grid-cols-2 md:grid-cols-3 mt-4 gap-5"
+      class="w-10/12 mx-auto grid sm:grid-cols-2 md:grid-cols-3 mt-4 gap-5 pb-10"
     >
       <div v-for="event of filteredEvents" :key="event.eventName">
         <!-- Current Event ID is not in the vueX Store -->
@@ -201,7 +201,6 @@ export default {
           returnNewlyCreated = theEvents[item];
         }
       }
-
       return returnNewlyCreated;
     },
     filteredEvents() {
@@ -217,7 +216,6 @@ export default {
           );
         });
       }
-
       return tempEvents;
     },
   },

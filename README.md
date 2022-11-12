@@ -43,6 +43,7 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
+     <li><a href="#Login-Credentials"> Login Credentials</a></li>
   </ol>
 </details>
 
@@ -50,7 +51,7 @@
 
 ## About The Project
 
-[![Screenshot of Bojio][product-screenshot]](https://7ec0c52d.bojio.pages.dev/)
+[![Screenshot of Bojio](src/images/cover.png)](https://7ec0c52d.bojio.pages.dev/)
 
 We aim to build an event web-based application that helps consolidate information about current and upcoming events happening around SMU. Currently, the conventional method in which students sign up for campus events would be through the usage of emails. This can be a hassle for many students as the checking of emails can take up significant time. Our application aims to solve this, by providing a unified portal in which students, student bodies and faculty are able to create and promote upcoming events. Allowing more students to discover different events around campus and enrich their student experience.
 
@@ -60,9 +61,14 @@ We aim to build an event web-based application that helps consolidate informatio
 
 Below are the technology stack used to built this project.</br>
 
-- `vue` - v16.8 or above
+- `vue` - v3.2.13 or above
 - `vue-router` - v4.1.5 or above
 - `tailwind` - v3.1.8 or above
+- `chart.js` - v3.9.1 or above
+- `firebase sdk` - v9.14.0 or above
+- `vue-confetti` - v2.3.0 or above
+- `vue3-click-away` - v1.2.4 or above
+- `vuex` - v4.0.2 or above
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -84,7 +90,7 @@ npm install npm@latest -g
 
 ### Installation
 
-1. Clone the repo
+1. Clone the repo (Skip if you have the local files)
    ```sh
    git clone https://github.com/aaronlimck/WAD2.git
    ```
@@ -97,9 +103,27 @@ npm install npm@latest -g
    npm run serve
    ```
 
+<!-- LOGIN CREDENTIALS -->
+
+## Login Credentials (For Testing)
+
+Below are the login credentials for admin (School Clubs) and student for testing purposes. You may also create an account using your email address or google acccount.
+
+### Admin Account
+
+```sh
+Email: admin@bojio.com
+Password: Password1
+```
+
+### Student Account
+
+```sh
+ Email: student@bojio.com
+ Password: Password1
+```
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-
-[product-screenshot]: https://photos.app.goo.gl/XoXRtn7kSynoGJ2n9

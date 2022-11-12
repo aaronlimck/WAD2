@@ -31,7 +31,7 @@ export default {
       );
       throw error;
     }
-    console.log(responseData);
+    // console.log(responseData);
     return response.ok;
   },
 
@@ -48,7 +48,7 @@ export default {
       throw error;
     }
     context.commit("setEventData", responseData);
-    console.log(responseData);
+    // console.log(responseData);
     return response.ok;
   },
 
@@ -82,7 +82,7 @@ export default {
       );
       throw error;
     }
-    console.log(responseData);
+    // console.log(responseData);
     return response.ok;
   },
 

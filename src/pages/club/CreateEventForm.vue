@@ -78,7 +78,6 @@
 
   <section :style="defaultForCover" class="cover">
     <div class="container mx-auto py-1 px-4 relative">
-      <!-- <input id="fileUpload" type="file" class="invisible absolute" /> -->
       <button
         class="absolute bottom-0 right-0 text-sm bg-neutral-200 hover:bg-neutral-300 py-1.5 px-4 mt-4 rounded-lg"
         @click="changeCover()"
@@ -102,43 +101,13 @@
           v-model="newItems.eventName"
           @blur="nameValidation"
         />
-        <div
-          v-if="eventNameErrorMessage != ''"
-          class="flex p-4 my-2 text-sm text-red-700 bg-red-100 rounded-lg"
-          role="alert"
-        >
-          <svg
-            aria-hidden="true"
-            class="flex-shrink-0 inline w-5 h-5 mr-3"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          <span class="sr-only">Info</span>
-          <div>
-            <span class="font-medium">{{ eventNameErrorMessage }}</span>
-          </div>
-        </div>
+        <base-info-error :errorMsg="eventNameErrorMessage"></base-info-error>
       </div>
 
       <div class="form-control">
         <label for="eventDescription"
           >Description<span class="text-xs text-rose-600 mx-0.5">*</span></label
         >
-        <!-- <textarea
-          id="eventDescription"
-          rows="10"
-          class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border bg-white"
-          v-model="newItems.eventDescription"
-          @blur="descriptionValidation"
-        ></textarea> -->
-
         <QuillEditor
           style="
             min-height: 200px !important;
@@ -149,40 +118,20 @@
           v-model:content="newItems.eventDescription"
           contentType="html"
         />
-
-        <div
-          v-if="eventDescriptionErrorMessage != ''"
-          class="flex p-4 my-2 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
-          role="alert"
-        >
-          <svg
-            aria-hidden="true"
-            class="flex-shrink-0 inline w-5 h-5 mr-3"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          <span class="sr-only">Info</span>
-          <div>
-            <span class="font-medium">{{ eventDescriptionErrorMessage }}</span>
-          </div>
-        </div>
       </div>
 
       <div class="form-control">
-        <label for="eventDate">Event Date</label>
+        <label for="eventDate"
+          >Event Date<span class="text-xs text-rose-600 mx-0.5">*</span></label
+        >
         <input
           type="datetime-local"
           id="eventDateTime"
           name="eventDateTime"
           v-model="newItems.eventDateTime"
+          @blur="dateValidation"
         />
+        <base-info-error :errorMsg="eventDateErrorMessage"></base-info-error>
       </div>
 
       <div class="form-control">
@@ -212,29 +161,7 @@
           @blur="contactValidation"
         />
 
-        <div
-          v-if="eventContactErrorMessage != ''"
-          class="flex p-4 my-2 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
-          role="alert"
-        >
-          <svg
-            aria-hidden="true"
-            class="flex-shrink-0 inline w-5 h-5 mr-3"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          <span class="sr-only">Info</span>
-          <div>
-            <span class="font-medium">{{ eventContactErrorMessage }}</span>
-          </div>
-        </div>
+        <base-info-error :errorMsg="eventContactErrorMessage"></base-info-error>
       </div>
 
       <div class="form-control">
@@ -250,31 +177,9 @@
           @blur="participantLimitValidation"
         />
 
-        <div
-          v-if="eventParticipantLimitErrorMessage != ''"
-          class="flex p-4 my-2 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
-          role="alert"
-        >
-          <svg
-            aria-hidden="true"
-            class="flex-shrink-0 inline w-5 h-5 mr-3"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          <span class="sr-only">Info</span>
-          <div>
-            <span class="font-medium">{{
-              eventParticipantLimitErrorMessage
-            }}</span>
-          </div>
-        </div>
+        <base-info-error
+          :errorMsg="eventParticipantLimitErrorMessage"
+        ></base-info-error>
       </div>
 
       <div class="form-control">
@@ -282,16 +187,7 @@
         <input type="text" id="eventTags" v-model="newItems.eventTags" />
       </div>
 
-      <base-button
-        class="w-full py-2.5 my-4"
-        :disabled="
-          !nameValidation() || !contactValidation() || !descriptionValidation()
-        "
-        :class="[
-          !nameValidation() || !contactValidation() || !descriptionValidation()
-            ? 'grey'
-            : '',
-        ]"
+      <base-button class="w-full py-2.5 my-4" :disabled="allErrorValidator()"
         >Create Event</base-button
       >
     </form>
@@ -299,6 +195,7 @@
 </template>
 
 <script>
+import BaseInfoError from "../../components/UI/BaseInfoError.vue";
 import formCover from "@/assets/form-cover.jpg";
 import { QuillEditor } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
@@ -306,6 +203,7 @@ import "@vueup/vue-quill/dist/vue-quill.snow.css";
 export default {
   components: {
     QuillEditor,
+    BaseInfoError,
   },
   data() {
     return {
@@ -323,22 +221,21 @@ export default {
         height: "25vh",
       },
       newItems: {
+        eventImage: "",
         eventName: "",
-        eventStartDate: "",
-        eventStartTime: "",
-        eventLocation: "",
-        eventContact: "",
         eventDescription: "",
+        eventDateTime: "",
+        eventContact: "",
+        participantsLimit: 0,
         eventTags: [],
+        eventLocation: "",
         eventAttendees: [],
         eventCreatedByClubId: localStorage.getItem("userClub"),
-        eventImage: "",
-        participantsLimit: 0,
-        eventDateTime: "",
       },
       imageErrorMessage: "",
       eventNameErrorMessage: "",
       eventLocationErrorMessage: "",
+      eventDateErrorMessage: "",
       eventContactErrorMessage: "",
       eventDescriptionErrorMessage: "",
       eventParticipantLimitErrorMessage: "",
@@ -357,20 +254,15 @@ export default {
     },
     changeCover() {
       this.openUploadDialog = !this.openUploadDialog;
-      // document.getElementById("fileUpload").click();
     },
     submitCover() {
-      // console.log(this.newItems.eventImage);
       this.backgroundImage(this.newItems.eventImage);
       this.closeUploadDialog();
     },
     closeUploadDialog() {
       this.openUploadDialog = false;
     },
-    // eventDateTime(date, time) {
-    //   return `${date}T${time}`;
-    // },
-
+    // ERROR VALIDATION
     imageValidation() {
       if (
         this.newItems.eventImage.includes(".jpg") ||
@@ -406,6 +298,18 @@ export default {
       this.eventDescriptionErrorMessage = "";
       return true;
     },
+    dateValidation() {
+      const dateTime = this.newItems.eventDateTime;
+      const selectedDate = dateTime.split("T")[0];
+      const currentDate = new Date().toISOString().split("T")[0];
+
+      if (Date.parse(selectedDate) < Date.parse(currentDate)) {
+        this.eventDateErrorMessage = "Date cannot be in the past";
+        return false;
+      }
+      this.eventDateErrorMessage = "";
+      return true;
+    },
     locationValidation() {
       if (this.newItems.eventLocation.length == 0) {
         this.eventLocationErrorMessage = "Field cannot be empty";
@@ -431,6 +335,21 @@ export default {
       this.eventParticipantLimitErrorMessage = "";
       return true;
     },
+    allErrorValidator() {
+      if (
+        this.imageErrorMessage != "" &&
+        this.eventNameErrorMessage != "" &&
+        this.eventLocationErrorMessage != "" &&
+        this.eventDateErrorMessage != "" &&
+        this.eventContactErrorMessage != "" &&
+        this.eventDescriptionErrorMessage != "" &&
+        this.eventParticipantLimitErrorMessage != ""
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     async submitForm() {
       try {
         const resultStatus = await this.$store.dispatch("createEvent", {
@@ -451,28 +370,12 @@ export default {
           participantsLimit: this.newItems.participantsLimit,
         });
         if (resultStatus) {
-          this.$router.replace("dashboard");
+          this.$router.replace("/dashboard");
         }
       } catch (err) {
         this.error = err.message;
         console.log(this.error);
       }
-    },
-  },
-  computed: {
-    eventLocationErrorMessage_() {
-      let status = true;
-      if (this.newItems.eventLocation.length > 0) {
-        status = false;
-      }
-      return status;
-    },
-    eventContactErrorMessage_() {
-      let status = true;
-      if (this.newItems.eventContact.length > 0) {
-        status = false;
-      }
-      return status;
     },
   },
 };

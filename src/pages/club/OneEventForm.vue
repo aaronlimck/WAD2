@@ -50,7 +50,6 @@
 
   <section :style="defaultForCover" class="cover">
     <div class="container mx-auto py-1 px-4 relative">
-      <!-- <input id="fileUpload" type="file" class="invisible absolute" /> -->
       <button
         class="absolute bottom-0 right-0 text-sm bg-neutral-200 hover:bg-neutral-300 py-1.5 px-4 mt-4 rounded-lg"
         @click="changeCover()"
@@ -67,7 +66,9 @@
       <form @submit.prevent="submitForm" class="grid gap-4 grid-cols-3">
         <div class="col-span-3 sm:col-span-2">
           <div class="form-control">
-            <label for="eventName">Name</label>
+            <label for="eventName"
+              >Name<span class="text-xs text-rose-600 mx-0.5">*</span></label
+            >
             <input
               type="text"
               id="eventName"
@@ -76,15 +77,14 @@
             <div style="color: red" v-if="eventNameErrorMessage_">
               {{ eventNameErrorMessage }}
             </div>
-            
           </div>
 
           <div class="form-control">
-            <label for="eventDescription">Description</label>
-            <!-- <textarea
-          id="eventDescription"
-          v-model="events[index].eventDescription"
-        /> -->
+            <label for="eventDescription"
+              >Description<span class="text-xs text-rose-600 mx-0.5"
+                >*</span
+              ></label
+            >
             <QuillEditor
               style="
                 min-height: 200px !important;
@@ -161,7 +161,7 @@
                 ? 'grey'
                 : '',
             ]"
-            >Edit Event</base-button
+            >Save Changes</base-button
           >
         </div>
 
@@ -194,14 +194,17 @@
               <option>SMU Yong Pung How School of Law</option>
               <option>School of Social Sciences</option>
             </select>
-            
-
           </div>
+
+          <base-button
+            mode="secondary"
+            class="w-full py-2.5 my-4 cursor-pointer"
+            @click="downloadDetails()"
+          >
+            Download Participants Details
+          </base-button>
         </div>
       </form>
-
-        <base-button class="w-full py-2.5 my-4" @click="downloadDetails()"> Download Participants Details </base-button>
-
     </div>
   </div>
 </template>
@@ -210,7 +213,7 @@
 import formCover from "@/assets/form-cover.jpg";
 import { QuillEditor } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
-import {utils, writeFileXLSX } from 'xlsx';
+import { utils, writeFileXLSX } from "xlsx";
 
 export default {
   components: {
@@ -236,19 +239,7 @@ export default {
       events: [],
       users: [],
       excelDeets: [],
-      newItems: {
-        eventName: "",
-        eventDateTime: "",
-        eventLocation: "",
-        eventContact: "",
-        eventDescription: "",
-        eventTags: [],
-        eventAttendees: [],
-        eventCreatedByClubId: localStorage.getItem("userClub"),
-        eventImage: "",
-        participantsLimit: 10,
-      },
-      eventNameErrorMessage: "** Event name should be more than one character",
+      eventNameErrorMessage: "Field cannot be empty",
       eventLocationErrorMessage:
         "** Event location should be more than one character",
       eventContactErrorMessage:
@@ -258,24 +249,36 @@ export default {
     };
   },
   methods: {
-    downloadDetails(){
-        console.log(this.usersInformation)
-        const ws = utils.json_to_sheet(this.usersInformation);
-        const wb = utils.book_new();
-        utils.book_append_sheet(wb, ws, "Data");
-        writeFileXLSX(wb, `${this.events[this.index].eventName}_Participants.xlsx`);
+    downloadDetails() {
+      console.log(this.usersInformation);
+      const ws = utils.json_to_sheet(this.usersInformation);
+      const wb = utils.book_new();
+      utils.book_append_sheet(wb, ws, "Data");
+      writeFileXLSX(
+        wb,
+        `${this.events[this.index].eventName}_Participants.xlsx`
+      );
     },
     getMapAddress() {
       const params = this.events[this.index].eventLocation;
       return `https://maps.google.com/maps?q=${params}&z=14&ie=UTF8&output=embed`;
     },
+    backgroundImage() {
+      console.log(this.events);
+      this.defaultForCover = {
+        display: "flex",
+        alignItems: "center",
+        background: `url('${this.events[this.index].eventImage}')`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        height: "25vh",
+      };
+    },
     changeCover() {
       this.openUploadDialog = !this.openUploadDialog;
-      // document.getElementById("fileUpload").click();
     },
     submitCover() {
-      console.log(this.newItems.eventImage);
-      this.backgroundImage(this.newItems.eventImage);
+      this.backgroundImage(this.events[this.index].eventImage);
       this.closeUploadDialog();
     },
     closeUploadDialog() {
@@ -295,7 +298,7 @@ export default {
               ? this.events[this.index].eventTags
               : null,
           eventCreatedByClubId: this.events[this.index].eventCreatedByClubId,
-          eventImage: this.events[this.index].image,
+          eventImage: this.events[this.index].eventImage,
           participantsLimit: this.events[this.index].participantsLimit,
           //eventAttendees: ["0"] //comment out no need to edit
         });
@@ -323,14 +326,13 @@ export default {
       }
     }
   },
-  async mounted(){
+  async mounted() {
     try {
       this.users = await this.$store.dispatch("loadAllUserdata");
     } catch (err) {
       this.error = err.message || "Failed to load events, try later";
       console.log(this.error);
     }
-
     for (let i = 0; i < this.events.length; i++) {
       if (this.id == this.events[i].eventId) {
         this.index = i;
@@ -338,28 +340,33 @@ export default {
     }
   },
   computed: {
-        usersInformation(){
-        let userAttendeeDetailsObj = [];
-        let eventAttendees =  Object.values(this.events[this.index].eventAttendees);
-        eventAttendees = eventAttendees.filter(eventAttendee => eventAttendee != 0);
-        let allUsers = this.users;
+    usersInformation() {
+      let userAttendeeDetailsObj = [];
+      let eventAttendees = Object.values(
+        this.events[this.index].eventAttendees
+      );
+      eventAttendees = eventAttendees.filter(
+        (eventAttendee) => eventAttendee != 0
+      );
+      let allUsers = this.users;
 
-        for(let eventAttendee of eventAttendees){
-          let attendeeDetails = {};
-          let eventAttendeeObject = allUsers[`${eventAttendee}`];
-          eventAttendeeObject = {...eventAttendeeObject}
-          let userName = eventAttendeeObject.userName;
-          let userEmail = eventAttendeeObject.userEmail;
-          attendeeDetails["Username"] = userName;
-          attendeeDetails["Email"] = userEmail;
-          userAttendeeDetailsObj.push(attendeeDetails)
-        }
+      for (let eventAttendee of eventAttendees) {
+        let attendeeDetails = {};
+        let eventAttendeeObject = allUsers[`${eventAttendee}`];
+        eventAttendeeObject = { ...eventAttendeeObject };
+        let userName = eventAttendeeObject.userName;
+        let userEmail = eventAttendeeObject.userEmail;
+        attendeeDetails["Username"] = userName;
+        attendeeDetails["Email"] = userEmail;
+        userAttendeeDetailsObj.push(attendeeDetails);
+      }
 
-        return userAttendeeDetailsObj
+      return userAttendeeDetailsObj;
     },
+
     eventNameErrorMessage_() {
       let status = true;
-      if (this.events[this.index].eventName.length > 0) {
+      if (this.events[this.index].eventName.length != 0) {
         status = false;
       }
       return status;
@@ -380,7 +387,7 @@ export default {
     },
     eventDescriptionErrorMessage_() {
       let status = true;
-      let descArray = this.events[this.index].eventDescription.split(" ");
+      let descArray = this.events[this.index].eventDescription.split("");
       if (descArray.length > 10) {
         status = false;
       }
@@ -391,10 +398,6 @@ export default {
 </script>
 
 <style scoped>
-/* form {
-  max-width: 800px;
-} */
-
 .form-control {
   margin: 0.8rem 0;
 }

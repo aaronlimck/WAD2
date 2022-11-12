@@ -84,7 +84,8 @@
       <div class="relative p-4 w-full">
         <h1 class="text-lg mb-6 text-center font-medium uppercase">
           <span class="customColor">Are you sure to withdraw?</span><br />Will
-          you be <span class="customColor">missing out</span> on the goodness!
+          you be <span class="customColor">missing out</span> on all the
+          goodness!
         </h1>
         <base-button
           mode="flat"
@@ -124,7 +125,7 @@
     <template #default>
       <div class="relative p-4 w-full">
         <h1 class="text-lg mb-6 text-center font-medium uppercase">
-          Oops looks like you are
+          Oops looks like you
           <span class="customColor">not login</span>.<br />
           <span class="customColor">Login now</span> to
           <span class="customColor">join the fun</span>!
