@@ -51,7 +51,7 @@
 
 ## About The Project
 
-[![Screenshot of Bojio](src/images/cover.png)](https://7ec0c52d.bojio.pages.dev/)
+[![Screenshot of Bojio](src/assets/cover.png)](https://7ec0c52d.bojio.pages.dev/)
 
 We aim to build an event web-based application that helps consolidate information about current and upcoming events happening around SMU. Currently, the conventional method in which students sign up for campus events would be through the usage of emails. This can be a hassle for many students as the checking of emails can take up significant time. Our application aims to solve this, by providing a unified portal in which students, student bodies and faculty are able to create and promote upcoming events. Allowing more students to discover different events around campus and enrich their student experience.
 
