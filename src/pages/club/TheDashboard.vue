@@ -103,7 +103,7 @@ export default {
         for (let i = 0; i < tempEvents.length; i++) {
           allDate.push(tempEvents[i].eventDateTime.split("T")[0]);
           allDate2.push(tempEvents[i].eventDateTime.split("T")[0]);
-          console.log("***");
+          // console.log("***");
         }
         //to get the nearest event
         var tempDate = allDate.map((date) =>
@@ -122,23 +122,23 @@ export default {
         //tempEvents.splice(index, 1)
 
         while (nearestSix.length < 6) {
-          console.log(allDate2);
+          // console.log(allDate2);
           var tempDate2 = allDate2.map((date) =>
             Math.abs(new Date() - new Date(date).getTime())
           );
           var index2 = tempDate2.indexOf(Math.min(...tempDate2));
-          console.log(allDate2[index2]);
+          // console.log(allDate2[index2]);
 
           nearestSix.push(tempEvents[index2]);
           allDate2.splice(index2, 1);
           tempEvents.splice(index2, 1);
 
           this.nearestSixEvent = nearestSix;
-          console.log(allDate2);
-          console.log(nearestSix);
+          // console.log(allDate2);
+          // console.log(nearestSix);
         }
 
-        console.log(this.nearestSixEvent[5] + "****");
+        // console.log(this.nearestSixEvent[5] + "****");
         const ctx = document.getElementById("myChart");
         const myChart = new Chart(ctx, {
           type: "bar",
@@ -185,7 +185,7 @@ export default {
         });
         myChart;
       }, 500);
-      console.log(this.events);
+      // console.log(this.events);
     } catch (err) {
       this.error = err.message || "Failed to load events, try later";
       console.log(this.error);
@@ -196,7 +196,7 @@ export default {
       let theEvents = this.events[this.events.length - 1];
       let returnNewlyCreated = "";
       for (let item in theEvents) {
-        console.log(print[item]);
+        // console.log(print[item]);
         if (item == "eventName") {
           returnNewlyCreated = theEvents[item];
         }

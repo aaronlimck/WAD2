@@ -360,7 +360,7 @@ export default {
       // document.getElementById("fileUpload").click();
     },
     submitCover() {
-      console.log(this.newItems.eventImage);
+      // console.log(this.newItems.eventImage);
       this.backgroundImage(this.newItems.eventImage);
       this.closeUploadDialog();
     },

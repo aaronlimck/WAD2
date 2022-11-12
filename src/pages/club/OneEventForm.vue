@@ -76,6 +76,7 @@
             <div style="color: red" v-if="eventNameErrorMessage_">
               {{ eventNameErrorMessage }}
             </div>
+            
           </div>
 
           <div class="form-control">
@@ -193,9 +194,14 @@
               <option>SMU Yong Pung How School of Law</option>
               <option>School of Social Sciences</option>
             </select>
+            
+
           </div>
         </div>
       </form>
+
+        <base-button class="w-full py-2.5 my-4" @click="downloadDetails()"> Download Participants Details </base-button>
+
     </div>
   </div>
 </template>
@@ -204,6 +210,7 @@
 import formCover from "@/assets/form-cover.jpg";
 import { QuillEditor } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
+import {utils, writeFileXLSX } from 'xlsx';
 
 export default {
   components: {
@@ -227,6 +234,8 @@ export default {
       id: this.$route.params.id,
       index: null,
       events: [],
+      users: [],
+      excelDeets: [],
       newItems: {
         eventName: "",
         eventDateTime: "",
@@ -249,6 +258,13 @@ export default {
     };
   },
   methods: {
+    downloadDetails(){
+        console.log(this.usersInformation)
+        const ws = utils.json_to_sheet(this.usersInformation);
+        const wb = utils.book_new();
+        utils.book_append_sheet(wb, ws, "Data");
+        writeFileXLSX(wb, `${this.events[this.index].eventName}_Participants.xlsx`);
+    },
     getMapAddress() {
       const params = this.events[this.index].eventLocation;
       return `https://maps.google.com/maps?q=${params}&z=14&ie=UTF8&output=embed`;
@@ -307,7 +323,40 @@ export default {
       }
     }
   },
+  async mounted(){
+    try {
+      this.users = await this.$store.dispatch("loadAllUserdata");
+    } catch (err) {
+      this.error = err.message || "Failed to load events, try later";
+      console.log(this.error);
+    }
+
+    for (let i = 0; i < this.events.length; i++) {
+      if (this.id == this.events[i].eventId) {
+        this.index = i;
+      }
+    }
+  },
   computed: {
+        usersInformation(){
+        let userAttendeeDetailsObj = [];
+        let eventAttendees =  Object.values(this.events[this.index].eventAttendees);
+        eventAttendees = eventAttendees.filter(eventAttendee => eventAttendee != 0);
+        let allUsers = this.users;
+
+        for(let eventAttendee of eventAttendees){
+          let attendeeDetails = {};
+          let eventAttendeeObject = allUsers[`${eventAttendee}`];
+          eventAttendeeObject = {...eventAttendeeObject}
+          let userName = eventAttendeeObject.userName;
+          let userEmail = eventAttendeeObject.userEmail;
+          attendeeDetails["Username"] = userName;
+          attendeeDetails["Email"] = userEmail;
+          userAttendeeDetailsObj.push(attendeeDetails)
+        }
+
+        return userAttendeeDetailsObj
+    },
     eventNameErrorMessage_() {
       let status = true;
       if (this.events[this.index].eventName.length > 0) {

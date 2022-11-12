@@ -109,4 +109,19 @@ export default {
     console.log(responseData);
     return response.ok;
   },
+
+  async loadAllUserdata() {
+    const response = await fetch(`${G_ENDPOINT}/users.json`, {
+      method: "GET",
+    });
+    const responseData = await response.json();
+    if (!response.ok) {
+      console.log(responseData);
+      const error = new Error(
+        responseData.message || "Failed to load user data. Try again later"
+      );
+      throw error;
+    }
+    return responseData;
+  },
 };
