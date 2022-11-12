@@ -380,7 +380,13 @@ export default {
           }
         );
         if (createResultStatus && createDataInStoreStatus) {
+          const redirect = localStorage.getItem("eventHistory");
           this.confirmDialogMsg();
+          if (redirect != null) {
+            this.$router.replace(redirect);
+          } else {
+            this.$router.replace("/events");
+          }
         }
       } catch (err) {
         if (err === "EMAIL_EXISTS") {
