@@ -50,7 +50,7 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Screenshot of Bojio][product-screenshot]](https://7ec0c52d.bojio.pages.dev/)
 
 We aim to build an event web-based application that helps consolidate information about current and upcoming events happening around SMU. Currently, the conventional method in which students sign up for campus events would be through the usage of emails. This can be a hassle for many students as the checking of emails can take up significant time. Our application aims to solve this, by providing a unified portal in which students, student bodies and faculty are able to create and promote upcoming events. Allowing more students to discover different events around campus and enrich their student experience.
 
@@ -84,8 +84,6 @@ npm install npm@latest -g
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
-
 1. Clone the repo
    ```sh
    git clone https://github.com/aaronlimck/WAD2.git
@@ -104,4 +102,4 @@ _Below is an example of how you can instruct your audience on installing and set
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[product-screenshot]: https://i0.wp.com/www.cssscript.com/wp-content/uploads/2020/10/Customizable-Screen-Skeleton-Loader-In-CSS-css-skeletons.css.png?fit=678%2C485&ssl=1
+[product-screenshot]: https://photos.app.goo.gl/XoXRtn7kSynoGJ2n9

@@ -1,4 +1,53 @@
 <template>
+  <base-dialog v-if="openUploadDialog" classes="w-3/4">
+    <template #default>
+      <div
+        class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 mb-4"
+      >
+        <ul class="flex flex-wrap -mb-px">
+          <li class="mr-2">
+            <a
+              href="#"
+              class="inline-block px-4 pb-2 text-blue-600 rounded-t-lg border-b-2 border-blue-600 active"
+              aria-current="page"
+              >Link</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <input
+        type="text"
+        id="eventImage"
+        name="eventImage"
+        placeholder="Paste any image link from the web"
+        v-model="events[index].eventImage"
+      />
+
+      <base-button class="w-full py-2.5 my-4" @click="submitCover"
+        >Submit</base-button
+      >
+    </template>
+
+    <template #actions>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6 cursor-pointer"
+        @click="closeUploadDialog"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+    </template>
+  </base-dialog>
+
   <section :style="defaultForCover" class="cover">
     <div class="container mx-auto py-1 px-4 relative">
       <!-- <input id="fileUpload" type="file" class="invisible absolute" /> -->
@@ -173,6 +222,7 @@ export default {
         placeholder: "Write something interesting here",
         theme: "snow",
       },
+      openUploadDialog: false,
       defaultForCover: {
         display: "flex",
         alignItems: "center",
@@ -218,6 +268,18 @@ export default {
     getMapAddress() {
       const params = this.events[this.index].eventLocation;
       return `https://maps.google.com/maps?q=${params}&z=14&ie=UTF8&output=embed`;
+    },
+    changeCover() {
+      this.openUploadDialog = !this.openUploadDialog;
+      // document.getElementById("fileUpload").click();
+    },
+    submitCover() {
+      console.log(this.newItems.eventImage);
+      this.backgroundImage(this.newItems.eventImage);
+      this.closeUploadDialog();
+    },
+    closeUploadDialog() {
+      this.openUploadDialog = false;
     },
     async submitForm() {
       try {

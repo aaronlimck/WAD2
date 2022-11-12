@@ -83,7 +83,7 @@
     <template #default>
       <div class="relative p-4 w-full">
         <h1 class="text-lg mb-6 text-center font-medium uppercase">
-          <span class="customColor">Are you sure to withdrawn?</span><br />Will
+          <span class="customColor">Are you sure to withdraw?</span><br />Will
           you be <span class="customColor">missing out</span> on the goodness!
         </h1>
         <base-button
@@ -170,19 +170,17 @@
           <h1 class="text-2xl md:text-4xl text-white font-medium mb-3">
             {{ event.eventName }}
           </h1>
-          <p class="text-white">
-            <!-- WILL CHANGE TO EVENTSHORTDESCRIP -->
-            Far far away, behind the word mountains, far from the countries
-            Vokalia and Consonantia, there live the blind texts. Separated they
-            live in Bookmarksgrove right at the coast of the Semantics, a large
-            language ocean.
-          </p>
+          <div
+            id=""
+            class="text-white"
+            v-html="limitStr(event.eventDescription, 240)"
+          ></div>
         </div>
         <div class="hidden sm:block">
           <div style="display: flex; justify-content: flex-end">
-            <div class="bg-white rounded-lg p-5 w-80">
-              <h2 class="text-xl font-medium mb-3">Date & Time</h2>
-              <p>{{ getWeekday }}, {{ getDate }} at {{ getTime }}</p>
+            <div class="bg-white rounded-lg p-5 w-82">
+              <h2 class="text-xl font-medium mb-3 uppercase">Date & Time</h2>
+              <p class="text-sm">{{ getWeekday }}, {{ getTime }}</p>
               <button
                 id="button"
                 class="w-full my-3 py-2 rounded-xl"
@@ -204,7 +202,9 @@
       <div
         class="block sm:hidden fixed inset-x-0 bottom-0 z-10 bg-white shadow"
       >
-        <div class="bg-white rounded-lg p-5">
+        <div class="bg-white p-5 border-t border-slate-200">
+          <h2 class="text-base font-medium mb-2 uppercase">Date & Time</h2>
+          <p class="text-sm">{{ getWeekday }}, {{ getTime }}</p>
           <button
             id="button"
             class="w-full my-3 py-2 rounded-xl"
@@ -268,6 +268,7 @@
 
 <script>
 import BaseButton from "../../components/UI/BaseButton.vue";
+
 export default {
   components: { BaseButton },
   data() {
@@ -286,48 +287,31 @@ export default {
   computed: {
     eventRegisterStatusLabel() {
       if (this.eventRegisterStatus) {
-        return "Withdrawn";
+        return "Withdraw";
       } else {
         return "Register";
       }
     },
-    getDate() {
-      let date = new Date(this.event.eventDateTime);
-      const monthNames = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-      ];
-      const day = date.getDate();
-      const month = monthNames[date.getMonth()];
-      const year = date.getFullYear();
-      return `${month} ${day}, ${year}`;
-    },
     getTime() {
-      var date = new Date();
-      var hours = (date.getHours() < 10 ? "0" : "") + date.getHours();
-      var minutes = (date.getMinutes() < 10 ? "0" : "") + date.getMinutes();
-      var result = hours + ":" + minutes;
-      return result;
+      let date = new Date(this.event.eventDateTime);
+      let dateString = date.toLocaleTimeString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+      return dateString.toUpperCase();
     },
     getWeekday() {
       var days = [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
+        "SUNDAY",
+        "MONDAY",
+        "TUESDAY",
+        "WEDNESDAY",
+        "THURSDAY",
+        "FRIDAY",
+        "SATURDAY",
       ];
       var dt = new Date(this.event.eventDateTime);
       return days[dt.getDay()];
@@ -339,6 +323,13 @@ export default {
     },
   },
   methods: {
+    limitStr(string, limit) {
+      let str = string;
+      if (typeof str === "string" && str.length > limit) {
+        str = str.slice(0, limit) + "...";
+      }
+      return str;
+    },
     copiedLinkMethod() {
       if (!this.copiedLinkStatus) {
         navigator.clipboard.writeText(this.currentUrl);

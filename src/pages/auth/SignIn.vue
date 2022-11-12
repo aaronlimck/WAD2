@@ -4,7 +4,10 @@
       <h1 class="text-2xl md:text-3xl mb-1 md:mb-2 font-medium">Login</h1>
       <p class="text-base mb-2 md:mb-2">Hi, Welcome back 👋</p>
 
-      <div class="login-with-google-btn mt-3">
+      <div
+        class="login-with-google-btn mt-3 cursor-pointer"
+        @click="handleSignIngoogle"
+      >
         <img
           class="google-icon"
           src="https://cdn-icons-png.flaticon.com/512/300/300221.png"
@@ -154,6 +157,14 @@
 </template>
 
 <script>
+import firebaseApp from "../../../firebaseConfig.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+
+firebaseApp;
+
+const provider = new GoogleAuthProvider();
+const auth = getAuth();
+
 export default {
   data() {
     return {
@@ -214,6 +225,59 @@ export default {
       this.checkUserPassword();
       if (this.error.email == "" && this.error.password == "") {
         this.login();
+      }
+    },
+    handleSignIngoogle() {
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          console.log(result);
+          const accessToken = result.user.accessToken;
+          const userId = result.user.uid;
+          const userEmail = result.user.email;
+          const userName = result.user.displayName;
+          const userPhoneNumber = result.user.userPhoneNumber;
+          console.log(userEmail);
+          console.log(userName);
+          this.signUpWithGoogle(
+            accessToken,
+            userId,
+            userEmail,
+            userName,
+            userPhoneNumber
+          );
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    async signUpWithGoogle(
+      accessToken,
+      userId,
+      userEmail,
+      userName,
+      userPhoneNumber
+    ) {
+      try {
+        const createDataInStoreStatus = await this.$store.dispatch(
+          "createUserByGoogle",
+          {
+            accessToken: accessToken,
+            userId: userId,
+            userName: userName,
+            userEmail: userEmail,
+            userPhoneNumber: userPhoneNumber,
+          }
+        );
+        const redirect = localStorage.getItem("eventHistory");
+        if (createDataInStoreStatus) {
+          if (redirect != null) {
+            this.$router.replace(redirect);
+          } else {
+            this.$router.replace("/events");
+          }
+        }
+      } catch (err) {
+        console.log(err);
       }
     },
     async login() {

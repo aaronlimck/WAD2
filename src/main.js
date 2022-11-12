@@ -2,7 +2,6 @@ import { createApp } from "vue";
 import "./index.css";
 import VueClickAway from "vue3-click-away";
 
-
 // IMPORT MAIN APPLICATION COMPONENT
 import router from "./router.js";
 import store from "./store/index.js";

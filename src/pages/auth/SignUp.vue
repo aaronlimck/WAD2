@@ -44,7 +44,7 @@
         Better way to discover events in SMU 🎉
       </p>
 
-      <div class="login-with-google-btn mt-3">
+      <!-- <div class="login-with-google-btn mt-3">
         <img
           class="google-icon"
           src="https://cdn-icons-png.flaticon.com/512/300/300221.png"
@@ -53,7 +53,7 @@
         <p class="text-sm">Sign up with Google</p>
       </div>
 
-      <p class="text-divider"><span>Or</span></p>
+      <p class="text-divider"><span>Or</span></p> -->
 
       <div class="form-control">
         <label for="name">Name</label>
@@ -380,7 +380,13 @@ export default {
           }
         );
         if (createResultStatus && createDataInStoreStatus) {
+          const redirect = localStorage.getItem("eventHistory");
           this.confirmDialogMsg();
+          if (redirect != null) {
+            this.$router.replace(redirect);
+          } else {
+            this.$router.replace("/events");
+          }
         }
       } catch (err) {
         if (err === "EMAIL_EXISTS") {
