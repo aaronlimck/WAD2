@@ -13,12 +13,11 @@
       </p>
       <img class="h-48 w-full object-cover rounded-t-lg" :src="image" />
       <div class="flex flex-col px-3 py-4">
-        <p class="dateTime mb-2">
-          <span class="text-xl font-medium">{{ getDate }}&nbsp;</span>
-          <span class="text-base"> {{ getMonth }}</span>
+        <p class="text-gray-400 text-sm mb-2">
+          <span>{{ getTime }}</span>
         </p>
         <div>
-          <h2 class="text-lg font-medium mb-3">{{ eventname }}</h2>
+          <h2 class="text-lg font-medium mb-2">{{ eventname }}</h2>
           <div
             id="textContent"
             class="mb-8"
@@ -91,12 +90,23 @@ export default {
       if (this.getDate == "Today") {
         return "";
       } else {
-        return monthNames[date.getMonth()].toUpperCase().slice(0, 3);
+        return monthNames[date.getMonth()].toUpperCase();
       }
     },
     getYear() {
       let date = new Date(this.dateTime);
       return date.getYear();
+    },
+    getTime() {
+      let date = new Date(this.dateTime);
+      let dateString = date.toLocaleTimeString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+      return dateString.toUpperCase();
     },
     howManyDaysLeft() {
       let todaysDate = new Date();

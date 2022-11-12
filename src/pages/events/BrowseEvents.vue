@@ -19,11 +19,6 @@
       classes="mb-10"
     />
 
-    <!-- <div
-      class="flex items-center justify-between container mx-auto py-3 w-10/12 mt-10"
-    >
-      <p class="header text-2xl font-bold">Events</p>
-    </div> -->
     <div>
       <div class="flex flex-wrap w-10/12 mx-auto items-center">
         <p class="mr-2 font-medium">Filter By:</p>
@@ -149,13 +144,16 @@ export default {
           );
         });
       }
-
       return tempEvents;
     },
   },
   methods: {
     getSchoolNameFilter(schoolName) {
       this.filterOptions = schoolName;
+    },
+    loadMorePosts() {
+      let newContent = this.events(this.counter, this.counter + 6);
+      console.log(newContent);
     },
   },
   async mounted() {

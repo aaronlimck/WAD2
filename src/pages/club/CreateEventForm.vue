@@ -13,13 +13,6 @@
               >Link</a
             >
           </li>
-          <li class="mr-2">
-            <a
-              href="#"
-              class="inline-block px-4 pb-2 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300"
-              >Color</a
-            >
-          </li>
         </ul>
       </div>
 
@@ -317,9 +310,6 @@ export default {
   data() {
     return {
       options: {
-        // modules: {
-        //   toolbar: ["bold", "italic", "underline"],
-        // },
         placeholder: "Write something interesting here",
         theme: "snow",
       },

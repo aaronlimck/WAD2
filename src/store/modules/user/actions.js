@@ -11,6 +11,7 @@ export default {
         body: JSON.stringify({
           userName: payload.userName,
           userEmail: payload.userEmail,
+          userPhone: payload.userPhone,
         }),
       }
     );
@@ -23,6 +24,38 @@ export default {
       throw error;
     }
     //console.log(response);
+    return response.ok;
+  },
+
+  async createUserByGoogle(context, payload) {
+    const userId = payload.userId;
+    const token = payload.accessToken;
+    const response = await fetch(
+      `${G_ENDPOINT}/users/${userId}.json?auth=` + token,
+      {
+        method: "PUT",
+        body: JSON.stringify({
+          userName: payload.userName,
+          userEmail: payload.userEmail,
+          userPhoneNumber: payload.userPhoneNumber,
+        }),
+      }
+    );
+    const responseData = await response.json();
+    console.log(responseData);
+    if (!response.ok) {
+      console.log(responseData);
+      const error = new Error(
+        responseData.message || "Failed to authenticate. Try again later"
+      );
+      throw error;
+    }
+    localStorage.setItem("token", token);
+    localStorage.setItem("userId", userId);
+    context.commit("setUser", {
+      token: token,
+      userId: userId,
+    });
     return response.ok;
   },
 

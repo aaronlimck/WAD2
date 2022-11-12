@@ -8,6 +8,9 @@
             >Bojio</span
           >
         </router-link>
+        <p class="text-gray-600 mt-2">
+          New and better way to discover events in SMU 🎉
+        </p>
       </div>
       <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
         <div>
