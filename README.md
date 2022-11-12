@@ -43,7 +43,7 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-     <li><a href="#Login-Credentials"> Login Credentials</a></li>
+     <li><a href="#login-credentials"> Login Credentials</a></li>
   </ol>
 </details>
 
