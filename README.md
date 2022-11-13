@@ -90,7 +90,7 @@ npm install npm@latest -g
 
 ### Installation
 
-1. Clone the repo (For local files skip this step go Visual Studi Code and open folder WAD2-Master)
+1. Clone the repo (For local files skip this step go Visual Studio Code and open folder WAD2-Master)
    ```sh
    git clone https://github.com/aaronlimck/WAD2.git
    ```
