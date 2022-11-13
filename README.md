@@ -105,7 +105,7 @@ npm install npm@latest -g
 
 <!-- LOGIN CREDENTIALS -->
 
-## Login Credentials (For Testing)
+## Login Credentials
 
 Below are the login credentials for admin (School Clubs) and student for testing purposes. You may also create an account using your email address or google account.
 
