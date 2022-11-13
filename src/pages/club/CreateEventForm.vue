@@ -17,11 +17,12 @@
       </div>
 
       <input
-        type="text"
+        type="url"
         id="eventImage"
         name="eventImage"
         placeholder="Paste any image link from the web"
         v-model="newItems.eventImage"
+        @blur="imageValidation"
       />
 
       <div
@@ -117,7 +118,12 @@
           :options="options"
           v-model:content="newItems.eventDescription"
           contentType="html"
+          @blur="descriptionValidation"
         />
+
+        <base-info-error
+          :errorMsg="eventDescriptionErrorMessage"
+        ></base-info-error>
       </div>
 
       <div class="form-control">
@@ -138,7 +144,12 @@
         <label for="eventLocation"
           >Location<span class="text-xs text-rose-600 mx-0.5">*</span></label
         >
-        <select name="select" id="select" v-model="newItems.eventLocation">
+        <select
+          name="select"
+          id="select"
+          v-model="newItems.eventLocation"
+          @blur="locationValidation"
+        >
           <option>SMU School of Accountancy</option>
           <option>SMU Lee Kong Chian School of Business</option>
           <option>SMU School of Economics</option>
@@ -146,6 +157,10 @@
           <option>SMU Yong Pung How School of Law</option>
           <option>School of Social Sciences</option>
         </select>
+
+        <base-info-error
+          :errorMsg="eventLocationErrorMessage"
+        ></base-info-error>
       </div>
 
       <div class="form-control">
@@ -171,6 +186,7 @@
           ></label
         >
         <input
+          min="0"
           type="number"
           name="participantsLimit"
           v-model="newItems.participantsLimit"
@@ -187,7 +203,16 @@
         <input type="text" id="eventTags" v-model="newItems.eventTags" />
       </div>
 
-      <base-button class="w-full py-2.5 my-4" :disabled="allErrorValidator()"
+      <!-- <base-button
+        class="w-full py-2.5 my-4"
+        :disabled="!imageValidation() && !nameValidation()"
+        >Create Event</base-button
+      > -->
+
+      {{ buttonColorStateDisable }}
+      <base-button
+        class="w-full py-2.5 my-4"
+        :class="{ grey: this.buttonColorStateDisable }"
         >Create Event</base-button
       >
     </form>
@@ -226,7 +251,7 @@ export default {
         eventDescription: "",
         eventDateTime: "",
         eventContact: "",
-        participantsLimit: 0,
+        participantsLimit: null,
         eventTags: [],
         eventLocation: "",
         eventAttendees: [],
@@ -234,12 +259,28 @@ export default {
       },
       imageErrorMessage: "",
       eventNameErrorMessage: "",
-      eventLocationErrorMessage: "",
-      eventDateErrorMessage: "",
-      eventContactErrorMessage: "",
       eventDescriptionErrorMessage: "",
+      eventDateErrorMessage: "",
+      eventLocationErrorMessage: "",
+      eventContactErrorMessage: "",
       eventParticipantLimitErrorMessage: "",
     };
+  },
+  computed: {
+    buttonColorStateDisable() {
+      if (
+        this.newItems.eventImage != "" &&
+        this.newItems.eventName != "" &&
+        this.newItems.eventDescription != "" &&
+        this.newItems.eventDateTime != "" &&
+        this.newItems.eventLocation != "" &&
+        this.newItems.eventContact != "" &&
+        Number(this.newItems.participantsLimit) > 0
+      ) {
+        return false;
+      }
+      return true;
+    },
   },
   methods: {
     backgroundImage() {
@@ -274,6 +315,10 @@ export default {
       ) {
         this.imageErrorMessage = "";
         return true;
+      } else if (this.newItems.eventImage == "") {
+        this.openUploadDialog = true;
+        this.imageErrorMessage = "Provide an image cover link";
+        return false;
       } else {
         this.imageErrorMessage = "Should be in JPG or PNG format";
         return false;
@@ -281,7 +326,7 @@ export default {
     },
     nameValidation() {
       if (this.newItems.eventName.length == 0) {
-        this.eventNameErrorMessage = "Field cannot be empty";
+        this.eventNameErrorMessage = "Event name field cannot be empty";
         return false;
       } else if (this.newItems.eventName.length > 120) {
         this.eventNameErrorMessage = "Max 120 characters";
@@ -292,7 +337,7 @@ export default {
     },
     descriptionValidation() {
       if (this.newItems.eventDescription.length == 0) {
-        this.eventDescriptionErrorMessage = "Field cannot be empty";
+        this.eventDescriptionErrorMessage = "Description field cannot be empty";
         return false;
       }
       this.eventDescriptionErrorMessage = "";
@@ -306,13 +351,16 @@ export default {
       if (Date.parse(selectedDate) < Date.parse(currentDate)) {
         this.eventDateErrorMessage = "Date cannot be in the past";
         return false;
+      } else if (dateTime == "") {
+        this.eventDateErrorMessage = "Date Time cannot be empty";
+        return false;
       }
       this.eventDateErrorMessage = "";
       return true;
     },
     locationValidation() {
       if (this.newItems.eventLocation.length == 0) {
-        this.eventLocationErrorMessage = "Field cannot be empty";
+        this.eventLocationErrorMessage = "Location field cannot be empty";
         return false;
       }
       this.eventLocationErrorMessage = "";
@@ -320,65 +368,72 @@ export default {
     },
     contactValidation() {
       if (this.newItems.eventContact.length == 0) {
-        this.eventContactErrorMessage = "Field cannot be empty";
+        this.eventContactErrorMessage = "Contact field cannot be empty";
         return false;
       }
       this.eventContactErrorMessage = "";
       return true;
     },
     participantLimitValidation() {
-      if (this.newItems.participantsLimit == 0) {
+      console.log(Number(this.newItems.participantsLimit));
+      if (Number(this.newItems.participantsLimit) == 0) {
         this.eventParticipantLimitErrorMessage =
           "Participants limit must be more than 0";
+        return false;
+      } else if (this.newItems.participantsLimit == "") {
+        this.eventParticipantLimitErrorMessage =
+          "Participants limit cannot be empty";
         return false;
       }
       this.eventParticipantLimitErrorMessage = "";
       return true;
     },
-    allErrorValidator() {
+    submitForm() {
+      this.imageValidation();
+      this.nameValidation();
+      this.descriptionValidation();
+      this.dateValidation();
+      this.locationValidation();
+      this.contactValidation();
+      this.participantLimitValidation();
       if (
-        this.imageValidation &&
-        this.nameValidation &&
-        this.descriptionValidation &&
-        this.dateValidation &&
-        this.locationValidation &&
-        this.contactValidation &&
-        this.participantLimitValidation
+        this.imageErrorMessage == "" &&
+        this.eventNameErrorMessage == "" &&
+        this.eventDescriptionErrorMessage == "" &&
+        this.eventDateErrorMessage == "" &&
+        this.eventLocationErrorMessage == "" &&
+        this.eventContactErrorMessage == "" &&
+        this.eventParticipantLimitErrorMessage == ""
       ) {
-        return true; // DISABLE BUTTON
-      } else {
-        return false; // DO NOT DISABLE BUTTON
+        this.createEvent();
       }
     },
-    // async submitForm() {
-    //   try {
-    //     const resultStatus = await this.$store.dispatch("createEvent", {
-    //       eventName: this.newItems.eventName,
-    //       eventDateTime: this.newItems.eventDateTime,
-    //       eventLocation: this.newItems.eventLocation,
-    //       eventContact: this.newItems.eventContact,
-    //       eventDescription: this.newItems.eventDescription,
-    //       eventTags:
-    //         this.newItems.eventTags.length != 0
-    //           ? this.newItems.eventTags
-    //               .split(",")
-    //               .map((element) => element.trim())
-    //           : null,
-    //       eventImage: this.newItems.eventImage,
-    //       eventAttendees: ["0"], //default
-    //       eventCreatedByClubId: this.newItems.eventCreatedByClubId,
-    //       participantsLimit: this.newItems.participantsLimit,
-    //     });
-    //     if (resultStatus) {
-    //       this.$router.replace("/dashboard");
-    //     }
-    //   } catch (err) {
-    //     this.error = err.message;
-    //     console.log(this.error);
-    //   }
-    // },
-    submitForm() {
-      console.log("Form Submitted");
+    async createEvent() {
+      try {
+        const resultStatus = await this.$store.dispatch("createEvent", {
+          eventName: this.newItems.eventName,
+          eventDateTime: this.newItems.eventDateTime,
+          eventLocation: this.newItems.eventLocation,
+          eventContact: this.newItems.eventContact,
+          eventDescription: this.newItems.eventDescription,
+          eventTags:
+            this.newItems.eventTags.length != 0
+              ? this.newItems.eventTags
+                  .split(",")
+                  .map((element) => element.trim())
+              : null,
+          eventImage: this.newItems.eventImage,
+          eventAttendees: ["0"], //default
+          eventCreatedByClubId: this.newItems.eventCreatedByClubId,
+          participantsLimit: this.newItems.participantsLimit,
+        });
+        if (resultStatus) {
+          this.$router.replace("/dashboard");
+        }
+      } catch (err) {
+        this.error = err.message;
+        console.log(this.error);
+      }
     },
   },
 };

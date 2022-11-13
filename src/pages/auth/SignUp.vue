@@ -1,18 +1,24 @@
 <template>
-  <base-dialog v-if="showDialog">
+  <base-dialog v-if="showDialog" classes="w-80">
     <template #background>
       <base-confetti />
     </template>
     <template #default>
-      <div class="flex items-center">
+      <div class="flex flex-col items-center">
         <img
-          class="success-icon mr-3"
+          class="success-icon"
           src="../../assets/verified.gif"
           alt="success"
         />
-        <div>
-          <h1 class="text-2xl mb-1 md:mb-2">Success</h1>
-          <p>Congratulations, your account has been successfully created.</p>
+        <div class="mt-5">
+          <h1
+            class="text-2xl mb-2 md:mb-3 text-center uppercase text-green-600"
+          >
+            Success
+          </h1>
+          <p class="text-center">
+            Congratulations, your account has been successfully created.
+          </p>
         </div>
       </div>
     </template>
@@ -369,11 +375,17 @@ export default {
         );
         if (createResultStatus && createDataInStoreStatus) {
           const redirect = localStorage.getItem("eventHistory");
-          this.confirmDialogMsg();
+          console.log(redirect);
           if (redirect != null) {
-            this.$router.replace(redirect);
+            this.confirmDialogMsg();
+            setTimeout(() => {
+              this.$router.replace(redirect);
+            }, 4000);
           } else {
-            this.$router.replace("/events");
+            this.confirmDialogMsg();
+            setTimeout(() => {
+              this.$router.replace("/events");
+            }, 4000);
           }
         }
       } catch (err) {
@@ -391,9 +403,6 @@ export default {
     },
     confirmDialogMsg() {
       this.showDialog = true;
-      setTimeout(() => {
-        this.$router.replace("/events");
-      }, 4000);
     },
   },
 };
@@ -487,7 +496,7 @@ input {
 }
 
 .success-icon {
-  width: 48px;
-  height: 48px;
+  width: 80px;
+  height: 80px;
 }
 </style>

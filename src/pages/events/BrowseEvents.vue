@@ -2,13 +2,15 @@
   <section>
     <div class="jumbotron py-10 md:py-20 px-2">
       <div class="container w10/12 mx-auto">
-        <div>
-          <h1 class="jumbo_header animate__animated animate__fadeInRight">
+        <div class="jumbo_header animate__animated animate__fadeInRight">
+          <h1>
             <span class="text-2xl md:text-4xl lg:text-6xl text-left font-bold"
-              >Connect campus events</span
-            ><br />
-            <span class="text-base md:text-1xl lg:text-2xl">with Bojio</span>
+              >Don't Say Bojio</span
+            >
           </h1>
+          <p class="text-base md:text-xl lg:text-1xl mt-2">
+            Connect with campus events
+          </p>
         </div>
       </div>
     </div>
