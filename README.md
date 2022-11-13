@@ -13,7 +13,7 @@
 <br />
 <div align="center">
   <a href="https://google.com" target="blank">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="src/images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Bojio!</h3>
@@ -107,7 +107,7 @@ npm install npm@latest -g
 
 ## Login Credentials (For Testing)
 
-Below are the login credentials for admin (School Clubs) and student for testing purposes. You may also create an account using your email address or google acccount.
+Below are the login credentials for admin (School Clubs) and student for testing purposes. You may also create an account using your email address or google account.
 
 ### Admin Account
 
