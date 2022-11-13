@@ -203,13 +203,6 @@
         <input type="text" id="eventTags" v-model="newItems.eventTags" />
       </div>
 
-      <!-- <base-button
-        class="w-full py-2.5 my-4"
-        :disabled="!imageValidation() && !nameValidation()"
-        >Create Event</base-button
-      > -->
-
-      {{ buttonColorStateDisable }}
       <base-button
         class="w-full py-2.5 my-4"
         :class="{ grey: this.buttonColorStateDisable }"
