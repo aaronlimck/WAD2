@@ -24,7 +24,7 @@
     <a href="https://github.com/aaronlimck/WAD2" target="blank"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://google.com" target="blank">View Demo</a>
+    <a href="https://google.com" target="https://7ec0c52d.bojio.pages.dev/">View Demo</a>
   </p>
 </div>
 
