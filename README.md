@@ -24,7 +24,7 @@
     <a href="https://github.com/aaronlimck/WAD2" target="blank"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://7ec0c52d.bojio.pages.dev/" target="https://7ec0c52d.bojio.pages.dev/">View Demo</a>
+    <a href="https://6824a06b.bojio.pages.dev/" target="blank">View Demo</a>
   </p>
 </div>
 
@@ -51,7 +51,7 @@
 
 ## About The Project
 
-[![Screenshot of Bojio](src/assets/cover.png)](https://7ec0c52d.bojio.pages.dev/)
+[![Screenshot of Bojio](src/assets/cover.png)](https://6824a06b.bojio.pages.dev/)
 
 We aim to build an event web-based application that helps consolidate information about current and upcoming events happening around SMU. Currently, the conventional method in which students sign up for campus events would be through the usage of emails. This can be a hassle for many students as the checking of emails can take up significant time. Our application aims to solve this, by providing a unified portal in which students, student bodies and faculty are able to create and promote upcoming events. Allowing more students to discover different events around campus and enrich their student experience.
 
@@ -90,11 +90,11 @@ npm install npm@latest -g
 
 ### Installation
 
-1. Clone the repo (For local files skip this step go Visual Studio Code and open folder WAD2-Master)
+1. Clone the repo (Skip if you have the local files)
    ```sh
    git clone https://github.com/aaronlimck/WAD2.git
    ```
-2. Run the command below in the extracted project folder to install all required dependencies.
+2. Run the command below in the extracted project folder to install all required dependencies (Ensure that your terminal is in the same root folder as the project files).
    ```sh
    npm install
    ```
