@@ -12,7 +12,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://google.com" target="blank">
+  <a href="https://6824a06b.bojio.pages.dev/" target="blank">
     <img src="src/assets/bojioLogoFull.png" alt="Logo" width="auto" height="80">
   </a>
 
