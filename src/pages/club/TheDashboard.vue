@@ -193,7 +193,7 @@ export default {
   },
   computed: {
     newlyCreated() {
-      let theEvents = this.events[this.events.length - 1];
+      let theEvents = this.events[0];
       let returnNewlyCreated = "";
       for (let item in theEvents) {
         // console.log(print[item]);

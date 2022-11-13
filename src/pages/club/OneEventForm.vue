@@ -25,7 +25,7 @@
       />
 
       <base-button class="w-full py-2.5 my-4" @click="submitCover"
-        >Submit</base-button
+        >Update</base-button
       >
     </template>
 
@@ -263,12 +263,11 @@ export default {
       const params = this.events[this.index].eventLocation;
       return `https://maps.google.com/maps?q=${params}&z=14&ie=UTF8&output=embed`;
     },
-    backgroundImage() {
-      console.log(this.events);
+    backgroundImage(params) {
       this.defaultForCover = {
         display: "flex",
         alignItems: "center",
-        background: `url('${this.events[this.index].eventImage}')`,
+        background: `url('${params}')`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         height: "25vh",

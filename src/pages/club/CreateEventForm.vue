@@ -337,45 +337,48 @@ export default {
     },
     allErrorValidator() {
       if (
-        this.imageErrorMessage != "" &&
-        this.eventNameErrorMessage != "" &&
-        this.eventLocationErrorMessage != "" &&
-        this.eventDateErrorMessage != "" &&
-        this.eventContactErrorMessage != "" &&
-        this.eventDescriptionErrorMessage != "" &&
-        this.eventParticipantLimitErrorMessage != ""
+        this.imageValidation &&
+        this.nameValidation &&
+        this.descriptionValidation &&
+        this.dateValidation &&
+        this.locationValidation &&
+        this.contactValidation &&
+        this.participantLimitValidation
       ) {
-        return true;
+        return true; // DISABLE BUTTON
       } else {
-        return false;
+        return false; // DO NOT DISABLE BUTTON
       }
     },
-    async submitForm() {
-      try {
-        const resultStatus = await this.$store.dispatch("createEvent", {
-          eventName: this.newItems.eventName,
-          eventDateTime: this.newItems.eventDateTime,
-          eventLocation: this.newItems.eventLocation,
-          eventContact: this.newItems.eventContact,
-          eventDescription: this.newItems.eventDescription,
-          eventTags:
-            this.newItems.eventTags.length != 0
-              ? this.newItems.eventTags
-                  .split(",")
-                  .map((element) => element.trim())
-              : null,
-          eventImage: this.newItems.eventImage,
-          eventAttendees: ["0"], //default
-          eventCreatedByClubId: this.newItems.eventCreatedByClubId,
-          participantsLimit: this.newItems.participantsLimit,
-        });
-        if (resultStatus) {
-          this.$router.replace("/dashboard");
-        }
-      } catch (err) {
-        this.error = err.message;
-        console.log(this.error);
-      }
+    // async submitForm() {
+    //   try {
+    //     const resultStatus = await this.$store.dispatch("createEvent", {
+    //       eventName: this.newItems.eventName,
+    //       eventDateTime: this.newItems.eventDateTime,
+    //       eventLocation: this.newItems.eventLocation,
+    //       eventContact: this.newItems.eventContact,
+    //       eventDescription: this.newItems.eventDescription,
+    //       eventTags:
+    //         this.newItems.eventTags.length != 0
+    //           ? this.newItems.eventTags
+    //               .split(",")
+    //               .map((element) => element.trim())
+    //           : null,
+    //       eventImage: this.newItems.eventImage,
+    //       eventAttendees: ["0"], //default
+    //       eventCreatedByClubId: this.newItems.eventCreatedByClubId,
+    //       participantsLimit: this.newItems.participantsLimit,
+    //     });
+    //     if (resultStatus) {
+    //       this.$router.replace("/dashboard");
+    //     }
+    //   } catch (err) {
+    //     this.error = err.message;
+    //     console.log(this.error);
+    //   }
+    // },
+    submitForm() {
+      console.log("Form Submitted");
     },
   },
 };
